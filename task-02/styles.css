@@ -3,7 +3,7 @@ body {
 }
 
 .header-container {
-    min-height: 15vh; /* make this 150vh when solving homework */
+    min-height: 150vh; /* make this 150vh when solving homework */
     background-color: antiquewhite;
 }
 
@@ -11,7 +11,18 @@ body {
     padding: 8px 0;
     background-color: darkblue;
     gap: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+}
 
+@media screen and (max-width: 980px) {
+    .header {
+        display: none;
+    }
 }
 
 .header-button {
@@ -32,7 +43,16 @@ body {
 .bottom-nav {
     background-color: whitesmoke;
     gap: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 
+@media screen and (min-width: 980px) {
+    .bottom-nav {
+        display: none;
+    }
 }
 
 .bottom-nav-button {
