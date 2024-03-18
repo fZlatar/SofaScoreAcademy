@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #6086a7;
+    color: aliceblue;
+}
+
+.button {
+    margin: 10px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.success {
+    background-color: #5cb85c;
+    color: white;
+}
+
+.success:hover {
+    background-color: #7ebf7e;
+    color: rgb(147, 122, 122);
+}
+
+.icon {
+    text-decoration: none;
+    background-color: lightblue;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: rgb(127, 123, 123);
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.icon i {
+    font-size: x-large;
+}
+
+.icon:hover {
+    background-color: rgb(67, 112, 127);
+    color: rgb(255, 255, 255);
+}
+
+.neutral {
+    background-color: #9c9999;
+    color: white;
+}
+
+.neutral:hover {
+    cursor: pointer;
+    background-color: #bdbaba;
+}
+
+.correct {
+    background-color: #5dac51!important;
+}
+
+.incorrect {
+    background-color: red!important;
+}
+
+.warning {
+    color: white;
+    background-color: red;
+}
+
+.warning:hover {
+    background-color: rgb(254, 50, 50);
+}
