@@ -1,0 +1,67 @@
+body {
+    height: 1000vh;
+}
+
+.header-container {
+    min-height: 150vh; /* make this 150vh when solving homework */
+    background-color: antiquewhite;
+}
+
+.header {
+    padding: 8px 0;
+    background-color: darkblue;
+    gap: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+}
+
+@media screen and (max-width: 980px) {
+    .header {
+        display: none;
+    }
+}
+
+.header-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    height: 40px;
+    background-color: darkblue;
+    color: whitesmoke;
+    padding: 0 16px;
+    cursor: pointer;
+}
+.header-button:hover {
+    background-color: blue;
+}
+
+.bottom-nav {
+    background-color: whitesmoke;
+    gap: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (min-width: 980px) {
+    .bottom-nav {
+        display: none;
+    }
+}
+
+.bottom-nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    height: 40px;
+    background-color: whitesmoke;
+    color: black;
+    padding: 0 16px;
+}
