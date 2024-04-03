@@ -1,0 +1,60 @@
+@import url('../../App.css');
+
+.header {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    height: 85px;
+    background-color: var(--header-color);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    z-index: 100;
+}
+
+.settings-logo, .heart-logo, .pokeball-logo {
+    height: 25px;
+    width: 25px;
+}
+
+.settings-logo {
+    position: absolute;
+    right: 45px;
+}
+
+.heart-logo {
+    position: absolute;
+    left: 45px;
+}
+
+.pokedex-conteiner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.pokedex-conteiner h3 {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    color: var(--header-font-color);
+}
+
+@media screen and (min-width: 900px) {
+    .settings-logo, .heart-logo, .pokeball-logo {
+        height: 50px;
+        width: 50px;
+    }
+
+    .pokedex-conteiner {
+        gap: 8px;
+    }
+
+    .pokedex-conteiner h3 {
+        font-size: 32px;
+    }
+}

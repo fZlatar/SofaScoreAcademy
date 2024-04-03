@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --favourite-icon-color: #ACACAC;
+    --electric-type: #F8D030;
+    --fairy-type: #F0B6BC;
+    --fighting-type: #C03028;
+    --fire-type: #F08030;
+    --flying-type: #A890F0;
+    --ghost-type: #705898;
+    --grass-type: #78C850;
+    --ground-type: #E0C068;
+    --ice-type: #98D8D8;
+    --normal-type: #A8A878;
+    --poison-type: #A040A0;
+    --psychic-type: #F85888;
+    --steel-type: #B8B8D0;
+    --water-type: #6890F0;
+    --header-font-color: #EEEEEE;
+}
+
+.light-theme {
+    --text-color: #262626;
+    --details-bg-color: #FFFFFF;
+    --page-color: #EEEEEE;
+    --header-color: #E3350D;
+}
+
+.dark-theme {
+    --text-color: #A1A1A1;
+    --details-bg-color: #1F2735;
+    --page-color: #354159;
+    --header-color: #4D638C;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 200vh;
+    color: var(--text-color);
+    background-color: var(--page-color);
+}

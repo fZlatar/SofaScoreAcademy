@@ -1,0 +1,71 @@
+@import url('../../../../../../App.css');
+
+.pokemon-picture-conteiner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    position: relative;
+}
+
+.pokemon-picture-conteiner img {
+    height: 300px;
+    width: 300px;
+}
+
+.pokemon-picture-conteiner.left, .pokemon-picture-conteiner.right {
+    justify-content: center;
+    padding: 0;
+}
+
+.pokemon-picture-conteiner .favourite-icon {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    color: var(--favourite-icon-color);
+}
+
+.pokemon-picture-conteiner .favourite-icon.left, .pokemon-picture-conteiner .favourite-icon.right {
+    top: calc(100% - 36px);
+    left: calc(100% - 43px);
+}
+
+@media screen and (min-width: 900px) {
+
+    .pokemon-picture-conteiner {
+        width: 50%;
+        height: 100%;
+    }
+
+    .pokemon-picture-conteiner img {
+        height: 400px;
+        width: 400px;
+    }
+
+    .pokemon-picture-conteiner.left {
+        justify-content: flex-end;
+        padding-right: 60px;
+    }
+    
+    .pokemon-picture-conteiner.right {
+        justify-content: flex-start;
+        padding-left: 60px;
+    }
+
+    .pokemon-picture-conteiner .favourite-icon {
+        height: 35px;
+        width: 35px;
+    }
+
+    .pokemon-picture-conteiner .favourite-icon.left {
+        top: 15px;
+        left: calc(100% - 50px);
+    }
+    
+    .pokemon-picture-conteiner .favourite-icon.right {
+        top: 15px;
+        left: 15px;
+    }
+
+}
