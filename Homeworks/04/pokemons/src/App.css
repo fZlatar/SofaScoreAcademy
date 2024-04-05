@@ -40,7 +40,6 @@
 
 body {
     margin: 0;
-    height: 200vh;
     color: var(--text-color);
     background-color: var(--page-color);
 }

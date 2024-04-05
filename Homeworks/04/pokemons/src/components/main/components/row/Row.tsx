@@ -1,15 +1,24 @@
 import Picture from './components/picture/Picture'
-import Details from './components/details/Details';
-import './Row.css'
+import Details from './components/details/Details'
+import styles from './Row.module.css'
+import Pokemon from '../../../../model/pokemon'
 
-type Orientation = 'left' | 'right';
+type Orientation = 'left' | 'right'
 
-function Row({orientation}: {orientation: Orientation}) {
-    
+function Row({
+    orientation,
+    pokemon,
+}: {
+    orientation: Orientation
+    pokemon: Pokemon
+}) {
+    const className: string = `${styles.row} ${
+        orientation === 'right' ? styles.right : ''
+    }`.trim()
     return (
-        <div className={`row ${orientation}`}>
-            <Picture orientation={orientation}/>
-            <Details />
+        <div className={className}>
+            <Picture orientation={orientation} pokemon={pokemon} />
+            <Details pokemon={pokemon} />
         </div>
     )
 }

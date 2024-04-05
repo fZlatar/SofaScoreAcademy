@@ -13,22 +13,34 @@
     z-index: 100;
 }
 
-.settings-logo, .heart-logo, .pokeball-logo {
+.header::after {
+    height: 100px;
+    width: 100%;
+    background-color: var(--header-color);
+    content: '';
+    display: block;
+    bottom: 100%;
+    position: absolute;
+}
+
+.settings,
+.heart,
+.pokeball {
     height: 25px;
     width: 25px;
 }
 
-.settings-logo {
+.settings {
     position: absolute;
     right: 45px;
 }
 
-.heart-logo {
+.heart {
     position: absolute;
     left: 45px;
 }
 
-.pokedex-conteiner {
+.conteiner {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -36,7 +48,7 @@
     gap: 5px;
 }
 
-.pokedex-conteiner h3 {
+.conteiner h3 {
     font-weight: 600;
     font-size: 18px;
     margin: 0;
@@ -45,16 +57,18 @@
 }
 
 @media screen and (min-width: 900px) {
-    .settings-logo, .heart-logo, .pokeball-logo {
+    .settings,
+    .heart,
+    .pokeball {
         height: 50px;
         width: 50px;
     }
 
-    .pokedex-conteiner {
+    .conteiner {
         gap: 8px;
     }
 
-    .pokedex-conteiner h3 {
+    .conteiner h3 {
         font-size: 32px;
     }
 }
