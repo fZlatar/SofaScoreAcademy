@@ -1,0 +1,12 @@
+.loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--favourite-icon-color);
+}
+
+.loader span svg {
+    color: var(--favourite-icon-color);
+}

@@ -1,11 +1,16 @@
-import Pokemon from '../../../../../../model/pokemon'
+import { useContext } from 'react'
 import Type from './components/type/Type'
 import styles from './Details.module.css'
+import PokemonContext from '../../../../../../context/PokemonContext'
 
-function Details({ pokemon }: { pokemon: Pokemon }) {
+function Details({ id }: { id: number }) {
+    const { pokemons } = useContext(PokemonContext)
+    const pokemon = pokemons.find((p) => p.id === id)!
+
     const name: string = `#${pokemon.id.toString().padStart(4, '0')} ${
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
     }`
+
     return (
         <div className={styles.conteiner}>
             <h1>{name}</h1>

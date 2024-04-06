@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:5173/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <script type="module">
+import RefreshRuntime from "/@react-refresh"
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type
+window.__vite_plugin_react_preamble_installed__ = true
+</script>
+
+      <script type="module" src="./Pokemons_files/client"></script>
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pokemons</title>
+    <style type="text/css" data-vite-dev-id="/Users/akademija/Documents/SofaScore/MyHomeworks/Homeworks/04/pokemons/src/components/header/Header.module.css">._header_qhhc3_1 {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    height: 85px;
+    background-color: var(--header-color);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    z-index: 100;
+}
+
+._header_qhhc3_1::before {
+    height: 100px;
+    width: 100%;
+    background-color: var(--header-color);
+    content: '';
+    display: block;
+    bottom: 100%;
+    position: absolute;
+}
+
+._settings_qhhc3_24,
+._heart_qhhc3_25,
+._pokeball_qhhc3_26 {
+    height: 25px;
+    width: 25px;
+    color: var(--header-font-color);
+}
+
+._settings_qhhc3_24:hover,
+._heart_qhhc3_25:hover {
+    color: var(--icon-hover);
+    cursor: pointer;
+}
+
+._settings_button_qhhc3_38 {
+    position: absolute;
+    right: 45px;
+}
+
+._heart_button_qhhc3_43 {
+    position: absolute;
+    left: 45px;
+}
+
+._conteiner_qhhc3_48 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+._conteiner_qhhc3_48 h3 {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    color: var(--header-font-color);
+}
+
+@media screen and (min-width: 900px) {
+    ._settings_qhhc3_24,
+    ._heart_qhhc3_25,
+    ._pokeball_qhhc3_26 {
+        height: 50px;
+        width: 50px;
+    }
+
+    ._conteiner_qhhc3_48 {
+        gap: 8px;
+    }
+
+    ._conteiner_qhhc3_48 h3 {
+        font-size: 32px;
+    }
+}
+</style><style type="text/css" data-vite-dev-id="/Users/akademija/Documents/SofaScore/MyHomeworks/Homeworks/04/pokemons/src/components/main/components/row/components/picture/Picture.module.css">._conteiner_1eekn_1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    position: relative;
+}
+
+._conteiner_1eekn_1 img {
+    height: 300px;
+    width: 300px;
+}
+
+._conteiner_1eekn_1._left_1eekn_15,
+._conteiner_1eekn_1._right_1eekn_16 {
+    justify-content: center;
+    padding: 0;
+}
+
+._icon_1eekn_21 {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    color: var(--favourite-icon-color);
+}
+
+._icon_1eekn_21:hover {
+    cursor: pointer;
+}
+
+._icon_1eekn_21._left_1eekn_15,
+._icon_1eekn_21._right_1eekn_16 {
+    top: calc(100% - 36px);
+    left: calc(100% - 43px);
+}
+
+._icon_1eekn_21._favourite_1eekn_38 {
+    fill: var(--favourite-icon-filled);
+    color: var(--favourite-icon-filled);
+}
+
+@media screen and (min-width: 900px) {
+    ._conteiner_1eekn_1 {
+        width: 50%;
+        height: 100%;
+    }
+
+    ._conteiner_1eekn_1 img {
+        height: 400px;
+        width: 400px;
+    }
+
+    ._conteiner_1eekn_1._left_1eekn_15 {
+        justify-content: flex-end;
+        padding-right: 60px;
+    }
+
+    ._conteiner_1eekn_1._right_1eekn_16 {
+        justify-content: flex-start;
+        padding-left: 60px;
+    }
+
+    ._icon_1eekn_21 {
+        height: 35px;
+        width: 35px;
+    }
+
+    ._icon_1eekn_21._left_1eekn_15 {
+        top: 15px;
+        left: calc(100% - 50px);
+    }
+
+    ._icon_1eekn_21._right_1eekn_16 {
+        top: 15px;
+        left: 15px;
+    }
+}
+</style><style type="text/css" data-vite-dev-id="/Users/akademija/Documents/SofaScore/MyHomeworks/Homeworks/04/pokemons/src/components/main/components/row/components/details/components/type/Type.module.css">._type_1exl3_1 {
+    display: inline-block;
+    border-radius: 9px;
+    color: var(--details-bg-color);
+    text-align: center;
+    height: 16px;
+    width: 68px;
+    margin: 0 3px;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+._normal_1exl3_13 {
+    background-color: var(--normal-type);
+}
+
+._fire_1exl3_17 {
+    background-color: var(--fire-type);
+}
+
+._water_1exl3_21 {
+    background-color: var(--water-type);
+}
+
+._grass_1exl3_25 {
+    background-color: var(--grass-type);
+}
+
+._electric_1exl3_29 {
+    background-color: var(--electric-type);
+}
+
+._ice_1exl3_33 {
+    background-color: var(--ice-type);
+}
+
+._fighting_1exl3_37 {
+    background-color: var(--fighting-type);
+}
+
+._ground_1exl3_41 {
+    background-color: var(--ground-type);
+}
+
+._poison_1exl3_45 {
+    background-color: var(--poison-type);
+}
+
+._flying_1exl3_49 {
+    background-color: var(--flying-type);
+}
+
+._psychic_1exl3_53 {
+    background-color: var(--psychic-type);
+}
+
+._ghost_1exl3_57 {
+    background-color: var(--ghost-type);
+}
+
+._steel_1exl3_61 {
+    background-color: var(--steel-type);
+}
+
+._fairy_1exl3_65 {
+    background-color: var(--fairy-type);
+}
+</style><style type="text/css" data-vite-dev-id="/Users/akademija/Documents/SofaScore/MyHomeworks/Homeworks/04/pokemons/src/components/main/components/row/components/details/Details.module.css">._conteiner_1ieut_1 {
+    width: 100%;
+    height: 50%;
+    background-color: var(--details-bg-color);
+    padding: 45px;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+._conteiner_1ieut_1 strong {
+    font-weight: 600;
+}
+
+._conteiner_1ieut_1 h1 {
+    font-weight: 700;
+    font-size: 26px;
+}
+
+._details_1ieut_20 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+._stats_1ieut_26 {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 10px;
+}
+
+._evolutions_1ieut_33 {
+    display: none;
+}
+
+@media screen and (min-width: 900px) {
+    ._conteiner_1ieut_1 {
+        width: 50%;
+        height: 100%;
+        background-color: var(--details-bg-color);
+    }
+
+    ._conteiner_1ieut_1 h1 {
+        font-size: 32px;
+    }
+
+    ._evolutions_1ieut_33 {
+        display: block;
+    }
+
+    ._pictures_1ieut_52 {
+        display: flex;
+        flex-direction: row;
+    }
+
+    ._pictures_1ieut_52 img {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    ._pictures_1ieut_52 img {
+        height: 130px;
+        width: 130px;
+    }
+
+    ._conteiner_1ieut_1 {
+        padding: 60px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    ._pictures_1ieut_52 img {
+        height: 160px;
+        width: 160px;
+    }
+}
+</style><style type="text/css" data-vite-dev-id="/Users/akademija/Documents/SofaScore/MyHomeworks/Homeworks/04/pokemons/src/components/main/components/row/Row.module.css">._row_5fu1u_1 {
+    height: 756px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (min-width: 900px) {
+    ._row_5fu1u_1 {
+        height: 516px;
+        flex-direction: row;
+    }
+
+    ._row_5fu1u_1._right_5fu1u_14 {
+        flex-direction: row-reverse;
+    }
+
+}</style><style type="text/css" data-vite-dev-id="/Users/akademija/Documents/SofaScore/MyHomeworks/Homeworks/04/pokemons/src/components/main/components/loader/Loader.module.css">._loader_5p4zs_1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--favourite-icon-color);
+}
+
+._loader_5p4zs_1 span svg {
+    color: var(--favourite-icon-color);
+}
+</style><style type="text/css" data-vite-dev-id="/Users/akademija/Documents/SofaScore/MyHomeworks/Homeworks/04/pokemons/src/App.css">@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --favourite-icon-color: #acacac;
+    --icon-hover: #f7cb62;
+    --electric-type: #f8d030;
+    --fairy-type: #f0b6bc;
+    --fighting-type: #c03028;
+    --fire-type: #f08030;
+    --flying-type: #a890f0;
+    --ghost-type: #705898;
+    --grass-type: #78c850;
+    --ground-type: #e0c068;
+    --ice-type: #98d8d8;
+    --normal-type: #a8a878;
+    --poison-type: #a040a0;
+    --psychic-type: #f85888;
+    --steel-type: #b8b8d0;
+    --water-type: #6890f0;
+    --header-font-color: #eeeeee;
+}
+
+.light-theme {
+    --text-color: #262626;
+    --details-bg-color: #ffffff;
+    --page-color: #eeeeee;
+    --header-color: #e3350d;
+    --favourite-icon-filled: #d14526;
+}
+
+.dark-theme {
+    --text-color: #a1a1a1;
+    --details-bg-color: #1f2735;
+    --page-color: #354159;
+    --header-color: #4d638c;
+    --favourite-icon-filled: #516389;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    color: var(--text-color);
+    background-color: var(--page-color);
+}
+</style><style data-emotion="css" data-s="">.css-18lrjg1-MuiCircularProgress-root{display:inline-block;color:#1976d2;-webkit-animation:animation-61bdi0 1.4s linear infinite;animation:animation-61bdi0 1.4s linear infinite;}</style><style data-emotion="css" data-s="">@-webkit-keyframes animation-61bdi0{0%{-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);-moz-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}</style><style data-emotion="css" data-s="">@keyframes animation-61bdi0{0%{-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);-moz-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}</style><style data-emotion="css" data-s="">.css-1idz92c-MuiCircularProgress-svg{display:block;}</style><style data-emotion="css" data-s="">.css-176wh8e-MuiCircularProgress-circle{stroke:currentColor;stroke-dasharray:80px,200px;stroke-dashoffset:0;-webkit-animation:animation-1p2h4ri 1.4s ease-in-out infinite;animation:animation-1p2h4ri 1.4s ease-in-out infinite;}</style><style data-emotion="css" data-s="">@-webkit-keyframes animation-1p2h4ri{0%{stroke-dasharray:1px,200px;stroke-dashoffset:0;}50%{stroke-dasharray:100px,200px;stroke-dashoffset:-15px;}100%{stroke-dasharray:100px,200px;stroke-dashoffset:-125px;}}</style><style data-emotion="css" data-s="">@keyframes animation-1p2h4ri{0%{stroke-dasharray:1px,200px;stroke-dashoffset:0;}50%{stroke-dasharray:100px,200px;stroke-dashoffset:-15px;}100%{stroke-dasharray:100px,200px;stroke-dashoffset:-125px;}}</style><style type="text/css" data-vite-dev-id="/Users/akademija/Documents/SofaScore/MyHomeworks/Homeworks/04/pokemons/src/components/header/components/SettingsDialog.module.css">._conteiner_1p0fv_1 {
+    background-color: black;
+    z-index: 200;
+    height: 50px;
+    width: 100px;
+}
+</style></head>
+    <body class="dark-theme">
+        <div id="root"><header class="_header_qhhc3_1"><button class="_heart_button_qhhc3_43" style="
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _heart_qhhc3_25"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings _settings_qhhc3_24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg><div class="_conteiner_qhhc3_48"><img class="_pokeball_qhhc3_26" src="./Pokemons_files/pokeball.svg" alt="Pokeball"><h3>Pokedex</h3></div></header><main><div class="infinite-scroll-component__outerdiv"><div class="infinite-scroll-component " style="height: auto; overflow: auto;"><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/1.png" alt="bulbasaur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0001 Bulbasaur</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 45 HP</span><span><strong>Height:</strong> 70 cm</span><span><strong>Weight:</strong> 69 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _grass_1exl3_25">grass</div><div class="_type_1exl3_1 _poison_1exl3_45">poison</div></span><span><strong>Details:</strong> A strange seed was
+planted on its
+back at birth.The plant sprouts
+and grows with
+this POKéMON.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/1(1).png" alt="Front"><img src="./Pokemons_files/1(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/2.png" alt="ivysaur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16 _favourite_1eekn_38"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0002 Ivysaur</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 60 HP</span><span><strong>Height:</strong> 100 cm</span><span><strong>Weight:</strong> 130 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _grass_1exl3_25">grass</div><div class="_type_1exl3_1 _poison_1exl3_45">poison</div></span><span><strong>Details:</strong> When the bulb on
+its back grows
+large, it appearsto lose the
+ability to stand
+on its hind legs.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/2(1).png" alt="Front"><img src="./Pokemons_files/2(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/3.png" alt="venusaur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0003 Venusaur</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 80 HP</span><span><strong>Height:</strong> 200 cm</span><span><strong>Weight:</strong> 1000 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _grass_1exl3_25">grass</div><div class="_type_1exl3_1 _poison_1exl3_45">poison</div></span><span><strong>Details:</strong> The plant blooms
+when it is
+absorbing solarenergy. It stays
+on the move to
+seek sunlight.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/3(1).png" alt="Front"><img src="./Pokemons_files/3(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/4.png" alt="charmander"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0004 Charmander</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 39 HP</span><span><strong>Height:</strong> 60 cm</span><span><strong>Weight:</strong> 85 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _fire_1exl3_17">fire</div></span><span><strong>Details:</strong> Obviously prefers
+hot places. When
+it rains, steamis said to spout
+from the tip of
+its tail.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/4(1).png" alt="Front"><img src="./Pokemons_files/4(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/5.png" alt="charmeleon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0005 Charmeleon</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 58 HP</span><span><strong>Height:</strong> 110 cm</span><span><strong>Weight:</strong> 190 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _fire_1exl3_17">fire</div></span><span><strong>Details:</strong> When it swings
+its burning tail,
+it elevates thetemperature to
+unbearably high
+levels.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/5(1).png" alt="Front"><img src="./Pokemons_files/5(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/6.png" alt="charizard"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0006 Charizard</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 78 HP</span><span><strong>Height:</strong> 170 cm</span><span><strong>Weight:</strong> 905 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _fire_1exl3_17">fire</div><div class="_type_1exl3_1 _flying_1exl3_49">flying</div></span><span><strong>Details:</strong> Spits fire that
+is hot enough to
+melt boulders.Known to cause
+forest fires
+unintentionally.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/6(1).png" alt="Front"><img src="./Pokemons_files/6(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/7.png" alt="squirtle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0007 Squirtle</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 44 HP</span><span><strong>Height:</strong> 50 cm</span><span><strong>Weight:</strong> 90 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _water_1exl3_21">water</div></span><span><strong>Details:</strong> After birth, its
+back swells and
+hardens into ashell. Powerfully
+sprays foam from
+its mouth.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/7(1).png" alt="Front"><img src="./Pokemons_files/7(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/8.png" alt="wartortle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0008 Wartortle</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 59 HP</span><span><strong>Height:</strong> 100 cm</span><span><strong>Weight:</strong> 225 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _water_1exl3_21">water</div></span><span><strong>Details:</strong> Often hides in
+water to stalk
+unwary prey. Forswimming fast, it
+moves its ears to
+maintain balance.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/8(1).png" alt="Front"><img src="./Pokemons_files/8(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/9.png" alt="blastoise"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0009 Blastoise</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 79 HP</span><span><strong>Height:</strong> 160 cm</span><span><strong>Weight:</strong> 855 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _water_1exl3_21">water</div></span><span><strong>Details:</strong> A brutal POKéMON
+with pressurized
+water jets on itsshell. They are
+used for high
+speed tackles.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/9(1).png" alt="Front"><img src="./Pokemons_files/9(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/10.png" alt="caterpie"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0010 Caterpie</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 45 HP</span><span><strong>Height:</strong> 30 cm</span><span><strong>Weight:</strong> 29 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">bug</div></span><span><strong>Details:</strong> Its short feet are tipped with suction
+pads that enable it to tirelessly climb
+slopes and walls.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/10(1).png" alt="Front"><img src="./Pokemons_files/10(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/11.png" alt="metapod"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0011 Metapod</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 50 HP</span><span><strong>Height:</strong> 70 cm</span><span><strong>Weight:</strong> 99 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">bug</div></span><span><strong>Details:</strong> This POKéMON is
+vulnerable to
+attack while itsshell is soft,
+exposing its weak
+and tender body.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/11(1).png" alt="Front"><img src="./Pokemons_files/11(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/12.png" alt="butterfree"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0012 Butterfree</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 60 HP</span><span><strong>Height:</strong> 110 cm</span><span><strong>Weight:</strong> 320 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">bug</div><div class="_type_1exl3_1 _flying_1exl3_49">flying</div></span><span><strong>Details:</strong> In battle, it
+flaps its wings
+at high speed torelease highly
+toxic dust into
+the air.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/12(1).png" alt="Front"><img src="./Pokemons_files/12(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/13.png" alt="weedle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0013 Weedle</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 40 HP</span><span><strong>Height:</strong> 30 cm</span><span><strong>Weight:</strong> 32 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">bug</div><div class="_type_1exl3_1 _poison_1exl3_45">poison</div></span><span><strong>Details:</strong> Often found in
+forests, eating
+leaves.It has a sharp
+venomous stinger
+on its head.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/13(1).png" alt="Front"><img src="./Pokemons_files/13(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/14.png" alt="kakuna"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0014 Kakuna</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 45 HP</span><span><strong>Height:</strong> 60 cm</span><span><strong>Weight:</strong> 100 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">bug</div><div class="_type_1exl3_1 _poison_1exl3_45">poison</div></span><span><strong>Details:</strong> Almost incapable
+of moving, this
+POKéMON can onlyharden its shell
+to protect itself
+from predators.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/14(1).png" alt="Front"><img src="./Pokemons_files/14(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/15.png" alt="beedrill"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0015 Beedrill</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 65 HP</span><span><strong>Height:</strong> 100 cm</span><span><strong>Weight:</strong> 295 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">bug</div><div class="_type_1exl3_1 _poison_1exl3_45">poison</div></span><span><strong>Details:</strong> It has three poisonous stingers on its forelegs and
+its tail. They are used to jab its enemy repeatedly.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/15(1).png" alt="Front"><img src="./Pokemons_files/15(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/16.png" alt="pidgey"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0016 Pidgey</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 40 HP</span><span><strong>Height:</strong> 30 cm</span><span><strong>Weight:</strong> 18 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">normal</div><div class="_type_1exl3_1 _flying_1exl3_49">flying</div></span><span><strong>Details:</strong> A common sight in
+forests and woods.
+It flaps itswings at ground
+level to kick up
+blinding sand.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/16(1).png" alt="Front"><img src="./Pokemons_files/16(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/17.png" alt="pidgeotto"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0017 Pidgeotto</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 63 HP</span><span><strong>Height:</strong> 110 cm</span><span><strong>Weight:</strong> 300 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">normal</div><div class="_type_1exl3_1 _flying_1exl3_49">flying</div></span><span><strong>Details:</strong> Very protective
+of its sprawling
+territorial area,this POKéMON will
+fiercely peck at
+any intruder.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/17(1).png" alt="Front"><img src="./Pokemons_files/17(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/18.png" alt="pidgeot"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0018 Pidgeot</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 83 HP</span><span><strong>Height:</strong> 150 cm</span><span><strong>Weight:</strong> 395 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">normal</div><div class="_type_1exl3_1 _flying_1exl3_49">flying</div></span><span><strong>Details:</strong> When hunting, it
+skims the surface
+of water at highspeed to pick off
+unwary prey such
+as MAGIKARP.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/18(1).png" alt="Front"><img src="./Pokemons_files/18(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1"><div class="_conteiner_1eekn_1 _left_1eekn_15"><img src="./Pokemons_files/19.png" alt="rattata"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _left_1eekn_15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0019 Rattata</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 30 HP</span><span><strong>Height:</strong> 30 cm</span><span><strong>Weight:</strong> 35 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">normal</div></span><span><strong>Details:</strong> Bites anything
+when it attacks.
+Small and veryquick, it is a
+common sight in
+many places.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/19(1).png" alt="Front"><img src="./Pokemons_files/19(2).png" alt="Back"></div></div></div></div></div><div class="_row_5fu1u_1 _right_5fu1u_14"><div class="_conteiner_1eekn_1 _right_1eekn_16"><img src="./Pokemons_files/20.png" alt="raticate"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart _icon_1eekn_21 _right_1eekn_16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><div class="_conteiner_1ieut_1"><h1>#0020 Raticate</h1><div class="_details_1ieut_20"><div class="_stats_1ieut_26"><span><strong>Health Points:</strong> 55 HP</span><span><strong>Height:</strong> 70 cm</span><span><strong>Weight:</strong> 185 kg</span><span><strong>Type: </strong><div class="_type_1exl3_1 _normal_1exl3_13">normal</div></span><span><strong>Details:</strong> It uses its whis­
+kers to maintain
+its balance.It apparently
+slows down if
+they are cut off.</span></div><div class="_evolutions_1ieut_33"><span><strong>Full view:</strong></span><div class="_pictures_1ieut_52"><img src="./Pokemons_files/20(1).png" alt="Front"><img src="./Pokemons_files/20(2).png" alt="Back"></div></div></div></div></div></div></div></main></div>
+        <script type="module" src="./Pokemons_files/main.tsx"></script>
+    
+
+</body></html>

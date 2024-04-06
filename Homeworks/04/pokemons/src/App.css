@@ -1,36 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --favourite-icon-color: #ACACAC;
-    --electric-type: #F8D030;
-    --fairy-type: #F0B6BC;
-    --fighting-type: #C03028;
-    --fire-type: #F08030;
-    --flying-type: #A890F0;
+    --favourite-icon-color: #acacac;
+    --icon-hover: #f7cb62;
+    --electric-type: #f8d030;
+    --fairy-type: #f0b6bc;
+    --fighting-type: #c03028;
+    --fire-type: #f08030;
+    --flying-type: #a890f0;
     --ghost-type: #705898;
-    --grass-type: #78C850;
-    --ground-type: #E0C068;
-    --ice-type: #98D8D8;
-    --normal-type: #A8A878;
-    --poison-type: #A040A0;
-    --psychic-type: #F85888;
-    --steel-type: #B8B8D0;
-    --water-type: #6890F0;
-    --header-font-color: #EEEEEE;
+    --grass-type: #78c850;
+    --ground-type: #e0c068;
+    --ice-type: #98d8d8;
+    --normal-type: #a8a878;
+    --poison-type: #a040a0;
+    --psychic-type: #f85888;
+    --steel-type: #b8b8d0;
+    --water-type: #6890f0;
+    --header-font-color: #eeeeee;
 }
 
 .light-theme {
     --text-color: #262626;
-    --details-bg-color: #FFFFFF;
-    --page-color: #EEEEEE;
-    --header-color: #E3350D;
+    --details-bg-color: #ffffff;
+    --page-color: #eeeeee;
+    --header-color: #e3350d;
+    --favourite-icon-filled: #d14526;
+    --settings-dialog: #ffffff;
+    --settings-dialog-font: #262626;
 }
 
 .dark-theme {
-    --text-color: #A1A1A1;
-    --details-bg-color: #1F2735;
+    --text-color: #a1a1a1;
+    --details-bg-color: #1f2735;
     --page-color: #354159;
-    --header-color: #4D638C;
+    --header-color: #4d638c;
+    --favourite-icon-filled: #516389;
+    --settings-dialog: #4d638c;
+    --settings-dialog-font: #eeeeee;
 }
 
 * {

@@ -10,7 +10,7 @@ export const urlPokemons = 'https://pokeapi.co/api/v2/pokemon/'
 export async function getPokemons(
     amount: number,
     offset: number
-): Promise<Pokemon[]> {
+): Promise<[Pokemon[], number]> {
     const params = new URLSearchParams({
         limit: amount.toString(),
         offset: offset.toString(),
@@ -29,7 +29,9 @@ export async function getPokemons(
                 }
             })
         )
-        return pokemons
+
+        pokemons.sort((a, b) => a.id - b.id)
+        return [pokemons, result.count]
     } else {
         throw new Error('Failed to fetch pokemons')
     }
