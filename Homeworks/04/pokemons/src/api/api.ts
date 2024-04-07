@@ -57,9 +57,14 @@ export async function getPokemon(url: string): Promise<Pokemon> {
             types: result.types.map((t) => t.type.name),
             details: details,
             image: result.sprites.other['official-artwork'].front_default,
+            image_shiny: result.sprites.other['official-artwork'].front_shiny,
             overview: {
                 front: result.sprites.front_default,
                 back: result.sprites.back_default,
+            },
+            overview_shiny: {
+                front: result.sprites.front_shiny,
+                back: result.sprites.back_shiny,
             },
         }
         return pokemon

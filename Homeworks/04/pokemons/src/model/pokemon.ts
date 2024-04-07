@@ -8,7 +8,12 @@ interface Pokemon {
     types: string[]
     details: string | undefined
     image: string
+    image_shiny: string
     overview: {
+        front: string
+        back: string
+    }
+    overview_shiny: {
         front: string
         back: string
     }

@@ -11,16 +11,6 @@
     z-index: 100;
 }
 
-.header::before {
-    height: 100px;
-    width: 100%;
-    background-color: var(--header-color);
-    content: '';
-    display: block;
-    bottom: 100%;
-    position: absolute;
-}
-
 .settings,
 .heart,
 .pokeball {

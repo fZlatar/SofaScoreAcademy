@@ -2,11 +2,13 @@ import { Heart, Settings } from 'lucide-react'
 import pokeball from '../../assets/pokeball.svg'
 import styles from './Header.module.css'
 import { useEffect, useRef, useState } from 'react'
-import SettingsDialog from './components/SettingsDialog'
+import SettingsDialog from './components/settingsDialog/SettingsDialog'
+import FavouritesDialog from './components/favouritesDialog/FavouritesDialog'
 
 function Header() {
     const settingsButton = useRef<HTMLButtonElement>(null)
     const [settings, setSettings] = useState<boolean>(false)
+    const [favourites, setFavourites] = useState<boolean>(false)
     const [theme, setTheme] = useState<'auto' | 'dark' | 'light'>(
         (localStorage.getItem('theme') as 'auto' | 'dark' | 'light') || 'auto'
     )
@@ -45,7 +47,10 @@ function Header() {
 
     return (
         <header className={styles.header}>
-            <button className={styles.heart_button}>
+            <button
+                className={styles.heart_button}
+                onClick={() => setFavourites((f) => !f)}
+            >
                 <Heart className={styles.heart} />
             </button>
             <button
@@ -71,6 +76,7 @@ function Header() {
                     button={settingsButton}
                 />
             )}
+            {favourites && <FavouritesDialog setOpen={setFavourites} />}
         </header>
     )
 }

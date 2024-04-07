@@ -3,14 +3,14 @@ import Pokemon from '../model/pokemon'
 
 export interface PokemonCtx {
     pokemons: Pokemon[]
-    setPokemons: (pokemons: Pokemon[]) => void
+    setPokemons: React.Dispatch<React.SetStateAction<Pokemon[]>>
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
 const PokemonContext = createContext<PokemonCtx>({
     pokemons: [],
-    setPokemons(pokemons) {
-        this.pokemons = pokemons
+    setPokemons: () => {
+        throw new Error('setPokemons function must be overridden')
     },
 })
 

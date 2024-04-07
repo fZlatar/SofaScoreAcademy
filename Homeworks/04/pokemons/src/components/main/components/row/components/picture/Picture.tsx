@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import styles from './Picture.module.css'
 import { Heart } from 'lucide-react'
 import PokemonContext from '../../../../../../context/PokemonContext'
@@ -13,31 +13,27 @@ function Picture({
     id: number
 }) {
     const { pokemons, setPokemons } = useContext(PokemonContext)
-    const pokemon = pokemons.find((p) => p.id === id)!
-
-    const [favourite, setFavourite] = useState<boolean>(pokemon.favourite)
+    let pokemon = pokemons.find((p) => p.id === id)!
 
     const [c1, c2, c3, c4] = getClassNames(orientation)
 
-    const togleFavourite = () => {
-        setFavourite((f) => !f)
-        pokemon.favourite = !favourite
+    useEffect(() => {}, [pokemon.favourite])
 
-        setPokemons(
-            pokemons.map((p) => {
-                if (p.id === id) {
-                    return pokemon
-                }
-                return p
-            })
+    const togleFavourite = () => {
+        const newFavourite = !pokemon.favourite
+        const updatedPokemon = { ...pokemon, favourite: newFavourite }
+        pokemon = updatedPokemon
+        setPokemons((prev) =>
+            prev.map((p) => (p.id === updatedPokemon.id ? updatedPokemon : p))
         )
+        return newFavourite
     }
 
     return (
         <div className={c1}>
             <img src={pokemon.image} alt={pokemon.name} />
             <button className={c4} onClick={() => togleFavourite()}>
-                <Heart className={favourite ? c3 : c2} />
+                <Heart className={pokemon.favourite ? c3 : c2} />
             </button>
         </div>
     )
