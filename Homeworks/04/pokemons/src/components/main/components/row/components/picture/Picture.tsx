@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './Picture.module.css'
 import { Heart } from 'lucide-react'
 import PokemonContext from '../../../../../../context/PokemonContext'
@@ -37,6 +37,7 @@ function Picture({
 }) {
     const { pokemons, setPokemons } = useContext(PokemonContext)
     let pokemon = pokemons.find((p) => p.id === id)!
+    const [loaded, setLoaded] = useState<boolean>(false)
 
     const [c1, c2, c3, c4] = getClassNames(orientation)
 
@@ -54,7 +55,10 @@ function Picture({
 
     return (
         <div className={c1}>
-            <AnimatePresence mode="wait">
+            <AnimatePresence
+                mode="wait"
+                onExitComplete={() => setLoaded(false)}
+            >
                 {pokemon.favourite ? (
                     <motion.img
                         src={pokemon.image_shiny}
@@ -66,12 +70,13 @@ function Picture({
                                 ? 'hiddenRight'
                                 : 'hiddenLeft'
                         }
-                        animate="visible"
+                        animate={loaded ? 'visible' : 'hidden'}
                         exit={
                             orientation === 'left'
                                 ? 'hiddenRight'
                                 : 'hiddenLeft'
                         }
+                        onLoad={() => setLoaded(true)}
                     />
                 ) : (
                     <motion.img
@@ -84,12 +89,13 @@ function Picture({
                                 ? 'hiddenRight'
                                 : 'hiddenLeft'
                         }
-                        animate="visible"
+                        animate={loaded ? 'visible' : 'hidden'}
                         exit={
                             orientation === 'left'
                                 ? 'hiddenRight'
                                 : 'hiddenLeft'
                         }
+                        onLoad={() => setLoaded(true)}
                     />
                 )}
             </AnimatePresence>

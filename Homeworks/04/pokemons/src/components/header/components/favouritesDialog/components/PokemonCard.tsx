@@ -1,7 +1,7 @@
 import styles from './PokemonCard.module.css'
 import { Heart } from 'lucide-react'
 import Pokemon from '../../../../../model/pokemon'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import PokemonContext, {
     PokemonCtx,
 } from '../../../../../context/PokemonContext'
@@ -11,6 +11,7 @@ const imageVariants = {
     hidden: {
         rotate: 0,
         opacity: 0,
+        scale: 0,
         transition: {
             duration: 0.5,
         },
@@ -18,6 +19,7 @@ const imageVariants = {
     visible: {
         rotate: 360,
         opacity: 1,
+        scale: 1,
         transition: {
             delay: 0.5,
             duration: 0.5,
@@ -34,6 +36,7 @@ function PokemonCard({
 }) {
     const { pokemons } = useContext<PokemonCtx>(PokemonContext)
     const pokemon = pokemons.find((p) => p.id === id)!
+    const [loaded, setLoaded] = useState<boolean>(false)
 
     const name: string = `#${pokemon.id.toString().padStart(4, '0')} ${
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
@@ -61,7 +64,10 @@ function PokemonCard({
                 </motion.button>
             </div>
             <div className={styles.image}>
-                <AnimatePresence mode="wait" initial={false}>
+                <AnimatePresence
+                    mode="wait"
+                    onExitComplete={() => setLoaded(false)}
+                >
                     {pokemon.favourite ? (
                         <motion.img
                             src={pokemon.image_shiny}
@@ -69,8 +75,9 @@ function PokemonCard({
                             key={pokemon.image_shiny}
                             variants={imageVariants}
                             initial="hidden"
-                            animate="visible"
+                            animate={loaded ? 'visible' : 'hidden'}
                             exit="hidden"
+                            onLoad={() => setLoaded(true)}
                         />
                     ) : (
                         <motion.img
@@ -79,8 +86,9 @@ function PokemonCard({
                             key={pokemon.image}
                             variants={imageVariants}
                             initial="hidden"
-                            animate="visible"
+                            animate={loaded ? 'visible' : 'hidden'}
                             exit="hidden"
+                            onLoad={() => setLoaded(true)}
                         />
                     )}
                 </AnimatePresence>

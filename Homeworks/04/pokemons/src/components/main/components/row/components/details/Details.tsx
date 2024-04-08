@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Type from './components/type/Type'
 import styles from './Details.module.css'
 import PokemonContext from '../../../../../../context/PokemonContext'
@@ -24,6 +24,8 @@ const overviewVariants = {
 function Details({ id }: { id: number }) {
     const { pokemons } = useContext(PokemonContext)
     const pokemon = pokemons.find((p) => p.id === id)!
+    const [loadedFront, setLoadedFront] = useState<boolean>(false)
+    const [loadedBack, setLoadedBack] = useState<boolean>(false)
 
     const name: string = `#${pokemon.id.toString().padStart(4, '0')} ${
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
@@ -59,23 +61,35 @@ function Details({ id }: { id: number }) {
                     <span>
                         <strong>Full view:</strong>
                     </span>
-                    <AnimatePresence mode="wait">
+                    <AnimatePresence
+                        mode="wait"
+                        onExitComplete={() => {
+                            setLoadedFront(false)
+                            setLoadedBack(false)
+                        }}
+                    >
                         {pokemon.favourite ? (
                             <motion.div
                                 className={styles.pictures}
                                 key="shiny"
                                 variants={overviewVariants}
                                 initial="hidden"
-                                animate="visible"
+                                animate={
+                                    loadedFront && loadedBack
+                                        ? 'visible'
+                                        : 'hidden'
+                                }
                                 exit="hidden"
                             >
                                 <img
                                     src={pokemon.overview_shiny.front}
                                     alt="Front"
+                                    onLoad={() => setLoadedFront(true)}
                                 />
                                 <img
                                     src={pokemon.overview_shiny.back}
                                     alt="Back"
+                                    onLoad={() => setLoadedBack(true)}
                                 />
                             </motion.div>
                         ) : (
@@ -84,11 +98,23 @@ function Details({ id }: { id: number }) {
                                 key="normal"
                                 variants={overviewVariants}
                                 initial="hidden"
-                                animate="visible"
+                                animate={
+                                    loadedFront && loadedBack
+                                        ? 'visible'
+                                        : 'hidden'
+                                }
                                 exit="hidden"
                             >
-                                <img src={pokemon.overview.front} alt="Front" />
-                                <img src={pokemon.overview.back} alt="Back" />
+                                <img
+                                    src={pokemon.overview.front}
+                                    alt="Front"
+                                    onLoad={() => setLoadedFront(true)}
+                                />
+                                <img
+                                    src={pokemon.overview.back}
+                                    alt="Back"
+                                    onLoad={() => setLoadedBack(true)}
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>
