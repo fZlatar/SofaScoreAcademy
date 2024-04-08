@@ -1,0 +1,99 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.main-conteiner {
+    width: 90vw;
+    margin-top: 20px;
+}
+
+.question {
+    text-align: center;
+    padding: 15px;
+    border-radius: 4px;
+    background-color: #244d72;
+    margin-bottom: 7.5px;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.choices {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.choice {
+    text-align: left;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #244d72;
+    width: calc(50% - 7.5px);
+    margin: 7.5px 0px;
+    transition: background-color 0.3s;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.hover:hover {
+    cursor: pointer;
+    background-color: rgb(121, 162, 198);
+}
+
+.button-conteiner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.float {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.joker {
+    height: 24px;
+    width: 24px;
+}
+
+.joker-button {
+    background-color: #77befc;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    transition: background-color 0.3 ease;
+}
+
+.joker-button:hover {
+    background-color: #9bcdf9;
+    cursor: pointer;
+}
+
+.joker-button:disabled {
+    display: none;
+}
+
+.tools {
+    display: inline-flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media screen and (max-width: 600px) {
+    .choices {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .choice {
+        width: 100%;
+    }
+
+}
