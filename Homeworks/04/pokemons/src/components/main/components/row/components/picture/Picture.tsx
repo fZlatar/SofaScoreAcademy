@@ -2,8 +2,31 @@ import { useContext, useEffect } from 'react'
 import styles from './Picture.module.css'
 import { Heart } from 'lucide-react'
 import PokemonContext from '../../../../../../context/PokemonContext'
+import { motion, AnimatePresence } from 'framer-motion'
 
 type Orientation = 'left' | 'right'
+
+const pictureVariants = {
+    hiddenLeft: {
+        x: '-200%',
+        transition: {
+            duration: 0.5,
+        },
+    },
+    hiddenRight: {
+        x: '200%',
+        transition: {
+            duration: 0.5,
+        },
+    },
+    visible: {
+        x: 0,
+        transition: {
+            delay: 0.5,
+            duration: 0.5,
+        },
+    },
+}
 
 function Picture({
     orientation,
@@ -31,10 +54,52 @@ function Picture({
 
     return (
         <div className={c1}>
-            <img src={pokemon.image} alt={pokemon.name} />
-            <button className={c4} onClick={() => togleFavourite()}>
+            <AnimatePresence mode="wait">
+                {pokemon.favourite ? (
+                    <motion.img
+                        src={pokemon.image_shiny}
+                        alt={pokemon.name}
+                        key={pokemon.image_shiny}
+                        variants={pictureVariants}
+                        initial={
+                            orientation === 'left'
+                                ? 'hiddenRight'
+                                : 'hiddenLeft'
+                        }
+                        animate="visible"
+                        exit={
+                            orientation === 'left'
+                                ? 'hiddenRight'
+                                : 'hiddenLeft'
+                        }
+                    />
+                ) : (
+                    <motion.img
+                        src={pokemon.image}
+                        alt={pokemon.name}
+                        key={pokemon.image}
+                        variants={pictureVariants}
+                        initial={
+                            orientation === 'left'
+                                ? 'hiddenRight'
+                                : 'hiddenLeft'
+                        }
+                        animate="visible"
+                        exit={
+                            orientation === 'left'
+                                ? 'hiddenRight'
+                                : 'hiddenLeft'
+                        }
+                    />
+                )}
+            </AnimatePresence>
+            <motion.button
+                className={c4}
+                onClick={() => togleFavourite()}
+                whileHover={{ scale: 1.1 }}
+            >
                 <Heart className={pokemon.favourite ? c3 : c2} />
-            </button>
+            </motion.button>
         </div>
     )
 }

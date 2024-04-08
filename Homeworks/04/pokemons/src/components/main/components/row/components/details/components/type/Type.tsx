@@ -1,22 +1,6 @@
 import styles from './Type.module.css'
 
-export type Types =
-    | 'normal'
-    | 'fire'
-    | 'water'
-    | 'grass'
-    | 'electric'
-    | 'ice'
-    | 'fighting'
-    | 'ground'
-    | 'poison'
-    | 'flying'
-    | 'psychic'
-    | 'ghost'
-    | 'steel'
-    | 'fairy'
-
-function Type({ type, className }: { type: Types; className?: string }) {
+function Type({ type, className }: { type: string; className?: string }) {
     let classNames = `${className ? className : ''} ${styles.type} ${
         styles.normal
     }`.trim()

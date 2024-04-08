@@ -17,6 +17,7 @@
     height: 25px;
     width: 25px;
     color: var(--header-font-color);
+    transition: color 0.3s ease;
 }
 
 .settings:hover,

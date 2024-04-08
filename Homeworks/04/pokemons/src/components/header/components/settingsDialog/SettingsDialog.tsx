@@ -1,6 +1,27 @@
 import { Circle } from 'lucide-react'
 import styles from './SettingsDialog.module.css'
 import { RefObject, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+
+const dialogVariants = {
+    initial: {
+        opacity: 0,
+    },
+    exit: {
+        opacity: 0,
+        transition: {
+            diration: 1,
+            ease: 'easeInOut',
+        },
+    },
+    animate: {
+        opacity: 1,
+    },
+    transition: {
+        diration: 1,
+        ease: 'easeInOut',
+    },
+}
 
 function SettingsDialog({
     theme,
@@ -37,33 +58,50 @@ function SettingsDialog({
     }, [setOpen, button])
 
     return (
-        <div className={styles.conteiner} ref={dialogRef}>
+        <motion.div
+            className={styles.conteiner}
+            ref={dialogRef}
+            key="settingsDialog"
+            {...dialogVariants}
+        >
             <h4>Theme</h4>
-            <button className={styles.button} onClick={() => setTheme('auto')}>
+            <motion.button
+                className={styles.button}
+                onClick={() => setTheme('auto')}
+                whileHover={{ scale: 1.1, originX: 0 }}
+            >
                 <Circle
                     className={`${styles.circle} ${
                         theme === 'auto' ? styles.fill : ''
                     }`.trim()}
                 />
                 <span>Auto</span>
-            </button>
-            <button className={styles.button} onClick={() => setTheme('light')}>
+            </motion.button>
+            <motion.button
+                className={styles.button}
+                onClick={() => setTheme('light')}
+                whileHover={{ scale: 1.1, originX: 0 }}
+            >
                 <Circle
                     className={`${styles.circle} ${
                         theme === 'light' ? styles.fill : ''
                     }`.trim()}
                 />
                 <span>Light</span>
-            </button>
-            <button className={styles.button} onClick={() => setTheme('dark')}>
+            </motion.button>
+            <motion.button
+                className={styles.button}
+                onClick={() => setTheme('dark')}
+                whileHover={{ scale: 1.1, originX: 0 }}
+            >
                 <Circle
                     className={`${styles.circle} ${
                         theme === 'dark' ? styles.fill : ''
                     }`.trim()}
                 />
                 <span>Dark</span>
-            </button>
-        </div>
+            </motion.button>
+        </motion.div>
     )
 }
 

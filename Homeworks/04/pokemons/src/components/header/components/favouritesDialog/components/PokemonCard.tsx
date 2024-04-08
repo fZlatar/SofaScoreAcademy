@@ -5,6 +5,25 @@ import { useContext } from 'react'
 import PokemonContext, {
     PokemonCtx,
 } from '../../../../../context/PokemonContext'
+import { AnimatePresence, motion } from 'framer-motion'
+
+const imageVariants = {
+    hidden: {
+        rotate: 0,
+        opacity: 0,
+        transition: {
+            duration: 0.5,
+        },
+    },
+    visible: {
+        rotate: 360,
+        opacity: 1,
+        transition: {
+            delay: 0.5,
+            duration: 0.5,
+        },
+    },
+}
 
 function PokemonCard({
     id,
@@ -30,16 +49,41 @@ function PokemonCard({
     return (
         <div className={styles.conteiner}>
             <div className={styles.heart_conteiner}>
-                <button onClick={() => setFavourite()}>
+                <motion.button
+                    onClick={() => setFavourite()}
+                    whileHover={{ scale: 1.1 }}
+                >
                     <Heart
                         className={`${styles.heart} ${
                             pokemon.favourite ? styles.favourite : ''
                         }`.trim()}
                     />
-                </button>
+                </motion.button>
             </div>
             <div className={styles.image}>
-                <img src={pokemon.image} alt={pokemon.name} />
+                <AnimatePresence mode="wait" initial={false}>
+                    {pokemon.favourite ? (
+                        <motion.img
+                            src={pokemon.image_shiny}
+                            alt={pokemon.name}
+                            key={pokemon.image_shiny}
+                            variants={imageVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        />
+                    ) : (
+                        <motion.img
+                            src={pokemon.image}
+                            alt={pokemon.name}
+                            key={pokemon.image}
+                            variants={imageVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        />
+                    )}
+                </AnimatePresence>
             </div>
             <h2>{name}</h2>
         </div>

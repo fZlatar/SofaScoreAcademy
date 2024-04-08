@@ -4,6 +4,7 @@ import styles from './Header.module.css'
 import { useEffect, useRef, useState } from 'react'
 import SettingsDialog from './components/settingsDialog/SettingsDialog'
 import FavouritesDialog from './components/favouritesDialog/FavouritesDialog'
+import { AnimatePresence, motion } from 'framer-motion'
 
 function Header() {
     const settingsButton = useRef<HTMLButtonElement>(null)
@@ -47,19 +48,21 @@ function Header() {
 
     return (
         <header className={styles.header}>
-            <button
+            <motion.button
                 className={styles.heart_button}
                 onClick={() => setFavourites((f) => !f)}
+                whileHover={{ scale: 1.1 }}
             >
                 <Heart className={styles.heart} />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
                 className={styles.settings_button}
                 onClick={() => setSettings((s) => !s)}
                 ref={settingsButton}
+                whileHover={{ scale: 1.1 }}
             >
                 <Settings className={styles.settings} />
-            </button>
+            </motion.button>
             <div className={styles.conteiner}>
                 <img
                     className={styles.pokeball}
@@ -68,15 +71,17 @@ function Header() {
                 />
                 <h3>Pokedex</h3>
             </div>
-            {settings && (
-                <SettingsDialog
-                    theme={theme}
-                    setTheme={setTheme}
-                    setOpen={setSettings}
-                    button={settingsButton}
-                />
-            )}
-            {favourites && <FavouritesDialog setOpen={setFavourites} />}
+            <AnimatePresence mode="wait">
+                {settings && (
+                    <SettingsDialog
+                        theme={theme}
+                        setTheme={setTheme}
+                        setOpen={setSettings}
+                        button={settingsButton}
+                    />
+                )}
+                {favourites && <FavouritesDialog setOpen={setFavourites} />}
+            </AnimatePresence>
         </header>
     )
 }

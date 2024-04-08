@@ -1,7 +1,25 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import Type from './components/type/Type'
 import styles from './Details.module.css'
 import PokemonContext from '../../../../../../context/PokemonContext'
+import { AnimatePresence, motion } from 'framer-motion'
+
+const overviewVariants = {
+    hidden: {
+        opacity: 0,
+        transition: {
+            duration: 0.5,
+        },
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            delay: 0.5,
+            duration: 0.5,
+            ease: 'easeInOut',
+        },
+    },
+}
 
 function Details({ id }: { id: number }) {
     const { pokemons } = useContext(PokemonContext)
@@ -10,6 +28,8 @@ function Details({ id }: { id: number }) {
     const name: string = `#${pokemon.id.toString().padStart(4, '0')} ${
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
     }`
+
+    useEffect(() => {}, [pokemon.favourite])
 
     return (
         <div className={styles.conteiner}>
@@ -39,14 +59,42 @@ function Details({ id }: { id: number }) {
                     <span>
                         <strong>Full view:</strong>
                     </span>
-                    <div className={styles.pictures}>
-                        <img src={pokemon.overview.front} alt="Front" />
-                        <img src={pokemon.overview.back} alt="Back" />
-                    </div>
+                    <AnimatePresence mode="wait">
+                        {pokemon.favourite ? (
+                            <motion.div
+                                className={styles.pictures}
+                                key="shiny"
+                                variants={overviewVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="hidden"
+                            >
+                                <img
+                                    src={pokemon.overview_shiny.front}
+                                    alt="Front"
+                                />
+                                <img
+                                    src={pokemon.overview_shiny.back}
+                                    alt="Back"
+                                />
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                className={styles.pictures}
+                                key="normal"
+                                variants={overviewVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="hidden"
+                            >
+                                <img src={pokemon.overview.front} alt="Front" />
+                                <img src={pokemon.overview.back} alt="Back" />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
         </div>
     )
 }
-
 export default Details

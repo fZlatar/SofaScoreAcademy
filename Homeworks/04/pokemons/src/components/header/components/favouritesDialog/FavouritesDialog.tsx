@@ -3,6 +3,39 @@ import styles from './FavouritesDialog.module.css'
 import PokemonContext from '../../../../context/PokemonContext'
 import PokemonCard from './components/PokemonCard'
 import Pokemon from '../../../../model/pokemon'
+import { motion } from 'framer-motion'
+
+const backdropVariants = {
+    hidden: {
+        opacity: 0,
+        transition: {
+            duration: 0.5,
+            when: 'beforeChildren',
+        },
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.5,
+            when: 'afterChildren',
+        },
+    },
+}
+
+const modalVariants = {
+    hidden: {
+        y: '100%',
+        transition: {
+            duration: 0.5,
+        },
+    },
+    visible: {
+        y: 0,
+        transition: {
+            duration: 0.5,
+        },
+    },
+}
 
 function FavouritesDialog({ setOpen }: { setOpen: (b: boolean) => void }) {
     const { pokemons, setPokemons } = useContext(PokemonContext)
@@ -45,17 +78,47 @@ function FavouritesDialog({ setOpen }: { setOpen: (b: boolean) => void }) {
 
     if (favoritePokemons.length === 0) {
         return (
-            <div className={styles.conteiner}>
-                <div className={styles.dialog_empty} ref={dialogRef}>
+            <motion.div
+                className={styles.conteiner}
+                key="backdrop"
+                variants={backdropVariants}
+                animate="visible"
+                initial="hidden"
+                exit="hidden"
+            >
+                <motion.div
+                    className={styles.dialog_empty}
+                    ref={dialogRef}
+                    key="modal"
+                    variants={modalVariants}
+                    animate="visible"
+                    initial="hidden"
+                    exit="hidden"
+                >
                     <h2>Not one pokemon was selecterd as favourite</h2>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         )
     }
 
     return (
-        <div className={styles.conteiner}>
-            <div className={styles.dialog} ref={dialogRef}>
+        <motion.div
+            className={styles.conteiner}
+            key="backdrop"
+            variants={backdropVariants}
+            animate="visible"
+            initial="hidden"
+            exit="hidden"
+        >
+            <motion.div
+                className={styles.dialog}
+                ref={dialogRef}
+                key="modal"
+                variants={modalVariants}
+                animate="visible"
+                initial="hidden"
+                exit="hidden"
+            >
                 {favoritePokemons.map((p) => (
                     <PokemonCard
                         key={p.id}
@@ -63,8 +126,8 @@ function FavouritesDialog({ setOpen }: { setOpen: (b: boolean) => void }) {
                         setPokemons={setFavouritePokemons}
                     />
                 ))}
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 
