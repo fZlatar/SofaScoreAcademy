@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import Type from './components/type/Type'
 import styles from './Details.module.css'
 import PokemonContext from '../../../../../../context/PokemonContext'
@@ -31,10 +31,8 @@ function Details({ id }: { id: number }) {
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
     }`
 
-    useEffect(() => {}, [pokemon.favourite])
-
     return (
-        <div className={styles.conteiner}>
+        <div className={styles.container}>
             <h1>{name}</h1>
             <div className={styles.details}>
                 <div className={styles.stats}>
@@ -68,55 +66,35 @@ function Details({ id }: { id: number }) {
                             setLoadedBack(false)
                         }}
                     >
-                        {pokemon.favourite ? (
-                            <motion.div
-                                className={styles.pictures}
-                                key="shiny"
-                                variants={overviewVariants}
-                                initial="hidden"
-                                animate={
-                                    loadedFront && loadedBack
-                                        ? 'visible'
-                                        : 'hidden'
+                        <motion.div
+                            className={styles.pictures}
+                            key={pokemon.favorite ? 'shiny' : 'normal'}
+                            variants={overviewVariants}
+                            initial="hidden"
+                            animate={
+                                loadedFront && loadedBack ? 'visible' : 'hidden'
+                            }
+                            exit="hidden"
+                        >
+                            <img
+                                src={
+                                    pokemon.favorite
+                                        ? pokemon.overview_shiny.front
+                                        : pokemon.overview.front
                                 }
-                                exit="hidden"
-                            >
-                                <img
-                                    src={pokemon.overview_shiny.front}
-                                    alt="Front"
-                                    onLoad={() => setLoadedFront(true)}
-                                />
-                                <img
-                                    src={pokemon.overview_shiny.back}
-                                    alt="Back"
-                                    onLoad={() => setLoadedBack(true)}
-                                />
-                            </motion.div>
-                        ) : (
-                            <motion.div
-                                className={styles.pictures}
-                                key="normal"
-                                variants={overviewVariants}
-                                initial="hidden"
-                                animate={
-                                    loadedFront && loadedBack
-                                        ? 'visible'
-                                        : 'hidden'
+                                alt="Front"
+                                onLoad={() => setLoadedFront(true)}
+                            />
+                            <img
+                                src={
+                                    pokemon.favorite
+                                        ? pokemon.overview_shiny.back
+                                        : pokemon.overview.back
                                 }
-                                exit="hidden"
-                            >
-                                <img
-                                    src={pokemon.overview.front}
-                                    alt="Front"
-                                    onLoad={() => setLoadedFront(true)}
-                                />
-                                <img
-                                    src={pokemon.overview.back}
-                                    alt="Back"
-                                    onLoad={() => setLoadedBack(true)}
-                                />
-                            </motion.div>
-                        )}
+                                alt="Back"
+                                onLoad={() => setLoadedBack(true)}
+                            />
+                        </motion.div>
                     </AnimatePresence>
                 </div>
             </div>

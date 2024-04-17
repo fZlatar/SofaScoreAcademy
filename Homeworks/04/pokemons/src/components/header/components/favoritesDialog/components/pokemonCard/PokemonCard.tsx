@@ -1,10 +1,10 @@
 import styles from './PokemonCard.module.css'
 import { Heart } from 'lucide-react'
-import Pokemon from '../../../../../model/pokemon'
+import Pokemon from '../../../../../../model/pokemon'
 import { useContext, useState } from 'react'
 import PokemonContext, {
     PokemonCtx,
-} from '../../../../../context/PokemonContext'
+} from '../../../../../../context/PokemonContext'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const imageVariants = {
@@ -42,23 +42,23 @@ function PokemonCard({
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
     }`
 
-    const setFavourite = () => {
-        pokemon.favourite = !pokemon.favourite
+    const setFavorite = () => {
+        pokemon.favorite = !pokemon.favorite
         setPokemons((prev) =>
             prev.map((p) => (p.id === pokemon.id ? { ...pokemon } : p))
         )
     }
 
     return (
-        <div className={styles.conteiner}>
-            <div className={styles.heart_conteiner}>
+        <div className={styles.container}>
+            <div className={styles.heart_container}>
                 <motion.button
-                    onClick={() => setFavourite()}
+                    onClick={() => setFavorite()}
                     whileHover={{ scale: 1.1 }}
                 >
                     <Heart
                         className={`${styles.heart} ${
-                            pokemon.favourite ? styles.favourite : ''
+                            pokemon.favorite ? styles.favorite : ''
                         }`.trim()}
                     />
                 </motion.button>
@@ -68,29 +68,24 @@ function PokemonCard({
                     mode="wait"
                     onExitComplete={() => setLoaded(false)}
                 >
-                    {pokemon.favourite ? (
-                        <motion.img
-                            src={pokemon.image_shiny}
-                            alt={pokemon.name}
-                            key={pokemon.image_shiny}
-                            variants={imageVariants}
-                            initial="hidden"
-                            animate={loaded ? 'visible' : 'hidden'}
-                            exit="hidden"
-                            onLoad={() => setLoaded(true)}
-                        />
-                    ) : (
-                        <motion.img
-                            src={pokemon.image}
-                            alt={pokemon.name}
-                            key={pokemon.image}
-                            variants={imageVariants}
-                            initial="hidden"
-                            animate={loaded ? 'visible' : 'hidden'}
-                            exit="hidden"
-                            onLoad={() => setLoaded(true)}
-                        />
-                    )}
+                    <motion.img
+                        src={
+                            pokemon.favorite
+                                ? pokemon.image_shiny
+                                : pokemon.image
+                        }
+                        alt={pokemon.name}
+                        key={
+                            pokemon.favorite
+                                ? pokemon.image_shiny
+                                : pokemon.image
+                        }
+                        variants={imageVariants}
+                        initial="hidden"
+                        animate={loaded ? 'visible' : 'hidden'}
+                        exit="hidden"
+                        onLoad={() => setLoaded(true)}
+                    />
                 </AnimatePresence>
             </div>
             <h2>{name}</h2>

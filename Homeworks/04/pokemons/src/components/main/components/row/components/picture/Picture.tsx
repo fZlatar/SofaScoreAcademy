@@ -41,16 +41,16 @@ function Picture({
 
     const [c1, c2, c3, c4] = getClassNames(orientation)
 
-    useEffect(() => {}, [pokemon.favourite])
+    useEffect(() => {}, [pokemon.favorite])
 
-    const togleFavourite = () => {
-        const newFavourite = !pokemon.favourite
-        const updatedPokemon = { ...pokemon, favourite: newFavourite }
+    const toggleFavorite = () => {
+        const newFavorite = !pokemon.favorite
+        const updatedPokemon = { ...pokemon, favorite: newFavorite }
         pokemon = updatedPokemon
         setPokemons((prev) =>
             prev.map((p) => (p.id === updatedPokemon.id ? updatedPokemon : p))
         )
-        return newFavourite
+        return newFavorite
     }
 
     return (
@@ -59,52 +59,25 @@ function Picture({
                 mode="wait"
                 onExitComplete={() => setLoaded(false)}
             >
-                {pokemon.favourite ? (
-                    <motion.img
-                        src={pokemon.image_shiny}
-                        alt={pokemon.name}
-                        key={pokemon.image_shiny}
-                        variants={pictureVariants}
-                        initial={
-                            orientation === 'left'
-                                ? 'hiddenRight'
-                                : 'hiddenLeft'
-                        }
-                        animate={loaded ? 'visible' : 'hidden'}
-                        exit={
-                            orientation === 'left'
-                                ? 'hiddenRight'
-                                : 'hiddenLeft'
-                        }
-                        onLoad={() => setLoaded(true)}
-                    />
-                ) : (
-                    <motion.img
-                        src={pokemon.image}
-                        alt={pokemon.name}
-                        key={pokemon.image}
-                        variants={pictureVariants}
-                        initial={
-                            orientation === 'left'
-                                ? 'hiddenRight'
-                                : 'hiddenLeft'
-                        }
-                        animate={loaded ? 'visible' : 'hidden'}
-                        exit={
-                            orientation === 'left'
-                                ? 'hiddenRight'
-                                : 'hiddenLeft'
-                        }
-                        onLoad={() => setLoaded(true)}
-                    />
-                )}
+                <motion.img
+                    src={pokemon.favorite ? pokemon.image_shiny : pokemon.image}
+                    alt={pokemon.name}
+                    key={pokemon.favorite ? pokemon.image_shiny : pokemon.image}
+                    variants={pictureVariants}
+                    initial={
+                        orientation === 'left' ? 'hiddenRight' : 'hiddenLeft'
+                    }
+                    animate={loaded ? 'visible' : 'hidden'}
+                    exit={orientation === 'left' ? 'hiddenRight' : 'hiddenLeft'}
+                    onLoad={() => setLoaded(true)}
+                />
             </AnimatePresence>
             <motion.button
                 className={c4}
-                onClick={() => togleFavourite()}
+                onClick={() => toggleFavorite()}
                 whileHover={{ scale: 1.1 }}
             >
-                <Heart className={pokemon.favourite ? c3 : c2} />
+                <Heart className={pokemon.favorite ? c3 : c2} />
             </motion.button>
         </div>
     )
@@ -113,11 +86,11 @@ function Picture({
 function getClassNames(
     orientation: Orientation
 ): [string, string, string, string] {
-    const className1: string = `${styles.conteiner} ${
+    const className1: string = `${styles.container} ${
         orientation === 'left' ? styles.left : styles.right
     }`.trim()
     const className2: string = `${styles.icon}`.trim()
-    const className3: string = `${styles.icon} ${styles.favourite}`.trim()
+    const className3: string = `${styles.icon} ${styles.favorite}`.trim()
     const className4: string = `${styles.icon_button} ${
         orientation === 'left' ? styles.left : styles.right
     }`

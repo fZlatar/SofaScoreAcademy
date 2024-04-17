@@ -1,6 +1,6 @@
-.conteiner {
+.container {
     background-color: var(--settings-dialog);
-    z-index: 200;
+    z-index: 201;
     height: 130px;
     width: 245px;
     border-radius: 5px;
@@ -14,7 +14,7 @@
     gap: 7px;
 }
 
-.conteiner h4 {
+.container h4 {
     margin: 0;
     padding: 0;
     font-size: 16px;
@@ -22,7 +22,7 @@
     color: var(--settings-dialog-font);
 }
 
-.conteiner .button span {
+.container .button span {
     font-size: 12px;
     font-weight: 400;
     color: var(--settings-dialog-font);
@@ -52,4 +52,14 @@
 
 .circle.fill {
     fill: black;
+}
+
+.wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 200;
+    top: 0;
+    left: 0;
 }

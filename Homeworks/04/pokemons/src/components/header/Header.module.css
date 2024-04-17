@@ -1,8 +1,8 @@
 .header {
     position: sticky;
     top: 0;
-    width: 100vw;
-    height: 85px;
+    width: 100%;
+    height: 45px;
     background-color: var(--header-color);
     justify-content: center;
     align-items: center;
@@ -33,6 +33,9 @@
     border: 0;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .heart_button {
@@ -42,9 +45,12 @@
     border: 0;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.conteiner {
+.container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -52,7 +58,7 @@
     gap: 5px;
 }
 
-.conteiner h3 {
+.container h3 {
     font-weight: 600;
     font-size: 18px;
     margin: 0;
@@ -61,6 +67,10 @@
 }
 
 @media screen and (min-width: 900px) {
+    .header {
+        height: 85px;
+    }
+
     .settings,
     .heart,
     .pokeball {
@@ -68,11 +78,11 @@
         width: 50px;
     }
 
-    .conteiner {
+    .container {
         gap: 8px;
     }
 
-    .conteiner h3 {
+    .container h3 {
         font-size: 32px;
     }
 }

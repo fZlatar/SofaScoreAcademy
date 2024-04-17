@@ -1,10 +1,10 @@
-.conteiner {
+.container {
     background-color: var(--page-color);
     border-radius: 8px;
     padding: 10px 20px;
 }
 
-.conteiner h2 {
+.container h2 {
     font-size: 24px;
     font-weight: 700;
 }
@@ -20,14 +20,14 @@
     width: 150px;
 }
 
-.heart_conteiner {
+.heart_container {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
 }
 
-.heart_conteiner button {
+.heart_container button {
     background-color: transparent;
     border: 0;
     margin: 0;
@@ -35,7 +35,7 @@
 }
 
 .heart {
-    color: var(--favourite-icon-color);
+    color: var(--favorite-icon-color);
     height: 30px;
     width: 30px;
     transition: color 0.3s ease, fill 0.3s ease;
@@ -45,44 +45,44 @@
     cursor: pointer;
 }
 
-.heart.favourite {
-    fill: var(--favourite-icon-filled);
-    color: var(--favourite-icon-filled);
+.heart.favorite {
+    fill: var(--favorite-icon-filled);
+    color: var(--favorite-icon-filled);
 }
 
 @media screen and (min-width: 900px) {
-    .conteiner img {
+    .container img {
         height: 150px;
         width: 150px;
     }
 }
 
 @media screen and (min-width: 1000px) {
-    .conteiner img {
+    .container img {
         height: 180px;
         width: 180px;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    .conteiner img {
+    .container img {
         height: 250px;
         width: 250px;
     }
-    .conteiner h2 {
+    .container h2 {
         font-size: 28px;
     }
 }
 
 @media screen and (min-width: 1400px) {
-    .conteiner img {
+    .container img {
         height: 300px;
         width: 300px;
     }
 }
 
 @media screen and (min-width: 1600px) {
-    .conteiner img {
+    .container img {
         height: 350px;
         width: 350px;
     }

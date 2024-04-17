@@ -1,7 +1,7 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import styles from './FavouritesDialog.module.css'
+import { useContext, useState } from 'react'
+import styles from './FavoritesDialog.module.css'
 import PokemonContext from '../../../../context/PokemonContext'
-import PokemonCard from './components/PokemonCard'
+import PokemonCard from './components/pokemonCard/PokemonCard'
 import Pokemon from '../../../../model/pokemon'
 import { motion } from 'framer-motion'
 
@@ -9,22 +9,22 @@ const backdropVariants = {
     hidden: {
         opacity: 0,
         transition: {
-            duration: 0.5,
-            when: 'beforeChildren',
+            duration: 0.2,
+            when: 'afterChildren',
         },
     },
     visible: {
         opacity: 1,
         transition: {
-            duration: 0.5,
-            when: 'afterChildren',
+            duration: 0.2,
+            when: 'beforeChildren',
         },
     },
 }
 
 const modalVariants = {
     hidden: {
-        y: '100%',
+        y: '200%',
         transition: {
             duration: 0.5,
         },
@@ -37,14 +37,13 @@ const modalVariants = {
     },
 }
 
-function FavouritesDialog({ setOpen }: { setOpen: (b: boolean) => void }) {
+function FavoritesDialog({ setOpen }: { setOpen: (b: boolean) => void }) {
     const { pokemons, setPokemons } = useContext(PokemonContext)
-    const [favoritePokemons, setFavouritePokemons] = useState<Pokemon[]>(
-        pokemons.filter((p) => p.favourite)
+    const [favoritePokemons, setFavoritePokemons] = useState<Pokemon[]>(
+        pokemons.filter((p) => p.favorite)
     )
-    const dialogRef = useRef<HTMLDivElement>(null)
 
-    const onClose = useCallback(() => {
+    const onClose = () => {
         setPokemons((prev) => {
             return prev.map((p) => {
                 const index = favoritePokemons.findIndex(
@@ -57,45 +56,26 @@ function FavouritesDialog({ setOpen }: { setOpen: (b: boolean) => void }) {
             })
         })
         setOpen(false)
-    }, [setPokemons, setOpen, favoritePokemons])
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                dialogRef.current &&
-                !dialogRef.current.contains(event.target as Node)
-            ) {
-                onClose()
-            }
-        }
-
-        document.addEventListener('mousedown', handleClickOutside)
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [onClose, setOpen])
+    }
 
     if (favoritePokemons.length === 0) {
         return (
             <motion.div
-                className={styles.conteiner}
-                key="backdrop"
+                className={styles.container}
+                key="backdropEmpty"
                 variants={backdropVariants}
                 animate="visible"
                 initial="hidden"
                 exit="hidden"
+                onClick={() => onClose()}
             >
                 <motion.div
                     className={styles.dialog_empty}
-                    ref={dialogRef}
-                    key="modal"
+                    key="modalEmpty"
                     variants={modalVariants}
-                    animate="visible"
-                    initial="hidden"
-                    exit="hidden"
+                    onClick={(e) => e.stopPropagation()}
                 >
-                    <h2>Not one pokemon was selecterd as favourite</h2>
+                    <h2>Not one pokemon was selected as favorite</h2>
                 </motion.div>
             </motion.div>
         )
@@ -103,27 +83,25 @@ function FavouritesDialog({ setOpen }: { setOpen: (b: boolean) => void }) {
 
     return (
         <motion.div
-            className={styles.conteiner}
+            className={styles.container}
             key="backdrop"
             variants={backdropVariants}
             animate="visible"
             initial="hidden"
             exit="hidden"
+            onClick={() => onClose()}
         >
             <motion.div
                 className={styles.dialog}
-                ref={dialogRef}
                 key="modal"
                 variants={modalVariants}
-                animate="visible"
-                initial="hidden"
-                exit="hidden"
+                onClick={(e) => e.stopPropagation()}
             >
                 {favoritePokemons.map((p) => (
                     <PokemonCard
                         key={p.id}
                         id={p.id}
-                        setPokemons={setFavouritePokemons}
+                        setPokemons={setFavoritePokemons}
                     />
                 ))}
             </motion.div>
@@ -131,4 +109,4 @@ function FavouritesDialog({ setOpen }: { setOpen: (b: boolean) => void }) {
     )
 }
 
-export default FavouritesDialog
+export default FavoritesDialog

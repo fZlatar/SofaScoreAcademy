@@ -48,7 +48,7 @@ export async function getPokemon(url: string): Promise<Pokemon> {
             console.error(error)
         }
         const pokemon: Pokemon = {
-            favourite: false,
+            favorite: false,
             name: result.name,
             id: result.id,
             height: result.height,

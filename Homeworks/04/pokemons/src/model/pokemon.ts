@@ -1,5 +1,5 @@
 interface Pokemon {
-    favourite: boolean
+    favorite: boolean
     name: string
     id: number
     height: number

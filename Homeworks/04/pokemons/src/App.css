@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --favourite-icon-color: #acacac;
+    --favorite-icon-color: #acacac;
     --icon-hover: #f7cb62;
     --electric-type: #f8d030;
     --fairy-type: #f0b6bc;
@@ -25,7 +25,7 @@
     --details-bg-color: #ffffff;
     --page-color: #eeeeee;
     --header-color: #e3350d;
-    --favourite-icon-filled: #d14526;
+    --favorite-icon-filled: #d14526;
     --settings-dialog: #ffffff;
     --settings-dialog-font: #262626;
 }
@@ -35,7 +35,7 @@
     --details-bg-color: #1f2735;
     --page-color: #354159;
     --header-color: #4d638c;
-    --favourite-icon-filled: #516389;
+    --favorite-icon-filled: #516389;
     --settings-dialog: #4d638c;
     --settings-dialog-font: #eeeeee;
 }

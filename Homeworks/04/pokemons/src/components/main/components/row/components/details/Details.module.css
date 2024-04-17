@@ -1,4 +1,4 @@
-.conteiner {
+.container {
     width: 100%;
     height: 50%;
     background-color: var(--details-bg-color);
@@ -8,11 +8,11 @@
     font-weight: 400;
 }
 
-.conteiner strong {
+.container strong {
     font-weight: 600;
 }
 
-.conteiner h1 {
+.container h1 {
     font-weight: 700;
     font-size: 26px;
 }
@@ -35,13 +35,13 @@
 }
 
 @media screen and (min-width: 900px) {
-    .conteiner {
+    .container {
         width: 50%;
         height: 100%;
         background-color: var(--details-bg-color);
     }
 
-    .conteiner h1 {
+    .container h1 {
         font-size: 32px;
     }
 
@@ -66,7 +66,7 @@
         width: 130px;
     }
 
-    .conteiner {
+    .container {
         padding: 60px;
     }
 }
