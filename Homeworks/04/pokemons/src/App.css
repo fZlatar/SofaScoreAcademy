@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --favorite-icon-color: #acacac;
+    --icon-hover: #f7cb62;
+    --electric-type: #f8d030;
+    --fairy-type: #f0b6bc;
+    --fighting-type: #c03028;
+    --fire-type: #f08030;
+    --flying-type: #a890f0;
+    --ghost-type: #705898;
+    --grass-type: #78c850;
+    --ground-type: #e0c068;
+    --ice-type: #98d8d8;
+    --normal-type: #a8a878;
+    --poison-type: #a040a0;
+    --psychic-type: #f85888;
+    --steel-type: #b8b8d0;
+    --water-type: #6890f0;
+    --header-font-color: #eeeeee;
+}
+
+.light-theme {
+    --text-color: #262626;
+    --details-bg-color: #ffffff;
+    --page-color: #eeeeee;
+    --header-color: #e3350d;
+    --favorite-icon-filled: #d14526;
+    --settings-dialog: #ffffff;
+    --settings-dialog-font: #262626;
+}
+
+.dark-theme {
+    --text-color: #a1a1a1;
+    --details-bg-color: #1f2735;
+    --page-color: #354159;
+    --header-color: #4d638c;
+    --favorite-icon-filled: #516389;
+    --settings-dialog: #4d638c;
+    --settings-dialog-font: #eeeeee;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    color: var(--text-color);
+    background-color: var(--page-color);
+}

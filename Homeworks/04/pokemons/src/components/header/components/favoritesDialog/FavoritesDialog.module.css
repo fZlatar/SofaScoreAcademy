@@ -1,0 +1,65 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: #00000045;
+    z-index: 201;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog {
+    width: 65%;
+    height: 70%;
+    background-color: var(--details-bg-color);
+    border-radius: 8px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    align-content: start;
+    gap: 35px;
+    padding: 30px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.dialog_empty {
+    width: 65%;
+    height: 70%;
+    background-color: var(--details-bg-color);
+    border-radius: 8px;
+    padding: 30px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog_empty h2 {
+    text-align: center;
+}
+
+.dialog::-webkit-scrollbar {
+    display: none;
+}
+
+@media screen and (min-width: 900px) {
+    .dialog {
+        padding: 35px;
+        width: 85%;
+        height: 70%;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 45px;
+    }
+
+    .dialog_empty {
+        width: 85%;
+        height: 70%;
+        padding: 35px;
+    }
+}
