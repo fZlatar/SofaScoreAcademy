@@ -4,21 +4,21 @@ import Layout from '@/modules/Layout'
 import Head from 'next/head'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { getAvailableTournamentsForSport, getEventsForSportAndDate } from '@/api/sportApi'
-import { AvailableTournamentForSport, EventForSportAndDate } from '@/models/sport'
+import { AvailableTournamentForSport } from '@/models/sport'
 import { NextPageWithLayout, fetcher } from '../_app'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
 import Leagues from '@/modules/Leagues'
-import Events from '@/modules/Events'
+import Events from '@/modules/events/Events'
 import { DateTime } from 'luxon'
 import { AnimatePresence, motion } from 'framer-motion'
 import EventPopup from '@/modules/eventPopup/EventPopup'
 import { getEventIncidentsSwr } from '@/api/eventApi'
 import useSWR from 'swr'
-import { EventIncident } from '@/models/event'
+import { EventDetails, EventIncident } from '@/models/event'
 
 type FootballPageRepo = {
     tournaments: AvailableTournamentForSport[]
-    events: EventForSportAndDate[]
+    events: EventDetails[]
 }
 
 type FootballPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -38,7 +38,7 @@ const variants = {
 }
 
 const FootballPage: NextPageWithLayout<FootballPageProps> = ({ repo }) => {
-    const [selectedEvent, setSelectedEvent] = useState<EventForSportAndDate | undefined>(undefined)
+    const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const { data, isLoading, error } = useSWR<EventIncident[]>(
         selectedEvent ? getEventIncidentsSwr(selectedEvent.id) : null
     )

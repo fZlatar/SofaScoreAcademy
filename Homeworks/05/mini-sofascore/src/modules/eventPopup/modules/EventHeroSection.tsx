@@ -1,13 +1,14 @@
 import { getTeamImageSrc } from '@/api/teamApi'
 import useBreakpoint from '@/hooks/useBreakpoint'
-import { EventForSportAndDate } from '@/models/sport'
+import { EventDetails } from '@/models/event'
 import typography from '@/utils/typography'
 import { Image, Flex, FlexProps, Text, styled } from '@kuma-ui/core'
+import { DateTime } from 'luxon'
 import Link from 'next/link'
 import React from 'react'
 
 export interface EventHeroSectionProps extends FlexProps {
-    event: EventForSportAndDate
+    event: EventDetails
 }
 const StyledContainer = styled.div`
     display: flex;
@@ -43,14 +44,31 @@ export default function EventHeroSection({ event, ...restProps }: EventHeroSecti
                 flexDirection="column"
                 color={event.status === 'inprogress' ? 'colors.specific.live' : 'colors.onSurface.nLv1'}
             >
-                <Flex h={40} flexDirection="row" justifyContent="center" alignItems="center">
-                    <Text {...(isSmall ? typography.h1 : typography.h1Desktop)}>
-                        {event.homeScore.total} - {event.awayScore.total}
-                    </Text>
-                </Flex>
-                <Text {...typography.micro}>
-                    {event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? 'LIVE' : 'NS'}
-                </Text>
+                {event.status === 'notstarted' && event.startDate ? (
+                    <Flex
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        textAlign="center"
+                        flexDirection="column"
+                        pt={8}
+                        gap={4}
+                        {...typography.micro}
+                    >
+                        <Text>{DateTime.fromISO(event.startDate).toFormat('dd.MM.yyyy.')}</Text>
+                        <Text>{DateTime.fromISO(event.startDate).toFormat('HH:mm')}</Text>
+                    </Flex>
+                ) : (
+                    <>
+                        <Flex h={40} flexDirection="row" justifyContent="center" alignItems="center">
+                            <Text {...(isSmall ? typography.h1 : typography.h1Desktop)}>
+                                {event.homeScore.total} - {event.awayScore.total}
+                            </Text>
+                        </Flex>
+                        <Text {...typography.micro}>
+                            {event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? 'LIVE' : 'NS'}
+                        </Text>
+                    </>
+                )}
             </Flex>
             <Link href={`/${event.tournament.sport.slug}/team/${event.awayTeam.id}`}>
                 <StyledContainer>

@@ -1,16 +1,16 @@
 import SofaButton from '@/components/SofaButton'
 import CloseIcon from '@/components/icons/CloseIcon'
-import { EventIncident } from '@/models/event'
-import { EventForSportAndDate } from '@/models/sport'
+import { EventDetails, EventIncident } from '@/models/event'
 import { extractPeriods } from '@/utils/utils'
 import { Flex, FlexProps, Box } from '@kuma-ui/core'
 import { useRouter } from 'next/router'
 import React from 'react'
 import PeriodCell from './modules/PeriodCell'
 import EventHeroSection from './modules/EventHeroSection'
+import Link from 'next/link'
 
 export interface EventPopupProps extends FlexProps {
-    event: EventForSportAndDate
+    event: EventDetails
     incidents: EventIncident[]
     onClose: () => void
 }
@@ -49,12 +49,9 @@ export default function EventPopup({ event, incidents, onClose, ...restProps }: 
                 >
                     <CloseIcon />
                 </Flex>
-                <SofaButton
-                    variant="unshielded"
-                    onClick={() => router.push(`/${sport}/match/${event.slug}?id=${event.id}`)}
-                >
-                    View Full Page
-                </SofaButton>
+                <Link href={`/${sport}/match/${event.slug}/${event.id}`}>
+                    <SofaButton variant="unshielded">View Full Page</SofaButton>
+                </Link>
             </Flex>
             <EventHeroSection event={event} h={112} />
             {event.status !== 'notstarted' && (
