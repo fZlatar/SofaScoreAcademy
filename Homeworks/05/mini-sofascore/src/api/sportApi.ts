@@ -1,7 +1,8 @@
-import { AvailableTournamentForSport, Sport } from '@/models/sport'
+import { Sport } from '@/models/sport'
 import fetcher, { url } from './fetcher'
 import { DateTime } from 'luxon'
 import { EventDetails } from '@/models/event'
+import { TournamentDetails } from '@/models/tournament'
 
 export async function getSports(): Promise<Sport[]> {
     const path = `${url}/sports`
@@ -22,8 +23,8 @@ export function getEventsForSportAndDateSwr(slug: string, date: DateTime): strin
     return path
 }
 
-export async function getAvailableTournamentsForSport(slug: string): Promise<AvailableTournamentForSport[]> {
+export async function getAvailableTournamentsForSport(slug: string): Promise<TournamentDetails[]> {
     const path = `${url}/sport/${slug}/tournaments`
-    const data = await fetcher<AvailableTournamentForSport[]>(path)
+    const data = await fetcher<TournamentDetails[]>(path)
     return data
 }

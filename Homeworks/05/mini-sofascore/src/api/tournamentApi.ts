@@ -1,5 +1,6 @@
-import { TournamentDetails, TournamentEvent, TournamentStandings } from '@/models/tournament'
+import { TournamentDetails, TournamentStandings } from '@/models/tournament'
 import fetcher, { url } from './fetcher'
+import { EventDetails } from '@/models/event'
 
 export async function getTournamentDetails(id: number): Promise<TournamentDetails> {
     const path = `${url}/tournament/${id}`
@@ -11,10 +12,15 @@ export async function getTournamentEvents(
     id: number,
     span: 'next' | 'last' = 'next',
     page = 0
-): Promise<TournamentEvent[]> {
+): Promise<EventDetails[]> {
     const path = `${url}/tournament/${id}/events/${span}/${page}`
-    const data = await fetcher<TournamentEvent[]>(path)
+    const data = await fetcher<EventDetails[]>(path)
     return data
+}
+
+export function getTournamentEventsSwr(id: number, label: 'next' | 'last', index: number) {
+    const path = `/api/tournament/${id}/events/${label}/${index}`
+    return path
 }
 
 export async function getTournamentStandings(id: number): Promise<TournamentStandings[]> {

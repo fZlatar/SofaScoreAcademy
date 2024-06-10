@@ -46,7 +46,7 @@ const typography = {
         fontSize: 'fontSizes.sm',
         lineHeight: 'lineHeights.xs',
         fontWeight: 'fontWeights.normal',
-        letterSpacing: '-0.28px',
+        // letterSpacing: 'letterSpacings.tabular',
     },
     action: {
         font: 'fonts.robotoBold',

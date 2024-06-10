@@ -34,7 +34,7 @@ export interface SofaTabProps extends FlexProps, PropsWithChildren {
 const tabPositive = {
     ...positive,
     _hover: {
-        bg: 'colors.onSurface.nLv3',
+        bg: 'colors.primary.highlight',
     },
 }
 

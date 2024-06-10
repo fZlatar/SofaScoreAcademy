@@ -2,7 +2,7 @@ import { getEventDetails, getEventIncidents } from '@/api/eventApi'
 import { getAvailableTournamentsForSport } from '@/api/sportApi'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
 import { EventDetails, EventIncident } from '@/models/event'
-import { AvailableTournamentForSport } from '@/models/sport'
+import { TournamentDetails } from '@/models/tournament'
 import Layout from '@/modules/Layout'
 import Leagues from '@/modules/Leagues'
 import FullEvent from '@/modules/fullEvent/FullEvent'
@@ -13,7 +13,7 @@ import Head from 'next/head'
 import { ReactElement } from 'react'
 
 type BasketballEventPageRepo = {
-    tournaments: AvailableTournamentForSport[]
+    tournaments: TournamentDetails[]
     event: EventDetails
     incidents: EventIncident[]
 }

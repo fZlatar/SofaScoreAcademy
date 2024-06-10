@@ -1,5 +1,4 @@
-import { EventIncident } from '@/models/event'
-import { EventForSportAndDate } from '@/models/sport'
+import { EventDetails, EventIncident } from '@/models/event'
 
 export interface PeriodInterface {
     period: number
@@ -10,7 +9,7 @@ export interface PeriodInterface {
     exists: boolean
 }
 
-export function extractPeriods(event: EventForSportAndDate, incidents: EventIncident[]) {
+export function extractPeriods(event: EventDetails, incidents: EventIncident[]) {
     const sport = event.tournament.sport.slug
     const labelType = sport === 'football' ? ' half' : 'Q'
     const period1: PeriodInterface = {

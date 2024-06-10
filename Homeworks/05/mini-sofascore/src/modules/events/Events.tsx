@@ -1,4 +1,3 @@
-import { EventForSportAndDate } from '@/models/sport'
 import { Flex, FlexProps, Text } from '@kuma-ui/core'
 import React, { useState } from 'react'
 import DateSelector, { datesEqual } from '../DateSelector'
@@ -10,13 +9,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 import useBreakpoint from '@/hooks/useBreakpoint'
 import { useRouter } from 'next/router'
 import TournamentEvents from './modules/TournamentEvents'
+import { EventDetails } from '@/models/event'
 
 export interface EventsProps extends FlexProps {
-    events: EventForSportAndDate[]
+    events: EventDetails[]
     initialDate: DateTime
     sport: 'football' | 'basketball' | 'american-football'
-    selected?: EventForSportAndDate
-    setSelected: (event: EventForSportAndDate) => void
+    selected?: EventDetails
+    setSelected: (event: EventDetails) => void
 }
 
 const MotionFlex = motion(Flex)
@@ -38,7 +38,7 @@ export default function Events({ events, initialDate, sport, selected, setSelect
     const { isSmall } = useBreakpoint()
     const router = useRouter()
 
-    const { data, isLoading, error } = useSWR<EventForSportAndDate[]>(
+    const { data, isLoading, error } = useSWR<EventDetails[]>(
         datesEqual(selectedDate, initialDate) ? null : getEventsForSportAndDateSwr(sport, selectedDate),
         {
             fallbackData: datesEqual(selectedDate, initialDate) ? events : undefined,
@@ -46,10 +46,10 @@ export default function Events({ events, initialDate, sport, selected, setSelect
     )
     const tournaments = getTournaments(data)
 
-    const handleOnClickEvent = (event: EventForSportAndDate) => {
+    const handleOnClickEvent = (event: EventDetails) => {
         setSelected(event)
         if (isSmall) {
-            router.push(`/${sport}/match/${event.slug}?id=${event.id}`)
+            router.push(`/${sport}/match/${event.slug}/${event.id}`)
         }
     }
 
@@ -81,7 +81,7 @@ export default function Events({ events, initialDate, sport, selected, setSelect
                     <Text color="colors.onSurface.nLv1">
                         {datesEqual(DateTime.now(), selectedDate) ? 'TODAY' : selectedDate.toFormat('EEE dd MM')}
                     </Text>
-                    <Text color="colors.onSurface.nLv2">{data?.length} events</Text>
+                    <Text color="colors.onSurface.nLv2">{`${data?.length} events`}</Text>
                 </Flex>
             )}
             <AnimatePresence mode="wait" initial={false}>
@@ -99,6 +99,7 @@ export default function Events({ events, initialDate, sport, selected, setSelect
                             (tournament, index) =>
                                 tournament && (
                                     <TournamentEvents
+                                        key={`tEvents-${tournament.id}`}
                                         tournament={tournament}
                                         index={index}
                                         data={data}
@@ -114,7 +115,7 @@ export default function Events({ events, initialDate, sport, selected, setSelect
     )
 }
 
-function getTournaments(events?: EventForSportAndDate[]) {
+function getTournaments(events?: EventDetails[]) {
     if (!events) return []
     const tournamentIds = new Set(events?.map(event => event.tournament.id))
     const tournaments = Array.from(tournamentIds).map(

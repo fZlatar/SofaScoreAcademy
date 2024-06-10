@@ -50,7 +50,6 @@ export default function EventHeroSection({ event, ...restProps }: EventHeroSecti
                         alignItems="center"
                         textAlign="center"
                         flexDirection="column"
-                        pt={8}
                         gap={4}
                         {...typography.micro}
                     >
@@ -60,11 +59,31 @@ export default function EventHeroSection({ event, ...restProps }: EventHeroSecti
                 ) : (
                     <>
                         <Flex h={40} flexDirection="row" justifyContent="center" alignItems="center">
-                            <Text {...(isSmall ? typography.h1 : typography.h1Desktop)}>
-                                {event.homeScore.total} - {event.awayScore.total}
-                            </Text>
+                            <Flex
+                                flexDirection="row"
+                                {...(isSmall ? typography.h1 : typography.h1Desktop)}
+                                color="colors.onSurface.nLv1"
+                                gap={4}
+                            >
+                                <Text
+                                    color={event.winnerCode === 'away' ? 'colors.onSurface.nLv2' : 'inherit'}
+                                    textAlign="right"
+                                >
+                                    {event.homeScore.total}
+                                </Text>
+                                <Text> - </Text>
+                                <Text
+                                    color={event.winnerCode === 'home' ? 'colors.onSurface.nLv2' : 'inherit'}
+                                    textAlign="left"
+                                >
+                                    {event.awayScore.total}
+                                </Text>
+                            </Flex>
                         </Flex>
-                        <Text {...typography.micro}>
+                        <Text
+                            {...typography.micro}
+                            color={event.status === 'finished' ? 'colors.onSurface.nLv2' : 'inherit'}
+                        >
                             {event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? 'LIVE' : 'NS'}
                         </Text>
                     </>

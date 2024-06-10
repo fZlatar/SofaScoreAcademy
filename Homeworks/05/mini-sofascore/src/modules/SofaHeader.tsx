@@ -1,8 +1,7 @@
-import { Flex } from '@kuma-ui/core'
 import React from 'react'
 import SofaLogo from '../components/icons/SofaLogo'
 import SettingsIcon from '../components/icons/SettingsIcon'
-import { FlexProps } from '@kuma-ui/core'
+import { FlexProps, Flex } from '@kuma-ui/core'
 import Trophy from '../components/icons/Trophy'
 import Link from 'next/link'
 import { homePath } from '@/utils/homePath'
@@ -15,13 +14,13 @@ export default function SofaHeader({ mode, ...restProps }: SofaHeaderProps) {
     if (mode === 'mobile') {
         return (
             <Flex
-                {...restProps}
                 color="colors.surface.s1"
                 bg="colors.primary.default"
                 justifyContent="space-between"
                 alignItems="center"
                 pl="spacings.lg"
                 pr="spacings.xs"
+                {...restProps}
             >
                 <Link href={homePath}>
                     <SofaLogo />

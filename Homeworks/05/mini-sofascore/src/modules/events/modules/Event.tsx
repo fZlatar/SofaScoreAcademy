@@ -1,12 +1,12 @@
-import { EventForSportAndDate } from '@/models/sport'
 import { Flex, FlexProps, Text, Image, Box } from '@kuma-ui/core'
 import React from 'react'
 import typography from '@/utils/typography'
 import { DateTime } from 'luxon'
 import { getTeamImageSrc } from '@/api/teamApi'
+import { EventDetails } from '@/models/event'
 
 export interface EventProps extends FlexProps {
-    event: EventForSportAndDate
+    event: EventDetails
     selected?: number
     onClick: () => void
 }
@@ -33,6 +33,7 @@ export default function Event({ event, selected, onClick, ...restProps }: EventP
                 alignItems="center"
                 textAlign="center"
                 flexDirection="column"
+                flexShrink={0}
             >
                 <Text>{event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : 'Unknown'}</Text>
                 <Text>{event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? 'LIVE' : '-'}</Text>
@@ -45,6 +46,7 @@ export default function Event({ event, selected, onClick, ...restProps }: EventP
                 {...typography.body}
                 flex={1}
                 gap={4}
+                minW={0}
             >
                 <Flex
                     flexDirection="row"
@@ -56,11 +58,20 @@ export default function Event({ event, selected, onClick, ...restProps }: EventP
                     pl={16}
                     color={event.winnerCode === 'away' ? 'colors.onSurface.nLv2' : 'colors.onSurface.nLv1'}
                 >
-                    <Flex flexDirection="row" justifyContent="flex-start" gap={8}>
+                    <Flex
+                        flexDirection="row"
+                        justifyContent="flex-start"
+                        gap={8}
+                        overflow="hidden"
+                        whiteSpace="nowrap"
+                        textOverflow="ellipsis"
+                    >
                         <Image src={getTeamImageSrc(event.homeTeam.id)} w={16} h={16} />
-                        <Text>{event.homeTeam.name}</Text>
+                        <Text textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
+                            {event.homeTeam.name}
+                        </Text>
                     </Flex>
-                    <Text>{event.homeScore.total !== null && event.homeScore.total}</Text>
+                    <Text ml={8}>{event.homeScore.total !== null && event.homeScore.total}</Text>
                 </Flex>
                 <Flex
                     flexDirection="row"
@@ -72,11 +83,20 @@ export default function Event({ event, selected, onClick, ...restProps }: EventP
                     pl={16}
                     color={event.winnerCode === 'home' ? 'colors.onSurface.nLv2' : 'colors.onSurface.nLv1'}
                 >
-                    <Flex flexDirection="row" justifyContent="flex-start" gap={8}>
+                    <Flex
+                        flexDirection="row"
+                        justifyContent="flex-start"
+                        gap={8}
+                        overflow="hidden"
+                        textOverflow="ellipsis"
+                        whiteSpace="nowrap"
+                    >
                         <Image src={getTeamImageSrc(event.awayTeam.id)} w={16} h={16} />
-                        <Text>{event.awayTeam.name}</Text>
+                        <Text textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
+                            {event.awayTeam.name}
+                        </Text>
                     </Flex>
-                    <Text>{event.awayScore.total !== null && event.awayScore.total}</Text>
+                    <Text ml={8}>{event.awayScore.total !== null && event.awayScore.total}</Text>
                 </Flex>
             </Flex>
         </Flex>

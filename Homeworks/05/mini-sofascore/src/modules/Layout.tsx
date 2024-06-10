@@ -1,18 +1,23 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 import SofaHeader from './SofaHeader'
 import SofaTabs, { SofaTab } from '../components/SofaTabs'
-import useBreakpoint from '@/hooks/useBreakpoint'
 import SofaFooter from './SofaFooter'
-import { Box, Flex, Text, styled } from '@kuma-ui/core'
+import { Box, Flex, FlexProps, Text, styled } from '@kuma-ui/core'
 import Link from 'next/link'
 import FootballIcon from '@/components/icons/FootballIcon'
 import BasketballIcon from '@/components/icons/BasketballIcon'
 import AmericanFootballIcon from '@/components/icons/AmericanFootballIcon'
 import { useRouter } from 'next/router'
 
+const flexStyles: Partial<FlexProps> = {
+    gap: 'spacings.xs',
+    flexDirection: ['column', 'row'],
+    justifyContent: 'center',
+    alignItems: 'center',
+}
+
 export default function Layout(props: PropsWithChildren) {
     const router = useRouter()
-    const { isBig } = useBreakpoint()
     const [selectedTab, setSelectedTab] = useState<'football' | 'basketball' | 'american-football' | undefined>(
         undefined
     )
@@ -27,16 +32,12 @@ export default function Layout(props: PropsWithChildren) {
     return (
         <>
             <Box as="header" boxShadow="0 2px 16px 0 rgba(0, 0, 0, 0.12)">
-                <SofaHeader mode={isBig ? 'desktop' : 'mobile'} />
+                <SofaHeader mode="desktop" display={['none', 'flex']} />
+                <SofaHeader mode="mobile" display={['flex', 'none']} />
                 <SofaTabs w="100%" mode="negative">
                     <Link href="/football">
                         <SofaTab mode="negative" selected={selectedTab === 'football'}>
-                            <Flex
-                                gap="spacings.xs"
-                                flexDirection={isBig ? 'row' : 'column'}
-                                justifyContent="center"
-                                alignItems="center"
-                            >
+                            <Flex {...flexStyles}>
                                 <FootballIcon width={16} height={16} />
                                 <Text>Football</Text>
                             </Flex>
@@ -44,12 +45,7 @@ export default function Layout(props: PropsWithChildren) {
                     </Link>
                     <Link href="/basketball">
                         <SofaTab mode="negative" selected={selectedTab === 'basketball'}>
-                            <Flex
-                                gap="spacings.xs"
-                                flexDirection={isBig ? 'row' : 'column'}
-                                justifyContent="center"
-                                alignItems="center"
-                            >
+                            <Flex {...flexStyles}>
                                 <BasketballIcon width={16} height={16} />
                                 <Text>Basketball</Text>
                             </Flex>
@@ -57,14 +53,10 @@ export default function Layout(props: PropsWithChildren) {
                     </Link>
                     <Link href="/american-football">
                         <SofaTab mode="negative" selected={selectedTab === 'american-football'}>
-                            <Flex
-                                gap="spacings.xs"
-                                flexDirection={isBig ? 'row' : 'column'}
-                                justifyContent="center"
-                                alignItems="center"
-                            >
+                            <Flex {...flexStyles}>
                                 <AmericanFootballIcon width={16} height={16} />
-                                <Text>{isBig ? 'American Football' : 'Am. Football'}</Text>
+                                <Text display={['none', 'block']}>American Football</Text>
+                                <Text display={['block', 'none']}>Am. Football</Text>
                             </Flex>
                         </SofaTab>
                     </Link>

@@ -1,7 +1,7 @@
 import ChevronLeft from '@/components/icons/ChevronLeft'
 import ChevronRight from '@/components/icons/ChevronRight'
 import typography from '@/utils/typography'
-import { Box, Button, Flex, FlexProps, Text } from '@kuma-ui/core'
+import { Box, BoxProps, Button, Flex, FlexProps, Text } from '@kuma-ui/core'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 import { DateTime } from 'luxon'
@@ -27,6 +27,40 @@ const buttonStyles = {
     _hover: {
         bg: 'colors.surface.s0',
     },
+}
+
+const flexStyles1: Partial<FlexProps> = {
+    w: '100%',
+    bg: 'colors.primary.variant',
+    overflow: 'hidden',
+    position: 'relative',
+    p: '0 40px',
+    justifyContent: 'center',
+}
+
+const flexStyles2: Partial<FlexProps> = {
+    justifyContent: 'center',
+    alignContent: 'center',
+    flexDirection: 'column',
+    ...typography.micro,
+    color: 'colors.surface.s1',
+    flex: 1,
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    _hover: {
+        bg: 'colors.primary.default',
+    },
+    position: 'relative',
+}
+
+const boxStyles: Partial<BoxProps> = {
+    h: 4,
+    w: 'calc(100% - 8px)',
+    bg: 'colors.surface.s1',
+    position: 'absolute',
+    borderRadius: '2px 2px 0 0',
+    bottom: 0,
+    left: 4,
 }
 
 const MotionFlex = motion(Flex)
@@ -99,16 +133,7 @@ export default function DateSelector({ selected, setSelected, ...restProps }: Da
     }
 
     return (
-        <Flex
-            {...restProps}
-            w="100%"
-            bg="colors.primary.variant"
-            overflow="hidden"
-            position="relative"
-            p="0 40px"
-            justifyContent="center"
-            ref={containerRef}
-        >
+        <Flex {...restProps} {...flexStyles1} ref={containerRef}>
             <Button {...buttonStyles} left={8} position="absolute" onClick={() => handleScroll('left')}>
                 <ChevronLeft />
             </Button>
@@ -135,22 +160,7 @@ export default function DateSelector({ selected, setSelected, ...restProps }: Da
                     dragElastic={1}
                 >
                     {dates.map(date => (
-                        <Flex
-                            key={date.toString()}
-                            justifyContent="center"
-                            alignContent="center"
-                            flexDirection="column"
-                            {...typography.micro}
-                            color="colors.surface.s1"
-                            flex={1}
-                            cursor="pointer"
-                            transition="all 0.3s ease"
-                            _hover={{
-                                bg: 'colors.primary.default',
-                            }}
-                            position="relative"
-                            onClick={() => setSelected(date)}
-                        >
+                        <Flex key={date.toString()} {...flexStyles2} onClick={() => setSelected(date)}>
                             {!isSmallWidth ? (
                                 <>
                                     <Text textAlign="center">
@@ -166,17 +176,7 @@ export default function DateSelector({ selected, setSelected, ...restProps }: Da
                                     <Text textAlign="center">{date.toFormat('MM')}</Text>
                                 </>
                             )}
-                            {datesEqual(date, selected) && (
-                                <Box
-                                    h={4}
-                                    w="calc(100% - 8px)"
-                                    bg="colors.surface.s1"
-                                    position="absolute"
-                                    borderRadius="2px 2px 0 0"
-                                    bottom={0}
-                                    left={4}
-                                />
-                            )}
+                            {datesEqual(date, selected) && <Box {...boxStyles} />}
                         </Flex>
                     ))}
                 </MotionFlex>

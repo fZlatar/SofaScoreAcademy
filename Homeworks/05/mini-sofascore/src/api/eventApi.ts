@@ -14,6 +14,6 @@ export async function getEventIncidents(id: number): Promise<EventIncident[]> {
 }
 
 export function getEventIncidentsSwr(id: number): string {
-    const path = `api/event/${id}/incidents`
+    const path = `/api/event/${id}/incidents`
     return path
 }

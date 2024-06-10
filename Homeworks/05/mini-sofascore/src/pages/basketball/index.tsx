@@ -1,10 +1,9 @@
-import { Box, Flex } from '@kuma-ui/core'
+import { Box, Flex, FlexProps } from '@kuma-ui/core'
 import { ReactElement, useEffect, useState } from 'react'
 import Layout from '@/modules/Layout'
 import Head from 'next/head'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { getAvailableTournamentsForSport, getEventsForSportAndDate } from '@/api/sportApi'
-import { AvailableTournamentForSport } from '@/models/sport'
 import { NextPageWithLayout } from '../_app'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
 import Leagues from '@/modules/Leagues'
@@ -15,9 +14,10 @@ import useSWR from 'swr'
 import { getEventIncidentsSwr } from '@/api/eventApi'
 import { AnimatePresence, motion } from 'framer-motion'
 import EventPopup from '@/modules/eventPopup/EventPopup'
+import { TournamentDetails } from '@/models/tournament'
 
 type BasketballPageRepo = {
-    tournaments: AvailableTournamentForSport[]
+    tournaments: TournamentDetails[]
     events: EventDetails[]
 }
 
@@ -37,6 +37,20 @@ const variants = {
     },
 }
 
+const flexStyles: Partial<FlexProps> = {
+    flexDirection: 'row',
+    gap: 24,
+    w: '100%',
+    alignItems: 'flex-start',
+}
+
+const motionFlexStyles: Partial<FlexProps> = {
+    w: 'calc((100% - 48px) / 3)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+}
+
 const BasketballPage: NextPageWithLayout<BasketballPageProps> = ({ repo }) => {
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const { data, isLoading, error } = useSWR<EventIncident[]>(
@@ -52,11 +66,11 @@ const BasketballPage: NextPageWithLayout<BasketballPageProps> = ({ repo }) => {
             ? [
                   {
                       name: selectedEvent.tournament.name,
-                      link: `/basketball/league/${selectedEvent.tournament.slug}`,
+                      link: `/basketball/league/${selectedEvent.tournament.slug}/${selectedEvent.tournament.id}`,
                   },
                   {
                       name: `${selectedEvent.homeTeam.name} vs ${selectedEvent.awayTeam.name}`,
-                      link: `/basketball/match/${selectedEvent.slug}?id=${selectedEvent.id}`,
+                      link: `/basketball/match/${selectedEvent.slug}/${selectedEvent.id}`,
                   },
               ]
             : []),
@@ -70,7 +84,7 @@ const BasketballPage: NextPageWithLayout<BasketballPageProps> = ({ repo }) => {
             </Head>
             <Box ml={24} mr={24} mb={24}>
                 <Breadcrumbs w="100%" crumbs={crumbs} />
-                <Flex flexDirection="row" gap={24} w="100%" alignItems="flex-start">
+                <Flex {...flexStyles}>
                     <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} />
                     <Events
                         w="calc((100% - 48px) / 3)"
@@ -84,10 +98,7 @@ const BasketballPage: NextPageWithLayout<BasketballPageProps> = ({ repo }) => {
                         {selectedEvent && data && !isLoading && (
                             <MotionFlex
                                 key={selectedEvent.id}
-                                w="calc((100% - 48px) / 3)"
-                                display="flex"
-                                justifyContent="center"
-                                alignItems="center"
+                                {...motionFlexStyles}
                                 variants={variants}
                                 initial="initial"
                                 animate="animate"

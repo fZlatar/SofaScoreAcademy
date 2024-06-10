@@ -45,7 +45,7 @@ const theme = createTheme({
     },
     letterSpacings: {
         normal: 'normal',
-        tabular: '-0.28px',
+        tabular: -0.28,
     },
     fonts: {
         robotoRegular: 'var(--font-roboto-regular)',
@@ -148,6 +148,16 @@ const theme = createTheme({
                         opacity: 0.4,
                         cursor: 'default',
                     },
+                },
+                wrapper: {
+                    gap: 0,
+                    border: 'none',
+                    borderRadius: 0,
+                    display: 'block',
+                    textAlign: 'left',
+                    fontWeight: 'inherit',
+                    fontSize: 'inherit',
+                    lineHeight: 'inherit',
                 },
             },
         },
