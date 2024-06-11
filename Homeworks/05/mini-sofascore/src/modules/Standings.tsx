@@ -58,6 +58,7 @@ export default function Standings({
                     >
                         {tournaments.map(t => (
                             <SofaOptionItem
+                                key={t.id}
                                 icon={<Image src={getTournamentImageSrc(t.id)} />}
                                 label={t.name}
                                 onClick={() => setSelected(t)}

@@ -24,6 +24,7 @@ import TeamHeader from '@/modules/TeamHeader'
 import TeamInfo from '@/modules/TeamInfo'
 import TeamSquad from '@/modules/TeamSquad'
 import { useRouter } from 'next/router'
+import { getPrevAndNextIndex } from '@/utils/utils'
 
 type AmericanFootballTeamPageRepo = {
     tournaments: TournamentDetails[]
@@ -48,11 +49,6 @@ const variants = {
     exit: {
         x: '200%',
     },
-}
-
-interface Current {
-    label: 'next' | 'last'
-    index: number
 }
 
 const AmericanFootballTeamPage: NextPageWithLayout<AmericanFootballTeamPageProps> = ({ repo }) => {
@@ -196,6 +192,7 @@ const AmericanFootballTeamPage: NextPageWithLayout<AmericanFootballTeamPageProps
                                 <TeamSquad
                                     coach={repo.team.managerName ? repo.team.managerName : undefined}
                                     players={repo.players}
+                                    sport="american-football"
                                     w="100%"
                                 />
                             )}
@@ -249,27 +246,3 @@ export const getServerSideProps = (async context => {
 }) satisfies GetServerSideProps<{ repo: AmericanFootballTeamPageRepo }>
 
 export default AmericanFootballTeamPage
-
-export function getPrevAndNextIndex(indexCurr: number) {
-    let prevIndex = indexCurr - 1
-    let nextIndex = indexCurr + 1
-    let prevLabel: 'last' | 'next' = 'next'
-    let nextLabel: 'last' | 'next' = 'next'
-    if (prevIndex < 0) {
-        prevLabel = 'last'
-        prevIndex = Math.abs(prevIndex + 1)
-    }
-    if (nextIndex < 0) {
-        nextLabel = 'last'
-        nextIndex = Math.abs(nextIndex + 1)
-    }
-    const prev: Current = {
-        label: prevLabel,
-        index: prevIndex,
-    }
-    const next: Current = {
-        label: nextLabel,
-        index: nextIndex,
-    }
-    return { prev, next }
-}

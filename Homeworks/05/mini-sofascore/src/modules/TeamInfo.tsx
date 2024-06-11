@@ -136,7 +136,7 @@ export default function TeamInfo({
                     </Flex>
                     <Flex justifyContent="center" alignItems="center" flexWrap="wrap" flexDirection="row">
                         {teamTournaments.map(t => (
-                            <Link href={`/${t.sport.slug}/league/${t.slug}/${t.id}`}>
+                            <Link href={`/${t.sport.slug}/league/${t.slug}/${t.id}`} key={t.id}>
                                 <Flex
                                     flexDirection="column"
                                     justifyContent="center"

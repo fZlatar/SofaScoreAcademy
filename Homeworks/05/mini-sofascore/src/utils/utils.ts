@@ -164,3 +164,32 @@ export function extractPeriods(event: EventDetails, incidents: EventIncident[]) 
 
     return periods
 }
+
+interface Current {
+    label: 'next' | 'last'
+    index: number
+}
+
+export function getPrevAndNextIndex(indexCurr: number) {
+    let prevIndex = indexCurr - 1
+    let nextIndex = indexCurr + 1
+    let prevLabel: 'last' | 'next' = 'next'
+    let nextLabel: 'last' | 'next' = 'next'
+    if (prevIndex < 0) {
+        prevLabel = 'last'
+        prevIndex = Math.abs(prevIndex + 1)
+    }
+    if (nextIndex < 0) {
+        nextLabel = 'last'
+        nextIndex = Math.abs(nextIndex + 1)
+    }
+    const prev: Current = {
+        label: prevLabel,
+        index: prevIndex,
+    }
+    const next: Current = {
+        label: nextLabel,
+        index: nextIndex,
+    }
+    return { prev, next }
+}

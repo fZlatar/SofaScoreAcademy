@@ -4,14 +4,16 @@ import { PlayerDetails } from '@/models/player'
 import countries from '@/utils/countries'
 import typography from '@/utils/typography'
 import { Box, Flex, FlexProps, Text, Image } from '@kuma-ui/core'
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 export interface TeamSquadProps extends FlexProps {
     coach?: string
     players: PlayerDetails[]
+    sport: 'football' | 'basketball' | 'american-football'
 }
 
-export default function TeamSquad({ coach, players, ...restProps }: TeamSquadProps) {
+export default function TeamSquad({ coach, players, sport, ...restProps }: TeamSquadProps) {
     return (
         <Flex
             {...restProps}
@@ -20,6 +22,7 @@ export default function TeamSquad({ coach, players, ...restProps }: TeamSquadPro
             bg="colors.surface.s1"
             overflow="hidden"
             flexDirection="column"
+            pb={16}
         >
             <Flex h={48} p="8px 16px 8px 16px" justifyContent="flex-end" flexDirection="column" alignItems="flex-start">
                 <Text color="colors.onSurface.nLv1" {...typography.assistive}>
@@ -47,10 +50,12 @@ export default function TeamSquad({ coach, players, ...restProps }: TeamSquadPro
                 </Text>
             </Flex>
             {players.map((p, i) => (
-                <>
+                <Box key={p.id}>
                     {i !== 0 && <Box mt={7} w="100%" borderBottom="1px solid" borderColor="colors.onSurface.nLv4" />}
-                    <PlayerItem player={p} />
-                </>
+                    <Link href={`/${sport}/player/${p.id}`}>
+                        <PlayerItem player={p} w="100%" />
+                    </Link>
+                </Box>
             ))}
         </Flex>
     )
