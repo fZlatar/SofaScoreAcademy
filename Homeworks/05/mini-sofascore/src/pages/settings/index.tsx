@@ -8,8 +8,10 @@ import typography from '@/utils/typography'
 import SofaInput from '@/components/SofaInput'
 import SofaChoice from '@/components/SofaChoice'
 import SofaLogo from '@/components/icons/SofaLogo'
+import { useThemeContext } from '@/context/ThemeContext'
 
 const FootballPage: NextPageWithLayout = () => {
+    const { setIsDark } = useThemeContext()
     const [language, setLanguage] = useState<'Croatian' | 'English'>('English')
     const [theme, setTheme] = useState('Light')
     const [dateFormat, setDateFormat] = useState('DD / MM / YYYY')
@@ -20,19 +22,21 @@ const FootballPage: NextPageWithLayout = () => {
         },
     ]
 
+    setIsDark(theme === 'Dark')
+
     return (
         <>
             <Head>
                 <title>Settings</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
-            <Box ml={24} mr={24} mb={24}>
-                <Breadcrumbs w="100%" crumbs={crumbs} />
+            <Box ml={[0, 24]} mr={[0, 24]} mb={[0, 24]}>
+                <Breadcrumbs w="100%" crumbs={crumbs} display={['none', 'flex']} />
                 <Flex w="100%" justifyContent="center">
                     <Flex
-                        w="calc(100% / 3)"
+                        w={['100%', 'calc(100% / 3)']}
                         bg="colors.surface.s1"
-                        borderRadius={16}
+                        borderRadius={[0, 16]}
                         boxShadow="0 1px 4px 0 rgba(0, 0, 0, 0.08)"
                         overflow="hidden"
                         flexDir="column"
