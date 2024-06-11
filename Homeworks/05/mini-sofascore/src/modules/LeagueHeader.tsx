@@ -54,8 +54,16 @@ export default function LeagueHeader({ league, selectedTab, setSelectedTab, ...r
         >
             <Breadcrumbs h={48} crumbs={crumbs} display={['flex', 'none']} />
             <Flex h={[64, 112]} gap={24} flexDirection="row" justifyContent="flex-start" alignItems="center">
-                <Flex justifyContent="center" alignItems="center" h={80} w={80}>
-                    <Image src={getTournamentImageSrc(league.id)} h={57} w={57} />
+                <Flex
+                    justifyContent="center"
+                    alignItems="center"
+                    h={[56, 80]}
+                    w={[56, 80]}
+                    borderRadius={4}
+                    border="1px solid"
+                    borderColor="colors.onSurface.nLv3"
+                >
+                    <Image src={getTournamentImageSrc(league.id)} h={[40, 57]} w={[40, 57]} />
                 </Flex>
                 <Flex flexDirection="column" color="colors.onSurface.nLv1" gap={8}>
                     <Text {...heading}>{league.name}</Text>

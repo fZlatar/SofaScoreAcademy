@@ -1,6 +1,8 @@
 import { getTeamImageSrc } from '@/api/teamApi'
 import { getTournamentImageSrc } from '@/api/tournamentApi'
+import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
 import SofaTabs, { SofaTab } from '@/components/SofaTabs'
+import useBreakpoint from '@/hooks/useBreakpoint'
 import { TeamDetails } from '@/models/team'
 import { TournamentDetails } from '@/models/tournament'
 import countries from '@/utils/countries'
@@ -10,11 +12,28 @@ import React from 'react'
 
 export interface LeagueHeaderProps extends FlexProps {
     team: TeamDetails
+    sport: 'football' | 'basketball' | 'american-football'
     selectedTab: 'matches' | 'standings' | 'details' | 'squad'
     setSelectedTab: (s: 'matches' | 'standings' | 'details' | 'squad') => void
 }
 
-export default function LeagueHeader({ team, selectedTab, setSelectedTab, ...restProps }: LeagueHeaderProps) {
+export default function LeagueHeader({ team, sport, selectedTab, setSelectedTab, ...restProps }: LeagueHeaderProps) {
+    const { isSmall } = useBreakpoint()
+    const sportBig = sport === 'football' ? 'Football' : sport === 'basketball' ? 'Basketball' : 'Am. Football'
+
+    const crumbs: Crumb[] = [
+        {
+            name: sportBig,
+            link: `/${sport}`,
+        },
+        {
+            name: team.name,
+            link: `/${sport}/team/${team.id}`,
+        },
+    ]
+
+    const heading = isSmall ? typography.h1 : typography.h1Desktop
+
     return (
         <Flex
             {...restProps}
@@ -27,21 +46,25 @@ export default function LeagueHeader({ team, selectedTab, setSelectedTab, ...res
             pl={16}
             pr={16}
             overflow="hidden"
+            position={['sticky', 'static']}
+            top={48}
+            zIndex={1000}
         >
-            <Flex h={112} gap={24} flexDirection="row" justifyContent="flex-start" alignItems="center">
+            <Breadcrumbs crumbs={crumbs} display={['flex', 'none']} />
+            <Flex h={[64, 112]} gap={24} flexDirection="row" justifyContent="flex-start" alignItems="center">
                 <Flex
                     justifyContent="center"
                     alignItems="center"
-                    h={80}
-                    w={80}
+                    h={[56, 80]}
+                    w={[56, 80]}
                     borderRadius={4}
                     border="1px solid"
                     borderColor="colors.onSurface.nLv3"
                 >
-                    <Image src={getTeamImageSrc(team.id)} h={57} w={57} />
+                    <Image src={getTeamImageSrc(team.id)} h={[40, 57]} w={[40, 57]} />
                 </Flex>
                 <Flex flexDirection="column" color="colors.onSurface.nLv1" gap={8}>
-                    <Text {...typography.h1Desktop}>{team.name}</Text>
+                    <Text {...heading}>{team.name}</Text>
                     <Flex gap={4}>
                         <Image
                             src={`https://www.sofascore.com/static/images/flags/${
@@ -54,9 +77,9 @@ export default function LeagueHeader({ team, selectedTab, setSelectedTab, ...res
                     </Flex>
                 </Flex>
             </Flex>
-            <SofaTabs mode="positive" h={48}>
-                <Button variant="wrapper" onClick={() => setSelectedTab('details')}>
-                    <SofaTab mode="positive" selected={selectedTab === 'details'}>
+            <SofaTabs mode="positive" h={48} w={['100%', 'auto']}>
+                <Button w={['25%', 'auto']} variant="wrapper" onClick={() => setSelectedTab('details')}>
+                    <SofaTab w="100%" mode="positive" selected={selectedTab === 'details'}>
                         <Flex gap="spacings.xs" flexDirection="row" justifyContent="center" alignItems="center">
                             <Text
                                 {...typography.body}
@@ -67,8 +90,8 @@ export default function LeagueHeader({ team, selectedTab, setSelectedTab, ...res
                         </Flex>
                     </SofaTab>
                 </Button>
-                <Button variant="wrapper" onClick={() => setSelectedTab('matches')}>
-                    <SofaTab mode="positive" selected={selectedTab === 'matches'}>
+                <Button w={['25%', 'auto']} variant="wrapper" onClick={() => setSelectedTab('matches')}>
+                    <SofaTab w="100%" mode="positive" selected={selectedTab === 'matches'}>
                         <Flex gap="spacings.xs" flexDirection="row" justifyContent="center" alignItems="center">
                             <Text
                                 {...typography.body}
@@ -79,8 +102,8 @@ export default function LeagueHeader({ team, selectedTab, setSelectedTab, ...res
                         </Flex>
                     </SofaTab>
                 </Button>
-                <Button variant="wrapper" onClick={() => setSelectedTab('standings')}>
-                    <SofaTab mode="positive" selected={selectedTab === 'standings'}>
+                <Button w={['25%', 'auto']} variant="wrapper" onClick={() => setSelectedTab('standings')}>
+                    <SofaTab w="100%" mode="positive" selected={selectedTab === 'standings'}>
                         <Flex gap="spacings.xs" flexDirection="row" justifyContent="center" alignItems="center">
                             <Text
                                 {...typography.body}
@@ -91,8 +114,8 @@ export default function LeagueHeader({ team, selectedTab, setSelectedTab, ...res
                         </Flex>
                     </SofaTab>
                 </Button>
-                <Button variant="wrapper" onClick={() => setSelectedTab('squad')}>
-                    <SofaTab mode="positive" selected={selectedTab === 'squad'}>
+                <Button w={['25%', 'auto']} variant="wrapper" onClick={() => setSelectedTab('squad')}>
+                    <SofaTab w="100%" mode="positive" selected={selectedTab === 'squad'}>
                         <Flex gap="spacings.xs" flexDirection="row" justifyContent="center" alignItems="center">
                             <Text
                                 {...typography.body}

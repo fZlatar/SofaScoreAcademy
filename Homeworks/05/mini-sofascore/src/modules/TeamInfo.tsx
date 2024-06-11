@@ -31,8 +31,14 @@ export default function TeamInfo({
 }: TeamInfoProps) {
     const router = useRouter()
     return (
-        <Flex {...restProps} flexDirection="row" justifyContent="flex-start" gap={24}>
-            <Flex w="calc((100% - 24px) / 2)" gap={12} flexDirection="column">
+        <Flex {...restProps} flexDirection={['column', 'row']} justifyContent="flex-start" gap={[12, 24]}>
+            <Flex
+                ml={[8, 0]}
+                mr={[8, 0]}
+                w={['calc(100% - 16px)', 'calc((100% - 24px) / 2)']}
+                gap={12}
+                flexDirection="column"
+            >
                 <Flex
                     bg="colors.surface.s1"
                     borderRadius={16}
@@ -127,7 +133,13 @@ export default function TeamInfo({
                     </Flex>
                 </Flex>
             </Flex>
-            <Flex w="calc((100% - 24px) / 2)" gap={12} flexDirection="column">
+            <Flex
+                ml={[8, 0]}
+                mr={[8, 0]}
+                w={['calc(100% - 16px)', 'calc((100% - 24px) / 2)']}
+                gap={12}
+                flexDirection="column"
+            >
                 <Flex w="100%" flexDirection="column" borderRadius={16} bg="colors.surface.s1" pb={16}>
                     <Flex h={48} justifyContent="center" alignItems="center">
                         <Text as="h2" {...typography.h2}>
