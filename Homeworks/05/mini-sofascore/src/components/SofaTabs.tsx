@@ -57,6 +57,7 @@ export function SofaTab({ mode, selected, ...restProps }: SofaTabProps) {
             cursor="pointer"
             transition="all 0.3s ease"
             position="relative"
+            {...restProps}
         >
             {restProps.children}
             {selected && (

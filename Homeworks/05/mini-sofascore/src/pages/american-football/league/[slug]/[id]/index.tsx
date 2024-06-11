@@ -20,6 +20,7 @@ import { DateTime } from 'luxon'
 import Standings from '@/modules/Standings'
 import { useRouter } from 'next/router'
 import { getPrevAndNextIndex } from '@/utils/utils'
+import useBreakpoint from '@/hooks/useBreakpoint'
 
 type AmericanFootballLeaguePageRepo = {
     tournament: TournamentDetails
@@ -45,6 +46,7 @@ const variants = {
 }
 
 const AmericanFootballLeaguePage: NextPageWithLayout<AmericanFootballLeaguePageProps> = ({ repo }) => {
+    const { isBig } = useBreakpoint()
     const { id } = useRouter().query
     const [selectedTab, setSelectedTab] = useState<'standings' | 'matches'>('matches')
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
@@ -94,18 +96,24 @@ const AmericanFootballLeaguePage: NextPageWithLayout<AmericanFootballLeaguePageP
                 <title>{`${repo.tournament.name}`}</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
-            <Box ml={24} mr={24} mb={24}>
-                <Breadcrumbs w="100%" crumbs={crumbs} />
-                <Flex flexDirection="row" gap={24} w="100%" alignItems="flex-start">
-                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} selected={repo.tournament.id} />
+            <Box ml={[0, 24]} mr={[0, 24]} mb={24}>
+                <Breadcrumbs w="100%" crumbs={crumbs} display={['none', 'flex']} />
+                <Flex flexDirection={['column', 'row']} gap={24} w="100%" alignItems="flex-start">
+                    <Leagues
+                        w="calc((100% - 48px) / 3)"
+                        leagues={repo.tournaments}
+                        selected={repo.tournament.id}
+                        display={['none', 'flex']}
+                    />
                     <Flex
-                        w="calc(((100% - 48px) / 3 * 2) + 24px)"
+                        w={['100%', 'calc(((100% - 48px) / 3 * 2) + 24px)']}
                         justifyContent="flex-start"
                         flexDirection="column"
                         gap={12}
                     >
                         <LeagueHeader
                             w="100%"
+                            borderRadius={[0, 16]}
                             league={repo.tournament}
                             selectedTab={selectedTab}
                             setSelectedTab={setSelectedTab}
@@ -114,7 +122,9 @@ const AmericanFootballLeaguePage: NextPageWithLayout<AmericanFootballLeaguePageP
                             {selectedTab === 'matches' ? (
                                 <>
                                     <Matches
-                                        w="calc((100% - 24px) / 2)"
+                                        ml={[8, 0]}
+                                        mr={[8, 0]}
+                                        w={['calc(100% - 16px)', 'calc((100% - 24px) / 2)']}
                                         events={events}
                                         loading={prevLoading || nextLoading}
                                         prev={prev}
@@ -127,7 +137,7 @@ const AmericanFootballLeaguePage: NextPageWithLayout<AmericanFootballLeaguePageP
                                     />
 
                                     <AnimatePresence mode="wait">
-                                        {selectedEvent && incidents && !incidentsLoading && (
+                                        {selectedEvent && incidents && !incidentsLoading && isBig && (
                                             <MotionFlex
                                                 key={selectedEvent.id}
                                                 w="calc((100% - 24px) / 2)"
@@ -152,7 +162,13 @@ const AmericanFootballLeaguePage: NextPageWithLayout<AmericanFootballLeaguePageP
                                     </AnimatePresence>
                                 </>
                             ) : (
-                                <Standings w="100%" standings={repo.standings} sport="american-football" />
+                                <Standings
+                                    ml={[8, 0]}
+                                    mr={[8, 0]}
+                                    w={['calc(100% - 16px)', '100%']}
+                                    standings={repo.standings}
+                                    sport="american-football"
+                                />
                             )}
                         </Flex>
                     </Flex>
@@ -163,7 +179,8 @@ const AmericanFootballLeaguePage: NextPageWithLayout<AmericanFootballLeaguePageP
 }
 
 AmericanFootballLeaguePage.getLayout = function getLayout(page: ReactElement) {
-    return <Layout>{page}</Layout>
+    const { isSmall } = useBreakpoint()
+    return <Layout noTabs={isSmall}>{page}</Layout>
 }
 
 export const getServerSideProps = (async context => {

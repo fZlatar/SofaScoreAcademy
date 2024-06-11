@@ -7,6 +7,8 @@ import ChevronRight from '@/components/icons/ChevronRight'
 import Event from './events/modules/Event'
 import { DateTime } from 'luxon'
 import { AnimatePresence, motion } from 'framer-motion'
+import useBreakpoint from '@/hooks/useBreakpoint'
+import { useRouter } from 'next/router'
 
 export interface MatchesProps extends FlexProps {
     events: EventDetails[]
@@ -26,7 +28,7 @@ const buttonStyles = {
     borderRadius: 'radii.xs',
     h: 40,
     w: 56,
-    bg: 'colors.surface.s1',
+    bg: 'none',
     color: 'colors.primary.default',
     display: 'flex',
     justifyContent: 'center',
@@ -38,7 +40,7 @@ const buttonStyles = {
         bg: 'colors.surface.s0',
     },
     _disabled: {
-        bg: 'colors.surface.s1',
+        bg: 'colors.surface.s0',
         opacity: 0.4,
     },
 }
@@ -69,6 +71,8 @@ export default function Matches({
     setIndex,
     ...restProps
 }: MatchesProps) {
+    const { isSmall } = useBreakpoint()
+    const router = useRouter()
     const eventsSorted = eventsInRounds(events)
 
     const handleClick = (direction: 'left' | 'right') => {
@@ -81,15 +85,22 @@ export default function Matches({
         }
     }
 
+    const onClickEvent = (event: EventDetails) => {
+        setSelected(event)
+        if (isSmall) {
+            router.push(`/${event.tournament.sport.slug}/match/${event.slug}/${event.id}`)
+        }
+    }
+
     return (
         <Flex
             {...restProps}
             justifyContent="flex-start"
             flexDirection="column"
             borderRadius="radii.xl"
-            boxShadow="0 1px 4px 0 rgba(0, 0, 0, 0.08)"
+            boxShadow={['none', '0 1px 4px 0 rgba(0, 0, 0, 0.08)']}
             overflow="hidden"
-            bg="colors.surface.s1"
+            bg={['colors.surface.s0', 'colors.surface.s1']}
             pt={12}
             pb={16}
         >
@@ -106,8 +117,11 @@ export default function Matches({
                 <Button {...buttonStyles} onClick={() => handleClick('left')} disabled={prev?.length === 0 || loading}>
                     <ChevronLeft />
                 </Button>
-                <Text {...typography.h2} color="colors.onSurface.nLv1" textAlign="center">
+                <Text display={['none', 'block']} {...typography.h2} color="colors.onSurface.nLv1" textAlign="center">
                     {loading ? 'Loading...' : 'Matches'}
+                </Text>
+                <Text display={['block', 'none']} {...typography.h2} color="colors.onSurface.nLv1" textAlign="center">
+                    {loading && 'Loading...'}
                 </Text>
                 <Button {...buttonStyles} onClick={() => handleClick('right')} disabled={next?.length === 0 || loading}>
                     <ChevronRight />
@@ -138,16 +152,26 @@ export default function Matches({
                                         Round {r.round}
                                     </Text>
                                 </Flex>
-                                {r.events.map(e => (
-                                    <Event
-                                        key={`event-${e.id}`}
-                                        h={56}
-                                        w="100%"
-                                        event={e}
-                                        selected={selected}
-                                        onClick={() => setSelected(e)}
-                                    />
-                                ))}
+                                <Flex
+                                    justifyContent="flex-start"
+                                    flexDir="column"
+                                    w="100%"
+                                    bg={['colors.surface.s1', 'none']}
+                                    boxShadow={['0 1px 4px 0 rgba(0, 0, 0, 0.08)', 'none']}
+                                    borderRadius={[16, 0]}
+                                    pb={[8, 0]}
+                                >
+                                    {r.events.map(e => (
+                                        <Event
+                                            key={`event-${e.id}`}
+                                            h={56}
+                                            w="100%"
+                                            event={e}
+                                            selected={selected}
+                                            onClick={() => onClickEvent(e)}
+                                        />
+                                    ))}
+                                </Flex>
                             </Flex>
                         ))}
                     </MotionFlex>

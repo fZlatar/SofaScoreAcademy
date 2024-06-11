@@ -9,6 +9,10 @@ import BasketballIcon from '@/components/icons/BasketballIcon'
 import AmericanFootballIcon from '@/components/icons/AmericanFootballIcon'
 import { useRouter } from 'next/router'
 
+export interface LayoutProps extends PropsWithChildren {
+    noTabs?: boolean
+}
+
 const flexStyles: Partial<FlexProps> = {
     gap: 'spacings.xs',
     flexDirection: ['column', 'row'],
@@ -16,7 +20,7 @@ const flexStyles: Partial<FlexProps> = {
     alignItems: 'center',
 }
 
-export default function Layout(props: PropsWithChildren) {
+export default function Layout({ noTabs, children }: LayoutProps) {
     const router = useRouter()
     const [selectedTab, setSelectedTab] = useState<'football' | 'basketball' | 'american-football' | undefined>(
         undefined
@@ -38,39 +42,42 @@ export default function Layout(props: PropsWithChildren) {
                 top={0}
                 left={0}
                 w="100%"
+                zIndex={1000}
             >
                 <SofaHeader mode="desktop" display={['none', 'flex']} />
                 <SofaHeader mode="mobile" display={['flex', 'none']} />
-                <SofaTabs w="100%" mode="negative">
-                    <Link href="/football">
-                        <SofaTab mode="negative" selected={selectedTab === 'football'}>
-                            <Flex {...flexStyles}>
-                                <FootballIcon width={16} height={16} />
-                                <Text>Football</Text>
-                            </Flex>
-                        </SofaTab>
-                    </Link>
-                    <Link href="/basketball">
-                        <SofaTab mode="negative" selected={selectedTab === 'basketball'}>
-                            <Flex {...flexStyles}>
-                                <BasketballIcon width={16} height={16} />
-                                <Text>Basketball</Text>
-                            </Flex>
-                        </SofaTab>
-                    </Link>
-                    <Link href="/american-football">
-                        <SofaTab mode="negative" selected={selectedTab === 'american-football'}>
-                            <Flex {...flexStyles}>
-                                <AmericanFootballIcon width={16} height={16} />
-                                <Text display={['none', 'block']}>American Football</Text>
-                                <Text display={['block', 'none']}>Am. Football</Text>
-                            </Flex>
-                        </SofaTab>
-                    </Link>
-                </SofaTabs>
+                {!noTabs && (
+                    <SofaTabs w="100%" mode="negative">
+                        <Link href="/football">
+                            <SofaTab mode="negative" selected={selectedTab === 'football'}>
+                                <Flex {...flexStyles}>
+                                    <FootballIcon width={16} height={16} />
+                                    <Text>Football</Text>
+                                </Flex>
+                            </SofaTab>
+                        </Link>
+                        <Link href="/basketball">
+                            <SofaTab mode="negative" selected={selectedTab === 'basketball'}>
+                                <Flex {...flexStyles}>
+                                    <BasketballIcon width={16} height={16} />
+                                    <Text>Basketball</Text>
+                                </Flex>
+                            </SofaTab>
+                        </Link>
+                        <Link href="/american-football">
+                            <SofaTab mode="negative" selected={selectedTab === 'american-football'}>
+                                <Flex {...flexStyles}>
+                                    <AmericanFootballIcon width={16} height={16} />
+                                    <Text display={['none', 'block']}>American Football</Text>
+                                    <Text display={['block', 'none']}>Am. Football</Text>
+                                </Flex>
+                            </SofaTab>
+                        </Link>
+                    </SofaTabs>
+                )}
             </Box>
             <Box as="main" flex={1}>
-                {props.children}
+                {children}
             </Box>
             <Box as="footer" w="100%">
                 <SofaFooter />
