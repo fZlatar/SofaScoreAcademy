@@ -31,7 +31,14 @@ export default function Layout(props: PropsWithChildren) {
 
     return (
         <>
-            <Box as="header" boxShadow="0 2px 16px 0 rgba(0, 0, 0, 0.12)">
+            <Box
+                as="header"
+                boxShadow="0 2px 16px 0 rgba(0, 0, 0, 0.12)"
+                position={['sticky', 'static']}
+                top={0}
+                left={0}
+                w="100%"
+            >
                 <SofaHeader mode="desktop" display={['none', 'flex']} />
                 <SofaHeader mode="mobile" display={['flex', 'none']} />
                 <SofaTabs w="100%" mode="negative">

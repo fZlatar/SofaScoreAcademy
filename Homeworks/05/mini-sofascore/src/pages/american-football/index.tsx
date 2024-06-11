@@ -15,6 +15,7 @@ import { EventDetails, EventIncident } from '@/models/event'
 import { AnimatePresence, motion } from 'framer-motion'
 import EventPopup from '@/modules/eventPopup/EventPopup'
 import { TournamentDetails } from '@/models/tournament'
+import useBreakpoint from '@/hooks/useBreakpoint'
 
 type AmericanFootballPageRepo = {
     tournaments: TournamentDetails[]
@@ -52,6 +53,7 @@ const motionFlexStyles: Partial<FlexProps> = {
 }
 
 const AmericanFootballPage: NextPageWithLayout<AmericanFootballPageProps> = ({ repo }) => {
+    const { isBig } = useBreakpoint()
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const { data, isLoading, error } = useSWR<EventIncident[]>(
         selectedEvent ? getEventIncidentsSwr(selectedEvent.id) : null
@@ -82,12 +84,12 @@ const AmericanFootballPage: NextPageWithLayout<AmericanFootballPageProps> = ({ r
                 <title>Sofascore</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
-            <Box ml={24} mr={24} mb={24}>
-                <Breadcrumbs w="100%" crumbs={crumbs} />
-                <Flex {...flexStyles}>
-                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} />
+            <Box ml={[0, 24]} mr={[0, 24]} mb={24}>
+                <Breadcrumbs w="100%" crumbs={crumbs} display={['none', 'flex']} />
+                <Flex flexDirection={['column', 'row']} gap={[0, 24]} w="100%" alignItems="flex-start">
+                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} display={['none', 'flex']} />
                     <Events
-                        w="calc((100% - 48px) / 3)"
+                        w={['calc(100% - 16px)', 'calc((100% - 48px) / 3)']}
                         events={repo.events}
                         initialDate={DateTime.now()}
                         sport="american-football"
@@ -95,7 +97,7 @@ const AmericanFootballPage: NextPageWithLayout<AmericanFootballPageProps> = ({ r
                         setSelected={setSelectedEvent}
                     />
                     <AnimatePresence mode="wait">
-                        {selectedEvent && data && !isLoading && (
+                        {selectedEvent && data && !isLoading && isBig && (
                             <MotionFlex
                                 key={selectedEvent.id}
                                 {...motionFlexStyles}

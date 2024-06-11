@@ -33,7 +33,6 @@ const flexStyles1: Partial<FlexProps> = {
     w: '100%',
     bg: 'colors.primary.variant',
     overflow: 'hidden',
-    position: 'relative',
     p: '0 40px',
     justifyContent: 'center',
 }
