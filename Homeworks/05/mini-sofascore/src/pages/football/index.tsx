@@ -4,16 +4,16 @@ import Layout from '@/modules/Layout'
 import Head from 'next/head'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { getAvailableTournamentsForSport, getEventsForSportAndDate } from '@/api/sportApi'
-import { NextPageWithLayout, fetcher } from '../_app'
+import { NextPageWithLayout } from '../_app'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
 import Leagues from '@/modules/Leagues'
-import Events from '@/modules/events/Events'
 import { DateTime } from 'luxon'
+import Events from '@/modules/events/Events'
+import { EventDetails, EventIncident } from '@/models/event'
+import useSWR from 'swr'
+import { getEventIncidentsSwr } from '@/api/eventApi'
 import { AnimatePresence, motion } from 'framer-motion'
 import EventPopup from '@/modules/eventPopup/EventPopup'
-import { getEventIncidentsSwr } from '@/api/eventApi'
-import useSWR from 'swr'
-import { EventDetails, EventIncident } from '@/models/event'
 import { TournamentDetails } from '@/models/tournament'
 
 type FootballPageRepo = {
@@ -82,7 +82,7 @@ const FootballPage: NextPageWithLayout<FootballPageProps> = ({ repo }) => {
                 <title>Sofascore</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
-            <Box m="0px 24px 24px 24px">
+            <Box ml={24} mr={24} mb={24}>
                 <Breadcrumbs w="100%" crumbs={crumbs} />
                 <Flex {...flexStyles}>
                     <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} />

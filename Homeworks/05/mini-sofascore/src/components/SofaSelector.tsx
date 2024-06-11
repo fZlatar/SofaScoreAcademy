@@ -59,6 +59,7 @@ export default function SofaSelector({ placeholder, selected, selectedIcon, mode
                 alignItems="center"
                 bg={mode === 'mode2' ? 'colors.surface.s1' : 'colors.surface.s2'}
                 color="colors.onSurface.nLv1"
+                boxShadow="0 1px 4px 0 rgba(0, 0, 0, 0.08)"
                 pt="spacings.xs"
                 pr="spacings.xs"
                 pb="spacings.xs"
@@ -129,7 +130,6 @@ export default function SofaSelector({ placeholder, selected, selectedIcon, mode
 }
 
 export interface SofaOptionItemProps {
-    value: string | number
     icon?: React.ReactNode
     label?: string
     onClick?: () => void
@@ -155,7 +155,7 @@ const OptionBox = styled('div')`
     border-radius: t('radii.sm');
 `
 
-export function SofaOptionItem({ value, icon, label, ...restProps }: SofaOptionItemProps) {
+export function SofaOptionItem({ icon, label, ...restProps }: SofaOptionItemProps) {
     return (
         <OptionBox {...restProps}>
             {icon && <IconContainer>{icon}</IconContainer>}

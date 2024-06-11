@@ -29,6 +29,11 @@ export async function getTournamentStandings(id: number): Promise<TournamentStan
     return data
 }
 
+export function getTournamentStandingsSwr(id: number) {
+    const path = `/api/tournament/${id}/standings`
+    return path
+}
+
 export function getTournamentImageSrc(id: number): string {
     return `${url}/tournament/${id}/image`
 }

@@ -16,7 +16,7 @@ export interface TournamentEventsProps extends FlexProps {
     }
     index: number
     data: EventDetails[]
-    selected: EventDetails | undefined
+    selected?: EventDetails
     handleOnClickEvent: (event: EventDetails) => void
 }
 export default function TournamentEvents({

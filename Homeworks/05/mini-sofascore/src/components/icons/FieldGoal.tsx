@@ -4,7 +4,7 @@ import React from 'react'
 export default function FieldGoal({ width = 24, height = 24 }) {
     return (
         <svg width={width} height={height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#os3o329ima)">
+            <g clipPath="url(#os3o329ima)">
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"

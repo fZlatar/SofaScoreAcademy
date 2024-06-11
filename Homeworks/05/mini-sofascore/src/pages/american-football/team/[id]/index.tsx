@@ -1,11 +1,10 @@
 import { getEventIncidentsSwr } from '@/api/eventApi'
 import { getAvailableTournamentsForSport } from '@/api/sportApi'
-import { getTournamentEvents, getTournamentEventsSwr, getTournamentStandings } from '@/api/tournamentApi'
+import { getTournamentStandings, getTournamentStandingsSwr } from '@/api/tournamentApi'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
 import { EventDetails, EventIncident } from '@/models/event'
 import { TournamentDetails, TournamentStandings } from '@/models/tournament'
 import Layout from '@/modules/Layout'
-import LeagueHeader from '@/modules/LeagueHeader'
 import Leagues from '@/modules/Leagues'
 import Matches from '@/modules/Matches'
 import EventPopup from '@/modules/eventPopup/EventPopup'
@@ -18,16 +17,24 @@ import { ReactElement, useEffect, useRef, useState } from 'react'
 import useSWR from 'swr'
 import { DateTime } from 'luxon'
 import Standings from '@/modules/Standings'
+import { getTeamDetails, getTeamEvents, getTeamEventsSwr, getTeamPlayers, getTeamTournaments } from '@/api/teamApi'
+import { PlayerDetails } from '@/models/player'
+import { TeamDetails } from '@/models/team'
+import TeamHeader from '@/modules/TeamHeader'
+import TeamInfo from '@/modules/TeamInfo'
+import TeamSquad from '@/modules/TeamSquad'
 import { useRouter } from 'next/router'
 
-type FootballLeaguePageRepo = {
-    tournament: TournamentDetails
+type AmericanFootballTeamPageRepo = {
     tournaments: TournamentDetails[]
+    team: TeamDetails
+    teamTournaments: TournamentDetails[]
+    players: PlayerDetails[]
     events: EventDetails[]
     standings: TournamentStandings[]
 }
 
-type FootballLeaguePageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+type AmericanFootballTeamPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const MotionFlex = motion(Flex)
 
@@ -48,10 +55,11 @@ interface Current {
     index: number
 }
 
-const FootballLeaguePage: NextPageWithLayout<FootballLeaguePageProps> = ({ repo }) => {
+const AmericanFootballTeamPage: NextPageWithLayout<AmericanFootballTeamPageProps> = ({ repo }) => {
     const { id } = useRouter().query
-    const [selectedTab, setSelectedTab] = useState<'standings' | 'matches'>('matches')
+    const [selectedTab, setSelectedTab] = useState<'standings' | 'matches' | 'details' | 'squad'>('details')
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
+    const [selectedTournament, setSelectedTournament] = useState(repo.teamTournaments[0])
     const {
         data: incidents,
         isLoading: incidentsLoading,
@@ -59,6 +67,7 @@ const FootballLeaguePage: NextPageWithLayout<FootballLeaguePageProps> = ({ repo 
     } = useSWR<EventIncident[]>(selectedEvent ? getEventIncidentsSwr(selectedEvent.id) : null)
 
     const [events, setEvents] = useState(repo.events)
+
     const index = useRef(0)
     const setIndex = (i: number) => {
         index.current = i
@@ -70,21 +79,28 @@ const FootballLeaguePage: NextPageWithLayout<FootballLeaguePageProps> = ({ repo 
         data: prev,
         isLoading: prevLoading,
         error: prevError,
-    } = useSWR<EventDetails[]>(getTournamentEventsSwr(repo.tournament.id, prevIndex.label, prevIndex.index))
+    } = useSWR<EventDetails[]>(getTeamEventsSwr(repo.team.id, prevIndex.label, prevIndex.index))
     const {
         data: next,
         isLoading: nextLoading,
         error: nextError,
-    } = useSWR<EventDetails[]>(getTournamentEventsSwr(repo.tournament.id, nextIndex.label, nextIndex.index))
+    } = useSWR<EventDetails[]>(getTeamEventsSwr(repo.team.id, nextIndex.label, nextIndex.index))
+
+    const { data: standings, error: errorStandings } = useSWR<TournamentStandings[]>(
+        selectedTournament !== repo.teamTournaments[0] ? getTournamentStandingsSwr(selectedTournament.id) : null,
+        {
+            fallbackData: repo.standings,
+        }
+    )
 
     const crumbs: Crumb[] = [
         {
-            name: 'Football',
-            link: '/football',
+            name: 'AmericanFootball',
+            link: '/american-football',
         },
         {
-            name: repo.tournament.name,
-            link: `/football/league/${repo.tournament.slug}/${repo.tournament.id}`,
+            name: repo.team.name,
+            link: `/american-football/team/${repo.team.id}`,
         },
     ]
 
@@ -95,27 +111,38 @@ const FootballLeaguePage: NextPageWithLayout<FootballLeaguePageProps> = ({ repo 
     return (
         <>
             <Head>
-                <title>{`${repo.tournament.name}`}</title>
+                <title>{`${repo.team.name}`}</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
             <Box ml={24} mr={24} mb={24}>
                 <Breadcrumbs w="100%" crumbs={crumbs} />
                 <Flex flexDirection="row" gap={24} w="100%" alignItems="flex-start">
-                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} selected={repo.tournament.id} />
+                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} />
                     <Flex
                         w="calc(((100% - 48px) / 3 * 2) + 24px)"
                         justifyContent="flex-start"
                         flexDirection="column"
                         gap={12}
                     >
-                        <LeagueHeader
+                        <TeamHeader
                             w="100%"
-                            league={repo.tournament}
+                            team={repo.team}
                             selectedTab={selectedTab}
                             setSelectedTab={setSelectedTab}
                         />
                         <Flex w="100%" justifyContent="flex-start" alignItems="flex-start" flexDirection="row" gap={24}>
-                            {selectedTab === 'matches' ? (
+                            {selectedTab === 'details' ? (
+                                <TeamInfo
+                                    team={repo.team}
+                                    teamTournaments={repo.teamTournaments}
+                                    nextEvent={repo.events.length === 0 ? undefined : repo.events[0]}
+                                    totalPlayers={repo.players.length}
+                                    foreignPlayers={
+                                        repo.players.filter(p => p.country.id !== repo.team.country.id).length
+                                    }
+                                    w="100%"
+                                />
+                            ) : selectedTab === 'matches' ? (
                                 <>
                                     <Matches
                                         w="calc((100% - 24px) / 2)"
@@ -155,8 +182,22 @@ const FootballLeaguePage: NextPageWithLayout<FootballLeaguePageProps> = ({ repo 
                                         )}
                                     </AnimatePresence>
                                 </>
+                            ) : selectedTab === 'standings' ? (
+                                <Standings
+                                    w="100%"
+                                    standings={standings ? standings : repo.standings}
+                                    selected={selectedTournament}
+                                    setSelected={setSelectedTournament}
+                                    tournaments={repo.teamTournaments}
+                                    teamId={repo.team.id}
+                                    sport="american-football"
+                                />
                             ) : (
-                                <Standings w="100%" standings={repo.standings} sport="football" />
+                                <TeamSquad
+                                    coach={repo.team.managerName ? repo.team.managerName : undefined}
+                                    players={repo.players}
+                                    w="100%"
+                                />
                             )}
                         </Flex>
                     </Flex>
@@ -166,17 +207,20 @@ const FootballLeaguePage: NextPageWithLayout<FootballLeaguePageProps> = ({ repo 
     )
 }
 
-FootballLeaguePage.getLayout = function getLayout(page: ReactElement) {
+AmericanFootballTeamPage.getLayout = function getLayout(page: ReactElement) {
     return <Layout>{page}</Layout>
 }
 
 export const getServerSideProps = (async context => {
-    const { slug, id } = context.query
+    const { id } = context.query
 
     try {
-        const tournaments = await getAvailableTournamentsForSport('football')
-        const events = await getTournamentEvents(Number(id), 'next', 0)
-        const standings = await getTournamentStandings(Number(id))
+        const tournaments = await getAvailableTournamentsForSport('american-football')
+        const team = await getTeamDetails(Number(id))
+        const teamTournaments = await getTeamTournaments(Number(id))
+        const players = await getTeamPlayers(Number(id))
+        const events = await getTeamEvents(Number(id), 'next', 0)
+        const standings = await getTournamentStandings(teamTournaments[0].id)
 
         events.sort((a, b) => {
             const aDateTime = a.startDate ? DateTime.fromISO(a.startDate) : DateTime.invalid('Invalid Date')
@@ -187,19 +231,13 @@ export const getServerSideProps = (async context => {
             return aDateTime.isValid ? -1 : 1
         })
 
-        const tournament = tournaments.find(t => t.id === Number(id))
-
-        if (!tournament || tournament.slug !== slug) {
-            return {
-                notFound: true,
-            }
-        }
-
         const repo = {
-            tournaments: tournaments,
-            events: events,
-            tournament: tournament,
-            standings: standings,
+            tournaments,
+            team,
+            teamTournaments,
+            players,
+            events,
+            standings,
         }
 
         return { props: { repo } }
@@ -208,9 +246,9 @@ export const getServerSideProps = (async context => {
             notFound: true,
         }
     }
-}) satisfies GetServerSideProps<{ repo: FootballLeaguePageRepo }>
+}) satisfies GetServerSideProps<{ repo: AmericanFootballTeamPageRepo }>
 
-export default FootballLeaguePage
+export default AmericanFootballTeamPage
 
 export function getPrevAndNextIndex(indexCurr: number) {
     let prevIndex = indexCurr - 1

@@ -6,11 +6,7 @@ import ChevronLeft from '@/components/icons/ChevronLeft'
 import ChevronRight from '@/components/icons/ChevronRight'
 import Event from './events/modules/Event'
 import { DateTime } from 'luxon'
-
-interface Current {
-    label: 'next' | 'last'
-    index: number
-}
+import { AnimatePresence, motion } from 'framer-motion'
 
 export interface MatchesProps extends FlexProps {
     events: EventDetails[]
@@ -47,6 +43,20 @@ const buttonStyles = {
     },
 }
 
+const MotionFlex = motion(Flex)
+
+const variants = {
+    initial: {
+        height: 0,
+    },
+    animate: {
+        height: 'auto',
+    },
+    exit: {
+        height: 0,
+    },
+}
+
 export default function Matches({
     events,
     prev,
@@ -60,6 +70,16 @@ export default function Matches({
     ...restProps
 }: MatchesProps) {
     const eventsSorted = eventsInRounds(events)
+
+    const handleClick = (direction: 'left' | 'right') => {
+        if (direction === 'left') {
+            setIndex(index - 1)
+            setEvents(prev ? prev : events)
+        } else {
+            setIndex(index + 1)
+            setEvents(next ? next : events)
+        }
+    }
 
     return (
         <Flex
@@ -83,62 +103,56 @@ export default function Matches({
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Button
-                    {...buttonStyles}
-                    onClick={() => {
-                        setEvents(prev ? prev : events)
-                        setIndex(index - 1)
-                    }}
-                    disabled={prev?.length === 0 || loading}
-                >
+                <Button {...buttonStyles} onClick={() => handleClick('left')} disabled={prev?.length === 0 || loading}>
                     <ChevronLeft />
                 </Button>
                 <Text {...typography.h2} color="colors.onSurface.nLv1" textAlign="center">
-                    Matches
+                    {loading ? 'Loading...' : 'Matches'}
                 </Text>
-                <Button
-                    {...buttonStyles}
-                    onClick={() => {
-                        setEvents(next ? next : events)
-                        setIndex(index + 1)
-                    }}
-                    disabled={next?.length === 0 || loading}
-                >
+                <Button {...buttonStyles} onClick={() => handleClick('right')} disabled={next?.length === 0 || loading}>
                     <ChevronRight />
                 </Button>
             </Flex>
-            {prev === undefined || next === undefined ? (
-                <Flex h={48} w="100%">
-                    Loading...
-                </Flex>
-            ) : (
-                eventsSorted.map(r => (
-                    <Flex key={r.round} justifyContent="flex-start" flexDirection="column">
-                        <Flex
-                            h={48}
-                            w="100%"
-                            p="8px 16px"
-                            justifyContent="flex-end"
-                            flexDirection="column"
-                            alignItems="flex-start"
-                        >
-                            <Text {...typography.assistive} color="colors.onSurface.nLv1">
-                                Round {r.round}
-                            </Text>
-                        </Flex>
-                        {r.events.map(e => (
-                            <Event
-                                key={`event-${e.id}`}
-                                h={56}
-                                w="100%"
-                                event={e}
-                                selected={selected}
-                                onClick={() => setSelected(e)}
-                            />
+            <AnimatePresence mode="wait" initial={false}>
+                {!loading && (
+                    <MotionFlex
+                        key="events"
+                        display="flex"
+                        flexDirection="column"
+                        variants={variants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                    >
+                        {eventsSorted.map(r => (
+                            <Flex key={r.round} justifyContent="flex-start" flexDirection="column">
+                                <Flex
+                                    h={48}
+                                    w="100%"
+                                    p="8px 16px"
+                                    justifyContent="flex-end"
+                                    flexDirection="column"
+                                    alignItems="flex-start"
+                                >
+                                    <Text {...typography.assistive} color="colors.onSurface.nLv1">
+                                        Round {r.round}
+                                    </Text>
+                                </Flex>
+                                {r.events.map(e => (
+                                    <Event
+                                        key={`event-${e.id}`}
+                                        h={56}
+                                        w="100%"
+                                        event={e}
+                                        selected={selected}
+                                        onClick={() => setSelected(e)}
+                                    />
+                                ))}
+                            </Flex>
                         ))}
-                    </Flex>
-                ))
-            )}
+                    </MotionFlex>
+                )}
+            </AnimatePresence>
         </Flex>
     )
 }

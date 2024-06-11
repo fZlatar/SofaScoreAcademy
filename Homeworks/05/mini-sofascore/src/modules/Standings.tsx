@@ -1,11 +1,17 @@
-import { TournamentStandings } from '@/models/tournament'
+import { getTournamentImageSrc } from '@/api/tournamentApi'
+import SofaSelector, { SofaOptionItem } from '@/components/SofaSelector'
+import { TournamentDetails, TournamentStandings } from '@/models/tournament'
 import typography from '@/utils/typography'
-import { Box, Flex, FlexProps, Text } from '@kuma-ui/core'
+import { Image, Flex, FlexProps, Text } from '@kuma-ui/core'
 import React from 'react'
 
 export interface StandingsProps extends FlexProps {
     standings: TournamentStandings[]
     sport: 'basketball' | 'football' | 'american-football'
+    tournaments?: TournamentDetails[]
+    selected?: TournamentDetails
+    setSelected?: (t: TournamentDetails) => void
+    teamId?: number
 }
 
 const containerStyles: Partial<FlexProps> = {
@@ -18,11 +24,48 @@ const containerStyles: Partial<FlexProps> = {
     ...typography.tabular,
 }
 
-export default function Standings({ standings, sport, ...restProps }: StandingsProps) {
+export default function Standings({
+    standings,
+    sport,
+    tournaments,
+    selected,
+    setSelected,
+    teamId,
+    ...restProps
+}: StandingsProps) {
     const sortedStandings = standings.find(s => s.type === 'total')?.sortedStandingsRows
 
     return (
         <Flex {...restProps} {...containerStyles}>
+            {tournaments && tournaments.length !== 0 && selected && setSelected && (
+                <Flex
+                    ml={8}
+                    mr={9}
+                    mt={8}
+                    pl={8}
+                    pr={8}
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    h={48}
+                    w="calc(100% - 16px)"
+                    borderRadius={8}
+                    bg="colors.surface.s2"
+                >
+                    <SofaSelector
+                        mode="mode2"
+                        selected={selected?.name}
+                        selectedIcon={<Image src={getTournamentImageSrc(selected.id)} />}
+                    >
+                        {tournaments.map(t => (
+                            <SofaOptionItem
+                                icon={<Image src={getTournamentImageSrc(t.id)} />}
+                                label={t.name}
+                                onClick={() => setSelected(t)}
+                            />
+                        ))}
+                    </SofaSelector>
+                </Flex>
+            )}
             <Flex
                 justifyContent="space-between"
                 alignItems="center"
@@ -68,7 +111,7 @@ export default function Standings({ standings, sport, ...restProps }: StandingsP
                 </Flex>
             </Flex>
             {sortedStandings?.map((standing, index) => (
-                <Standing sortedStanding={standing} index={index + 1} key={standing.id} sport={sport} />
+                <Standing sortedStanding={standing} index={index + 1} key={standing.id} sport={sport} teamId={teamId} />
             ))}
         </Flex>
     )
@@ -98,9 +141,10 @@ export interface StandingProps extends FlexProps {
     sortedStanding: SortedStandings
     index: number
     sport: 'basketball' | 'football' | 'american-football'
+    teamId?: number
 }
 
-export function Standing({ sortedStanding, index, sport, ...restProps }: StandingProps) {
+export function Standing({ sortedStanding, index, sport, teamId, ...restProps }: StandingProps) {
     return (
         <Flex
             {...restProps}
@@ -108,6 +152,7 @@ export function Standing({ sortedStanding, index, sport, ...restProps }: Standin
             alignItems="center"
             flexDirection="row"
             color="colors.onSurface.nLv1"
+            bg={sortedStanding.team.id === teamId ? 'colors.primary.highlight' : 'initial'}
             h={48}
             pl={16}
             pr={16}
@@ -117,7 +162,7 @@ export function Standing({ sortedStanding, index, sport, ...restProps }: Standin
                     w={24}
                     h={24}
                     borderRadius="100%"
-                    bg="colors.secondary.default"
+                    bg={sortedStanding.team.id === teamId ? 'colors.surface.s1' : 'colors.secondary.default'}
                     justifyContent="center"
                     alignItems="center"
                 >

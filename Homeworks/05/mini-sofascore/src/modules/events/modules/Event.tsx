@@ -8,10 +8,11 @@ import { EventDetails } from '@/models/event'
 export interface EventProps extends FlexProps {
     event: EventDetails
     selected?: number
+    dateAndTime?: boolean
     onClick: () => void
 }
 
-export default function Event({ event, selected, onClick, ...restProps }: EventProps) {
+export default function Event({ event, selected, onClick, dateAndTime, ...restProps }: EventProps) {
     return (
         <Flex
             {...restProps}
@@ -35,8 +36,19 @@ export default function Event({ event, selected, onClick, ...restProps }: EventP
                 flexDirection="column"
                 flexShrink={0}
             >
-                <Text>{event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : 'Unknown'}</Text>
-                <Text>{event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? 'LIVE' : '-'}</Text>
+                {dateAndTime ? (
+                    <>
+                        <Text>
+                            {event.startDate ? DateTime.fromISO(event.startDate).toFormat('dd.MM.') : 'Unknown'}
+                        </Text>
+                        <Text>{event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : 'Unknown'}</Text>
+                    </>
+                ) : (
+                    <>
+                        <Text>{event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : 'Unknown'}</Text>
+                        <Text>{event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? 'LIVE' : '-'}</Text>
+                    </>
+                )}
             </Flex>
             <Box borderRight="1px solid" borderColor="colors.onSurface.nLv4" h="calc(100% - 16px)" mt={8} />
             <Flex

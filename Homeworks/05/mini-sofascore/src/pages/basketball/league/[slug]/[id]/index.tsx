@@ -1,6 +1,6 @@
 import { getEventIncidentsSwr } from '@/api/eventApi'
 import { getAvailableTournamentsForSport } from '@/api/sportApi'
-import { getTournamentEvents, getTournamentStandings } from '@/api/tournamentApi'
+import { getTournamentEvents, getTournamentEventsSwr, getTournamentStandings } from '@/api/tournamentApi'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
 import { EventDetails, EventIncident } from '@/models/event'
 import { TournamentDetails, TournamentStandings } from '@/models/tournament'
@@ -14,12 +14,11 @@ import { Box, Flex } from '@kuma-ui/core'
 import { AnimatePresence, motion } from 'framer-motion'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
-import { ReactElement, useState } from 'react'
+import { ReactElement, useEffect, useRef, useState } from 'react'
 import useSWR from 'swr'
 import { DateTime } from 'luxon'
 import Standings from '@/modules/Standings'
-
-const DEFAULT_MATCHES_COUNT = 20
+import { useRouter } from 'next/router'
 
 type BasketballLeaguePageRepo = {
     tournament: TournamentDetails
@@ -44,26 +43,54 @@ const variants = {
     },
 }
 
+interface Current {
+    label: 'next' | 'last'
+    index: number
+}
+
 const BasketballLeaguePage: NextPageWithLayout<BasketballLeaguePageProps> = ({ repo }) => {
+    const { id } = useRouter().query
     const [selectedTab, setSelectedTab] = useState<'standings' | 'matches'>('matches')
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
-    const [eventIndex, setEventIndex] = useState(calculateFirstIndex(repo.events))
     const {
         data: incidents,
         isLoading: incidentsLoading,
         error: incidentsError,
     } = useSWR<EventIncident[]>(selectedEvent ? getEventIncidentsSwr(selectedEvent.id) : null)
 
+    const [events, setEvents] = useState(repo.events)
+    const index = useRef(0)
+    const setIndex = (i: number) => {
+        index.current = i
+    }
+
+    const { prev: prevIndex, next: nextIndex } = getPrevAndNextIndex(index.current)
+
+    const {
+        data: prev,
+        isLoading: prevLoading,
+        error: prevError,
+    } = useSWR<EventDetails[]>(getTournamentEventsSwr(repo.tournament.id, prevIndex.label, prevIndex.index))
+    const {
+        data: next,
+        isLoading: nextLoading,
+        error: nextError,
+    } = useSWR<EventDetails[]>(getTournamentEventsSwr(repo.tournament.id, nextIndex.label, nextIndex.index))
+
     const crumbs: Crumb[] = [
         {
-            name: 'Football',
-            link: '/football',
+            name: 'Basketball',
+            link: '/basketball',
         },
         {
             name: repo.tournament.name,
-            link: `/football/league/${repo.tournament.slug}/${repo.tournament.id}`,
+            link: `/basketball/league/${repo.tournament.slug}/${repo.tournament.id}`,
         },
     ]
+
+    useEffect(() => {
+        setEvents(repo.events)
+    }, [id])
 
     return (
         <>
@@ -92,15 +119,17 @@ const BasketballLeaguePage: NextPageWithLayout<BasketballLeaguePageProps> = ({ r
                                 <>
                                     <Matches
                                         w="calc((100% - 24px) / 2)"
-                                        events={calculateMatchesForPage(repo.events, eventIndex)}
-                                        index={eventIndex}
-                                        setIndex={setEventIndex}
-                                        offset={DEFAULT_MATCHES_COUNT}
-                                        hasLess={hasLess(eventIndex)}
-                                        hasMore={hasMore(eventIndex, repo.events.length)}
+                                        events={events}
+                                        loading={prevLoading || nextLoading}
+                                        prev={prev}
+                                        next={next}
+                                        index={index.current}
+                                        setIndex={setIndex}
                                         setSelected={setSelectedEvent}
                                         selected={selectedEvent?.id}
+                                        setEvents={setEvents}
                                     />
+
                                     <AnimatePresence mode="wait">
                                         {selectedEvent && incidents && !incidentsLoading && (
                                             <MotionFlex
@@ -146,28 +175,8 @@ export const getServerSideProps = (async context => {
 
     try {
         const tournaments = await getAvailableTournamentsForSport('basketball')
-        const events: EventDetails[] = []
+        const events = await getTournamentEvents(Number(id), 'next', 0)
         const standings = await getTournamentStandings(Number(id))
-
-        // fetching is not optimal, I should have used SWR to fetch rest of the events.
-        let page = 0
-        while (true) {
-            const tmp = await getTournamentEvents(Number(id), 'last', page)
-            if (tmp.length === 0) {
-                break
-            }
-            events.push(...tmp)
-            page += 1
-        }
-        page = 0
-        while (true) {
-            const tmp = await getTournamentEvents(Number(id), 'next', page)
-            if (tmp.length === 0) {
-                break
-            }
-            events.push(...tmp)
-            page += 1
-        }
 
         events.sort((a, b) => {
             const aDateTime = a.startDate ? DateTime.fromISO(a.startDate) : DateTime.invalid('Invalid Date')
@@ -201,21 +210,28 @@ export const getServerSideProps = (async context => {
     }
 }) satisfies GetServerSideProps<{ repo: BasketballLeaguePageRepo }>
 
-export function calculateFirstIndex(events: EventDetails[]) {
-    const firstIndex = events.findIndex(e => e.status === 'notstarted')
-    return firstIndex === -1 ? events.length - DEFAULT_MATCHES_COUNT : firstIndex
-}
-
-export function hasMore(index: number, eventsLen: number) {
-    return index + DEFAULT_MATCHES_COUNT < eventsLen
-}
-
-export function hasLess(index: number) {
-    return index - DEFAULT_MATCHES_COUNT >= 0
-}
-
-export function calculateMatchesForPage(events: EventDetails[], index: number) {
-    return events.slice(index, index + DEFAULT_MATCHES_COUNT)
-}
-
 export default BasketballLeaguePage
+
+export function getPrevAndNextIndex(indexCurr: number) {
+    let prevIndex = indexCurr - 1
+    let nextIndex = indexCurr + 1
+    let prevLabel: 'last' | 'next' = 'next'
+    let nextLabel: 'last' | 'next' = 'next'
+    if (prevIndex < 0) {
+        prevLabel = 'last'
+        prevIndex = Math.abs(prevIndex + 1)
+    }
+    if (nextIndex < 0) {
+        nextLabel = 'last'
+        nextIndex = Math.abs(nextIndex + 1)
+    }
+    const prev: Current = {
+        label: prevLabel,
+        index: prevIndex,
+    }
+    const next: Current = {
+        label: nextLabel,
+        index: nextIndex,
+    }
+    return { prev, next }
+}

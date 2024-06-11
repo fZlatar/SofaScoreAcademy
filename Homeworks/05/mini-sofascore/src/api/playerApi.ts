@@ -13,6 +13,6 @@ export async function getPlayerEvents(id: number, span: 'next' | 'last' = 'next'
     return data
 }
 
-export function playerImageSrc(id: number): string {
+export function getPlayerImageSrc(id: number): string {
     return `${url}/player/${id}/image`
 }
