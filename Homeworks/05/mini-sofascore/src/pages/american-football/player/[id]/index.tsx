@@ -20,6 +20,7 @@ import { useRouter } from 'next/router'
 import { getPlayerDetails, getPlayerEvents, getPlayerEventsSwr } from '@/api/playerApi'
 import { getPrevAndNextIndex } from '@/utils/utils'
 import PlayerHeader from '@/modules/PlayerHeader'
+import useBreakpoint from '@/hooks/useBreakpoint'
 
 type AmericanFootballPlayerPageRepo = {
     tournaments: TournamentDetails[]
@@ -44,6 +45,7 @@ const variants = {
 }
 
 const AmericanFootballPlayerPage: NextPageWithLayout<AmericanFootballPlayerPageProps> = ({ repo }) => {
+    const { isBig } = useBreakpoint()
     const { id } = useRouter().query
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const {
@@ -92,20 +94,28 @@ const AmericanFootballPlayerPage: NextPageWithLayout<AmericanFootballPlayerPageP
                 <title>{`${repo.player.name}`}</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
-            <Box ml={24} mr={24} mb={24}>
-                <Breadcrumbs w="100%" crumbs={crumbs} />
-                <Flex flexDirection="row" gap={24} w="100%" alignItems="flex-start">
-                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} />
+            <Box ml={[0, 24]} mr={[0, 24]} mb={24}>
+                <Breadcrumbs w="100%" crumbs={crumbs} display={['none', 'flex']} />
+                <Flex flexDirection={['column', 'row']} gap={24} w="100%" alignItems="flex-start">
+                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} display={['none', 'flex']} />
                     <Flex
-                        w="calc(((100% - 48px) / 3 * 2) + 24px)"
+                        w={['100%', 'calc(((100% - 48px) / 3 * 2) + 24px)']}
                         justifyContent="flex-start"
                         flexDirection="column"
-                        gap={12}
+                        gap={[0, 12]}
                     >
-                        <PlayerHeader player={repo.player} sport="american-football" w="100%" />
-                        <Flex w="100%" justifyContent="flex-start" alignItems="flex-start" flexDirection="row" gap={24}>
+                        <PlayerHeader player={repo.player} sport="american-football" w="100%" borderRadius={[0, 16]} />
+                        <Flex
+                            w="100%"
+                            ml={[8, 0]}
+                            mr={[8, 0]}
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            flexDirection={['column', 'row']}
+                            gap={24}
+                        >
                             <Matches
-                                w="calc((100% - 24px) / 2)"
+                                w={['calc(100% - 16px)', 'calc((100% - 24px) / 2)']}
                                 events={events}
                                 loading={prevLoading || nextLoading}
                                 prev={prev}
@@ -118,7 +128,7 @@ const AmericanFootballPlayerPage: NextPageWithLayout<AmericanFootballPlayerPageP
                             />
 
                             <AnimatePresence mode="wait">
-                                {selectedEvent && incidents && !incidentsLoading && (
+                                {selectedEvent && incidents && !incidentsLoading && isBig && (
                                     <MotionFlex
                                         key={selectedEvent.id}
                                         w="calc((100% - 24px) / 2)"
@@ -150,7 +160,8 @@ const AmericanFootballPlayerPage: NextPageWithLayout<AmericanFootballPlayerPageP
 }
 
 AmericanFootballPlayerPage.getLayout = function getLayout(page: ReactElement) {
-    return <Layout>{page}</Layout>
+    const { isSmall } = useBreakpoint()
+    return <Layout noTabs={isSmall}>{page}</Layout>
 }
 
 export const getServerSideProps = (async context => {

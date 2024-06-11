@@ -202,7 +202,7 @@ const BasketballTeamPage: NextPageWithLayout<BasketballTeamPageProps> = ({ repo 
                                     mr={[8, 0]}
                                     coach={repo.team.managerName ? repo.team.managerName : undefined}
                                     players={repo.players}
-                                    sport="football"
+                                    sport="american-football"
                                     w="100%"
                                 />
                             )}
