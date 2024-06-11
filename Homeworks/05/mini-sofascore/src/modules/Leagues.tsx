@@ -9,6 +9,7 @@ import { TournamentDetails } from '@/models/tournament'
 export interface LeaguesProps extends FlexProps {
     leagues: TournamentDetails[]
     selected?: number
+    hideTitle?: boolean
 }
 
 const flexStyles1: Partial<FlexProps> = {
@@ -51,14 +52,16 @@ const flexStyles4: Partial<FlexProps> = {
     alignItems: 'flex-end',
 }
 
-export default function Leagues({ leagues, selected, ...restProps }: LeaguesProps) {
+export default function Leagues({ leagues, selected, hideTitle, ...restProps }: LeaguesProps) {
     return (
         <Flex {...restProps} {...flexStyles1}>
-            <Flex {...flexStyles2}>
-                <Text as="h1" {...typography.h1}>
-                    Leagues
-                </Text>
-            </Flex>
+            {!hideTitle && (
+                <Flex {...flexStyles2}>
+                    <Text as="h1" {...typography.h1}>
+                        Leagues
+                    </Text>
+                </Flex>
+            )}
             {leagues.map(league => (
                 <Link href={`/${league.sport.slug}/league/${league.slug}/${league.id}`} key={league.id}>
                     <Flex bg={selected === league.id ? 'colors.primary.highlight' : 'initial'} {...flexStyles3}>

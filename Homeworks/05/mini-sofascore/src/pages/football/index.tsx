@@ -121,16 +121,22 @@ FootballPage.getLayout = function getLayout(page: ReactElement) {
 }
 
 export const getServerSideProps = (async () => {
-    const tournaments = await getAvailableTournamentsForSport('football')
+    try {
+        const tournaments = await getAvailableTournamentsForSport('football')
 
-    const events = await getEventsForSportAndDate('football', DateTime.now())
+        const events = await getEventsForSportAndDate('football', DateTime.now())
 
-    const repo = {
-        tournaments: tournaments,
-        events: events,
+        const repo = {
+            tournaments: tournaments,
+            events: events,
+        }
+
+        return { props: { repo } }
+    } catch (error) {
+        return {
+            notFound: true,
+        }
     }
-
-    return { props: { repo } }
 }) satisfies GetServerSideProps<{ repo: FootballPageRepo }>
 
 export default FootballPage
