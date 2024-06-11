@@ -6,7 +6,7 @@ import typography from '@/utils/typography'
 
 export interface SofaInputProps extends BoxProps {
     selected: string | undefined
-    setSelected: (s: string) => void
+    setSelected: (s: 'Croatian' | 'English') => void
 }
 
 const MotionPointerDownBox = motion(styled('div')`
@@ -57,7 +57,7 @@ export default function SofaInput({ selected, setSelected, ...restProps }: SofaI
                 display="flex"
                 flexDirection="row"
                 alignItems="center"
-                bg="colors.surface.s1"
+                bg="colors.surface.s2"
                 border="solid 1px"
                 borderColor={opened ? 'colors.primary.default' : 'colors.onSurface.nLv3'}
                 borderRadius="radii.xs"
