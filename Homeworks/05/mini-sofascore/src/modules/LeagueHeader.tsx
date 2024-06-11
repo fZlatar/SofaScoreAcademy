@@ -16,14 +16,22 @@ export interface LeagueHeaderProps extends FlexProps {
 
 export default function LeagueHeader({ league, selectedTab, setSelectedTab, ...restProps }: LeagueHeaderProps) {
     const { isSmall } = useBreakpoint()
+
+    const sport =
+        league.sport.slug === 'football'
+            ? 'Football'
+            : league.sport.slug === 'basketball'
+            ? 'Basketball'
+            : 'Am. Football'
+
     const crumbs: Crumb[] = [
         {
-            name: 'Football',
-            link: '/football',
+            name: sport,
+            link: `/${league.sport.slug}`,
         },
         {
             name: league.name,
-            link: `/football/league/${league.slug}/${league.id}`,
+            link: `/${league.sport.slug}/league/${league.slug}/${league.id}`,
         },
     ]
 

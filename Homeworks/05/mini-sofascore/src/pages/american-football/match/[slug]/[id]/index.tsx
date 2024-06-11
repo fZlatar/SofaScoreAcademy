@@ -1,6 +1,7 @@
 import { getEventDetails, getEventIncidents } from '@/api/eventApi'
 import { getAvailableTournamentsForSport } from '@/api/sportApi'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
+import useBreakpoint from '@/hooks/useBreakpoint'
 import { EventDetails, EventIncident } from '@/models/event'
 import { TournamentDetails } from '@/models/tournament'
 import Layout from '@/modules/Layout'
@@ -44,11 +45,16 @@ const AmericanFootballEventPage: NextPageWithLayout<AmericanFootballEventPagePro
                 <title>{`${repo.event.homeTeam.name} vs ${repo.event.awayTeam.name}`}</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
-            <Box ml={24} mr={24} mb={24}>
-                <Breadcrumbs w="100%" crumbs={crumbs} />
-                <Flex flexDirection="row" gap={24} w="100%" alignItems="flex-start">
-                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} />
-                    <FullEvent w="calc((100% - 48px) / 3)" event={repo.event} incidents={repo.incidents} />
+            <Box ml={[0, 24]} mr={[0, 24]} mb={24}>
+                <Breadcrumbs w="100%" crumbs={crumbs} display={['none', 'flex']} />
+                <Flex flexDirection={['column', 'row']} gap={[0, 24]} w="100%" alignItems="flex-start">
+                    <Leagues w="calc((100% - 48px) / 3)" leagues={repo.tournaments} display={['none', 'flex']} />
+                    <FullEvent
+                        w={['100%', 'calc((100% - 48px) / 3)']}
+                        borderRadius={[0, 16]}
+                        event={repo.event}
+                        incidents={repo.incidents}
+                    />
                 </Flex>
             </Box>
         </>
@@ -56,7 +62,8 @@ const AmericanFootballEventPage: NextPageWithLayout<AmericanFootballEventPagePro
 }
 
 AmericanFootballEventPage.getLayout = function getLayout(page: ReactElement) {
-    return <Layout>{page}</Layout>
+    const { isSmall } = useBreakpoint()
+    return <Layout noTabs={isSmall}>{page}</Layout>
 }
 
 export const getServerSideProps = (async context => {
