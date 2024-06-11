@@ -11,9 +11,9 @@ import SofaLogo from '@/components/icons/SofaLogo'
 import { useThemeContext } from '@/context/ThemeContext'
 
 const FootballPage: NextPageWithLayout = () => {
-    const { setIsDark } = useThemeContext()
+    const { isDark, setIsDark } = useThemeContext()
     const [language, setLanguage] = useState<'Croatian' | 'English'>('English')
-    const [theme, setTheme] = useState('Light')
+    const [theme, setTheme] = useState(isDark ? 'Dark' : 'Light')
     const [dateFormat, setDateFormat] = useState('DD / MM / YYYY')
     const crumbs: Crumb[] = [
         {
