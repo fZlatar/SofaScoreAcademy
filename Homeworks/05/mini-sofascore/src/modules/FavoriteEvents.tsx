@@ -68,7 +68,7 @@ export default function FavoriteEvents({ favorites, setSelected, ...restProps }:
                 </SofaTabs>
             </Flex>
             {favoritesByDate.map(f => (
-                <Event event={f} onClick={() => handleOnClickEvent(f)} />
+                <Event key={f.id} event={f} onClick={() => handleOnClickEvent(f)} />
             ))}
             {favoritesByDate.length === 0 && (
                 <Flex h={48} w="100%" justifyContent="center" alignItems="center">

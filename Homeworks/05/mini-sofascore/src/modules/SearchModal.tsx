@@ -87,7 +87,11 @@ export default function SearchModal({ onClose }: SearchModalProps) {
                             {players.map((p, i) => {
                                 if (i < 10) {
                                     return (
-                                        <Link href={`/${p.sport.slug}/player/${p.id}`} onClick={() => onClose(false)}>
+                                        <Link
+                                            href={`/${p.sport.slug}/player/${p.id}`}
+                                            onClick={() => onClose(false)}
+                                            key={p.id}
+                                        >
                                             <PlayerItem w="100%" player={p} />
                                         </Link>
                                     )
@@ -113,7 +117,11 @@ export default function SearchModal({ onClose }: SearchModalProps) {
                             {teams.map((t, i) => {
                                 if (i < 10) {
                                     return (
-                                        <Link href={`/${t.sport.slug}/team/${t.id}`} onClick={() => onClose(false)}>
+                                        <Link
+                                            href={`/${t.sport.slug}/team/${t.id}`}
+                                            onClick={() => onClose(false)}
+                                            key={t.id}
+                                        >
                                             <Flex
                                                 w="100%"
                                                 h={56}
