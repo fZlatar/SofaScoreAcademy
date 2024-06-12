@@ -1,3 +1,4 @@
+import { DateContextProvider } from '@/context/DateContext'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import '@/styles/globals.css'
 import { NextPage } from 'next'
@@ -30,13 +31,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     return getLayout(
         <SWRConfig value={{ fetcher }}>
             <ThemeContextProvider>
-                <>
-                    <Head>
-                        <meta name="viewport" content="width=device-width, initial-scale=1" />
-                        <link rel="icon" href="/favicon.ico" />
-                    </Head>
-                    <Component {...pageProps} />
-                </>
+                <DateContextProvider>
+                    <>
+                        <Head>
+                            <meta name="viewport" content="width=device-width, initial-scale=1" />
+                            <link rel="icon" href="/favicon.ico" />
+                        </Head>
+                        <Component {...pageProps} />
+                    </>
+                </DateContextProvider>
             </ThemeContextProvider>
         </SWRConfig>
     )

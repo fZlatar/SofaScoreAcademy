@@ -1,4 +1,5 @@
 import { getTeamImageSrc } from '@/api/teamApi'
+import { useDateContext } from '@/context/DateContext'
 import useBreakpoint from '@/hooks/useBreakpoint'
 import { EventDetails } from '@/models/event'
 import typography from '@/utils/typography'
@@ -27,6 +28,7 @@ const StyledContainer = styled.div`
 `
 
 export default function EventHeroSection({ event, ...restProps }: EventHeroSectionProps) {
+    const { dateFormat } = useDateContext()
     const { isSmall } = useBreakpoint(1000)
     return (
         <Flex p={16} {...restProps} flexDirection="row" justifyContent="space-between" alignItems="center">
@@ -53,7 +55,11 @@ export default function EventHeroSection({ event, ...restProps }: EventHeroSecti
                         gap={4}
                         {...typography.micro}
                     >
-                        <Text>{DateTime.fromISO(event.startDate).toFormat('dd.MM.yyyy.')}</Text>
+                        <Text>
+                            {dateFormat === 'DD / MM / YYYY'
+                                ? DateTime.fromISO(event.startDate).toFormat('dd.MM.yyyy.')
+                                : DateTime.fromISO(event.startDate).toFormat('MM.dd.yyyy.')}
+                        </Text>
                         <Text>{DateTime.fromISO(event.startDate).toFormat('HH:mm')}</Text>
                     </Flex>
                 ) : (

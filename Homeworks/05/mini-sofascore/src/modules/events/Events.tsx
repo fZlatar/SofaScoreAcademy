@@ -10,6 +10,7 @@ import useBreakpoint from '@/hooks/useBreakpoint'
 import { useRouter } from 'next/router'
 import TournamentEvents from './modules/TournamentEvents'
 import { EventDetails } from '@/models/event'
+import { useDateContext } from '@/context/DateContext'
 
 export interface EventsProps extends FlexProps {
     events: EventDetails[]
@@ -34,6 +35,7 @@ const variants = {
 }
 
 export default function Events({ events, initialDate, sport, selected, setSelected, ...restProps }: EventsProps) {
+    const { dateFormat } = useDateContext()
     const [selectedDate, setSelectedDate] = useState(initialDate)
     const { isSmall } = useBreakpoint()
     const router = useRouter()
@@ -87,7 +89,11 @@ export default function Events({ events, initialDate, sport, selected, setSelect
                     display={['flex', 'none']}
                 >
                     <Text color="colors.onSurface.nLv1">
-                        {datesEqual(DateTime.now(), selectedDate) ? 'TODAY' : selectedDate.toFormat('EEE dd MM')}
+                        {datesEqual(DateTime.now(), selectedDate)
+                            ? 'TODAY'
+                            : dateFormat === 'DD / MM / YYYY'
+                            ? selectedDate.toFormat('EEE dd MM')
+                            : selectedDate.toFormat('EEE MM dd')}
                     </Text>
                     <Text color="colors.onSurface.nLv2">{`${data?.length} events`}</Text>
                 </Flex>
@@ -132,7 +138,11 @@ export default function Events({ events, initialDate, sport, selected, setSelect
                         display={['none', 'flex']}
                     >
                         <Text color="colors.onSurface.nLv1">
-                            {datesEqual(DateTime.now(), selectedDate) ? 'TODAY' : selectedDate.toFormat('EEE dd MM')}
+                            {datesEqual(DateTime.now(), selectedDate)
+                                ? 'TODAY'
+                                : dateFormat === 'DD / MM / YYYY'
+                                ? selectedDate.toFormat('EEE dd MM')
+                                : selectedDate.toFormat('EEE MM dd')}
                         </Text>
                         <Text color="colors.onSurface.nLv2">{`${data?.length} events`}</Text>
                     </Flex>

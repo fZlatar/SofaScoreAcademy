@@ -4,6 +4,7 @@ import typography from '@/utils/typography'
 import { DateTime } from 'luxon'
 import { getTeamImageSrc } from '@/api/teamApi'
 import { EventDetails } from '@/models/event'
+import { useDateContext } from '@/context/DateContext'
 
 export interface EventProps extends FlexProps {
     event: EventDetails
@@ -13,6 +14,7 @@ export interface EventProps extends FlexProps {
 }
 
 export default function Event({ event, selected, onClick, dateAndTime, ...restProps }: EventProps) {
+    const { dateFormat } = useDateContext()
     return (
         <Flex
             {...restProps}
@@ -39,7 +41,11 @@ export default function Event({ event, selected, onClick, dateAndTime, ...restPr
                 {dateAndTime ? (
                     <>
                         <Text>
-                            {event.startDate ? DateTime.fromISO(event.startDate).toFormat('dd.MM.') : 'Unknown'}
+                            {event.startDate
+                                ? dateFormat === 'DD / MM / YYYY'
+                                    ? DateTime.fromISO(event.startDate).toFormat('dd.MM.')
+                                    : DateTime.fromISO(event.startDate).toFormat('MM.dd.')
+                                : 'Unknown'}
                         </Text>
                         <Text>{event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : 'Unknown'}</Text>
                     </>

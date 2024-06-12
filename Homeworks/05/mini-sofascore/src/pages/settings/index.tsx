@@ -9,12 +9,15 @@ import SofaInput from '@/components/SofaInput'
 import SofaChoice from '@/components/SofaChoice'
 import SofaLogo from '@/components/icons/SofaLogo'
 import { useThemeContext } from '@/context/ThemeContext'
+import { useDateContext } from '@/context/DateContext'
 
 const FootballPage: NextPageWithLayout = () => {
     const { isDark, setIsDark } = useThemeContext()
+    const { dateFormat, setDateFormat } = useDateContext()
+
     const [language, setLanguage] = useState<'Croatian' | 'English'>('English')
     const [theme, setTheme] = useState(isDark ? 'Dark' : 'Light')
-    const [dateFormat, setDateFormat] = useState('DD / MM / YYYY')
+    const [dateFormatState, setDateFormatState] = useState<'DD / MM / YYYY' | 'MM / DD / YYYY'>(dateFormat)
     const crumbs: Crumb[] = [
         {
             name: 'Settings',
@@ -23,6 +26,7 @@ const FootballPage: NextPageWithLayout = () => {
     ]
 
     setIsDark(theme === 'Dark')
+    setDateFormat(dateFormatState)
 
     return (
         <>
@@ -50,7 +54,14 @@ const FootballPage: NextPageWithLayout = () => {
                         </Flex>
                         <SofaInput ml={8} mr={8} selected={language} setSelected={setLanguage} />
                         <SofaChoice ml={8} mr={8} mode="theme" selected={theme} setSelected={setTheme} />
-                        <SofaChoice ml={8} mr={8} mode="date" selected={dateFormat} setSelected={setDateFormat} />
+                        <SofaChoice
+                            ml={8}
+                            mr={8}
+                            mode="date"
+                            selected={dateFormatState}
+                            // @ts-ignore
+                            setSelected={setDateFormatState}
+                        />
                         <Flex
                             ml={8}
                             mr={8}

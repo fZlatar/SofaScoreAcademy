@@ -5,6 +5,7 @@ import { Box, BoxProps, Button, Flex, FlexProps, Text } from '@kuma-ui/core'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 import { DateTime } from 'luxon'
+import { useDateContext } from '@/context/DateContext'
 
 export interface DateSelectorProps extends FlexProps {
     selected: DateTime
@@ -87,6 +88,7 @@ const variants = {
 }
 
 export default function DateSelector({ selected, setSelected, ...restProps }: DateSelectorProps) {
+    const { dateFormat } = useDateContext()
     const [dates, setDates] = useState<DateTime[]>([])
     const [isSmallWidth, setIsSmallWidth] = useState(false)
     const [direction, setDirection] = useState<'left' | 'right'>('right')
@@ -167,12 +169,21 @@ export default function DateSelector({ selected, setSelected, ...restProps }: Da
                                             ? 'TODAY'
                                             : date.toFormat('EEE').toUpperCase()}
                                     </Text>
-                                    <Text textAlign="center">{date.toFormat('dd.MM.')}</Text>
+                                    <Text textAlign="center">
+                                        {dateFormat === 'DD / MM / YYYY'
+                                            ? date.toFormat('dd.MM.')
+                                            : date.toFormat('MM.dd.')}
+                                    </Text>
                                 </>
-                            ) : (
+                            ) : dateFormat === 'DD / MM / YYYY' ? (
                                 <>
                                     <Text textAlign="center">{date.toFormat('dd')}</Text>
                                     <Text textAlign="center">{date.toFormat('MM')}</Text>
+                                </>
+                            ) : (
+                                <>
+                                    <Text textAlign="center">{date.toFormat('MM')}</Text>
+                                    <Text textAlign="center">{date.toFormat('dd')}</Text>
                                 </>
                             )}
                             {datesEqual(date, selected) && <Box {...boxStyles} />}
