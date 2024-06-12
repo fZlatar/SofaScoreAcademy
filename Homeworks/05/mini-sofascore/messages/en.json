@@ -162,5 +162,20 @@
         "american-football": "Am. Football",
         "matches": "Matches",
         "standings": "Standings"
+    },
+    "FavoritesPage": {
+        "favorites": "Favorites"
+    },
+    "FavoritesHeader": {
+        "football": "Football",
+        "basketball": "Basketball",
+        "americanFootball": "American Football",
+        "americanFootballShort": "Am. Football"
+    },
+    "FavoriteEvents": {
+        "previous": "Previous",
+        "current": "Current",
+        "next": "Next",
+        "message": "No events"
     }
 }

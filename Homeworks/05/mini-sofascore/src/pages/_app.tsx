@@ -1,4 +1,5 @@
 import { DateContextProvider } from '@/context/DateContext'
+import { FavoriteContextProvider } from '@/context/FavoritesContext'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import '@/styles/globals.css'
 import { NextPage } from 'next'
@@ -36,13 +37,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             <SWRConfig value={{ fetcher }}>
                 <ThemeContextProvider>
                     <DateContextProvider>
-                        <>
-                            <Head>
-                                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                                <link rel="icon" href="/favicon.ico" />
-                            </Head>
-                            <Component {...pageProps} />
-                        </>
+                        <FavoriteContextProvider>
+                            <>
+                                <Head>
+                                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                                    <link rel="icon" href="/favicon.ico" />
+                                </Head>
+                                <Component {...pageProps} />
+                            </>
+                        </FavoriteContextProvider>
                     </DateContextProvider>
                 </ThemeContextProvider>
             </SWRConfig>

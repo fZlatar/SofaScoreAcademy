@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { homePath } from '@/utils/homePath'
 import Search from '@/components/icons/Search'
 import SearchModal from './SearchModal'
+import NotFavoriteIcon from '@/components/icons/NotFavoriteIcon'
 
 export interface SofaHeaderProps extends FlexProps {
     mode: 'mobile' | 'desktop'
@@ -36,13 +37,20 @@ export default function SofaHeader({ mode, ...restProps }: SofaHeaderProps) {
                                 <Trophy />
                             </Flex>
                         </Link>
+                        <Link href="/favorites">
+                            <Flex justifyContent="center" alignItems="center" w={48} h={48}>
+                                <NotFavoriteIcon />
+                            </Flex>
+                        </Link>
                         <Button
                             variant="wrapper"
                             color="colors.surface.s1"
                             bg="none"
                             onClick={() => setOpenSearch(o => !o)}
                         >
-                            <Search />
+                            <Flex justifyContent="center" alignItems="center" w={48} h={48}>
+                                <Search />
+                            </Flex>
                         </Button>
                         <Link href="/settings">
                             <Flex justifyContent="center" alignItems="center" w={48} h={48}>
@@ -75,6 +83,9 @@ export default function SofaHeader({ mode, ...restProps }: SofaHeaderProps) {
                     </Link>
 
                     <Flex justifyContent="center" alignItems="center" position="absolute" right="24px" gap={12}>
+                        <Link href="/favorites">
+                            <NotFavoriteIcon />
+                        </Link>
                         <Button
                             variant="wrapper"
                             color="colors.surface.s1"

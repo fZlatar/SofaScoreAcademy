@@ -162,5 +162,20 @@
         "american-football": "Am. nogomet",
         "matches": "Utakmice",
         "standings": "Tablica"
+    },
+    "FavoritesPage": {
+        "favorites": "Favoriti"
+    },
+    "FavoritesHeader": {
+        "football": "Nogomet",
+        "basketball": "Košarka",
+        "americanFootball": "Američki nogomet",
+        "americanFootballShort": "Am. nogomet"
+    },
+    "FavoriteEvents": {
+        "previous": "Prijašnji",
+        "current": "Trenutni",
+        "next": "Budući",
+        "message": "Nema utakmica"
     }
 }

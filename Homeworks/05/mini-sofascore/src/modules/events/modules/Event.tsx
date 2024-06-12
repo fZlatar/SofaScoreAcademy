@@ -6,6 +6,9 @@ import { getTeamImageSrc } from '@/api/teamApi'
 import { EventDetails } from '@/models/event'
 import { useDateContext } from '@/context/DateContext'
 import { useTranslations } from 'next-intl'
+import FavoriteIcon from '@/components/icons/FavoriteIcon'
+import NotFavoriteIcon from '@/components/icons/NotFavoriteIcon'
+import { useFavoritesContext } from '@/context/FavoritesContext'
 
 export interface EventProps extends FlexProps {
     event: EventDetails
@@ -15,8 +18,19 @@ export interface EventProps extends FlexProps {
 }
 
 export default function Event({ event, selected, onClick, dateAndTime, ...restProps }: EventProps) {
+    const { isFavorite, addFavorite, removeFavorite } = useFavoritesContext()
     const t = useTranslations('Event')
     const { dateFormat } = useDateContext()
+
+    const handleOnClickFavorite = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        if (isFavorite(event.id)) {
+            removeFavorite(event.id)
+        } else {
+            addFavorite(event)
+        }
+    }
+
     return (
         <Flex
             {...restProps}
@@ -124,6 +138,16 @@ export default function Event({ event, selected, onClick, dateAndTime, ...restPr
                     </Flex>
                     <Text ml={8}>{event.awayScore.total !== null && event.awayScore.total}</Text>
                 </Flex>
+            </Flex>
+            <Box borderRight="1px solid" borderColor="colors.onSurface.nLv4" h="calc(100% - 16px)" mt={8} />
+            <Flex
+                justifyContent="center"
+                alignItems="center"
+                w={40}
+                color="colors.primary.default"
+                onClick={(e: React.MouseEvent<Element, MouseEvent>) => handleOnClickFavorite(e)}
+            >
+                {isFavorite(event.id) ? <FavoriteIcon /> : <NotFavoriteIcon />}
             </Flex>
         </Flex>
     )
