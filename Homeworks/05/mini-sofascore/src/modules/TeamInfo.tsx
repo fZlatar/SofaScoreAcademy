@@ -12,6 +12,7 @@ import React from 'react'
 import Event from '@/modules/events/modules/Event'
 import { useRouter } from 'next/router'
 import PointerRight from '@/components/icons/PointerRight'
+import { useTranslations } from 'next-intl'
 
 export interface TeamInfoProps extends FlexProps {
     team: TeamDetails
@@ -29,6 +30,7 @@ export default function TeamInfo({
     foreignPlayers,
     ...restProps
 }: TeamInfoProps) {
+    const t = useTranslations('TeamInfo')
     const router = useRouter()
     return (
         <Flex {...restProps} flexDirection={['column', 'row']} justifyContent="flex-start" gap={[12, 24]}>
@@ -49,7 +51,7 @@ export default function TeamInfo({
                 >
                     <Flex h={48} justifyContent="center" alignItems="center">
                         <Text as="h2" {...typography.h2} color="colors.onSurface.nLv1">
-                            Team Info
+                            {t('teamInfo')}
                         </Text>
                     </Flex>
                     <Flex
@@ -64,7 +66,7 @@ export default function TeamInfo({
                     >
                         <NoImage width={40} height={40} />
                         <Text {...typography.body} color="colors.onSurface.nLv1">
-                            Coach: {team.managerName}
+                            {`${t('coach')}: ${team.managerName}`}
                         </Text>
                     </Flex>
                     <Flex flexDirection="row" borderTop="1px solid" borderColor="colors.onSurface.nLv4">
@@ -82,7 +84,7 @@ export default function TeamInfo({
                             </Text>
                             <Flex justifyContent="center" alignItems="center" h={32}>
                                 <Text {...typography.micro} color="colors.onSurface.nLv2">
-                                    Total players
+                                    {t('totalPlayers')}
                                 </Text>
                             </Flex>
                         </Flex>
@@ -100,7 +102,7 @@ export default function TeamInfo({
                             </Text>
                             <Flex justifyContent="center" alignItems="center" h={32}>
                                 <Text {...typography.micro} color="colors.onSurface.nLv2">
-                                    Foreign players
+                                    {t('foreignPlayers')}
                                 </Text>
                             </Flex>
                         </Flex>
@@ -117,7 +119,7 @@ export default function TeamInfo({
                 >
                     <Flex h={48} justifyContent="center" alignItems="center">
                         <Text as="h2" {...typography.h2}>
-                            Venue
+                            {t('venue')}
                         </Text>
                     </Flex>
                     <Flex
@@ -128,7 +130,7 @@ export default function TeamInfo({
                         pr={16}
                         {...typography.body}
                     >
-                        <Text>Stadium</Text>
+                        <Text>{t('stadium')}</Text>
                         <Text>{team.venue}</Text>
                     </Flex>
                 </Flex>
@@ -143,7 +145,7 @@ export default function TeamInfo({
                 <Flex w="100%" flexDirection="column" borderRadius={16} bg="colors.surface.s1" pb={16}>
                     <Flex h={48} justifyContent="center" alignItems="center">
                         <Text as="h2" {...typography.h2}>
-                            Tournaments
+                            {t('tournaments')}
                         </Text>
                     </Flex>
                     <Flex justifyContent="center" alignItems="center" flexWrap="wrap" flexDirection="row">
@@ -170,7 +172,7 @@ export default function TeamInfo({
                 <Flex w="100%" flexDirection="column" borderRadius={16} bg="colors.surface.s1" pb={16}>
                     <Flex h={48} justifyContent="center" alignItems="center">
                         <Text as="h2" {...typography.h2}>
-                            Next match
+                            {t('nextMatch')}
                         </Text>
                     </Flex>
                     {nextEvent ? (
@@ -189,7 +191,7 @@ export default function TeamInfo({
                                 <Image w={32} h={32} src={getTournamentImageSrc(nextEvent.tournament.id)} />
                                 <Flex justifyContent="flex-start" alignItems="center" overflow="hidden">
                                     <Text as="h3" color="colors.onSurface.nLv1">
-                                        {nextEvent.tournament.country.name}
+                                        {t(nextEvent.tournament.country.name)}
                                     </Text>
                                     <PointerRight width={24} height={24} />
                                     <Text
@@ -219,7 +221,7 @@ export default function TeamInfo({
                             color="colors.onSurface.nLv1"
                             {...typography.body}
                         >
-                            <Text>Not Available</Text>
+                            <Text>{t('notAvailable')}</Text>
                         </Flex>
                     )}
                 </Flex>

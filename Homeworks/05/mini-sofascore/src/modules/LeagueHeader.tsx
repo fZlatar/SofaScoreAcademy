@@ -6,6 +6,7 @@ import { TournamentDetails } from '@/models/tournament'
 import countries from '@/utils/countries'
 import typography from '@/utils/typography'
 import { Flex, Text, FlexProps, Image, Button } from '@kuma-ui/core'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 
 export interface LeagueHeaderProps extends FlexProps {
@@ -15,18 +16,12 @@ export interface LeagueHeaderProps extends FlexProps {
 }
 
 export default function LeagueHeader({ league, selectedTab, setSelectedTab, ...restProps }: LeagueHeaderProps) {
+    const t = useTranslations('LeagueHeader')
     const { isSmall } = useBreakpoint()
-
-    const sport =
-        league.sport.slug === 'football'
-            ? 'Football'
-            : league.sport.slug === 'basketball'
-            ? 'Basketball'
-            : 'Am. Football'
 
     const crumbs: Crumb[] = [
         {
-            name: sport,
+            name: t(league.sport.slug),
             link: `/${league.sport.slug}`,
         },
         {
@@ -87,7 +82,7 @@ export default function LeagueHeader({ league, selectedTab, setSelectedTab, ...r
                                 {...typography.body}
                                 color={selectedTab === 'matches' ? 'colors.primary.default' : 'colors.onSurface.nLv2'}
                             >
-                                Matches
+                                {t('matches')}
                             </Text>
                         </Flex>
                     </SofaTab>
@@ -99,7 +94,7 @@ export default function LeagueHeader({ league, selectedTab, setSelectedTab, ...r
                                 {...typography.body}
                                 color={selectedTab === 'standings' ? 'colors.primary.default' : 'colors.onSurface.nLv2'}
                             >
-                                Standings
+                                {t('standings')}
                             </Text>
                         </Flex>
                     </SofaTab>

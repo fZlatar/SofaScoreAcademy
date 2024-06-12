@@ -20,8 +20,10 @@ const flexStyles: Partial<FlexProps> = {
     alignItems: 'center',
 }
 
+// on layout im manually setting language since its easier because of Layout component is wrapped on top of NextIntlClientProvider in _app.tsx
 export default function Layout({ noTabs, children }: LayoutProps) {
     const router = useRouter()
+    const locale = router.locale
     const [selectedTab, setSelectedTab] = useState<'football' | 'basketball' | 'american-football' | undefined>(
         undefined
     )
@@ -52,7 +54,7 @@ export default function Layout({ noTabs, children }: LayoutProps) {
                             <SofaTab mode="negative" selected={selectedTab === 'football'}>
                                 <Flex {...flexStyles}>
                                     <FootballIcon width={16} height={16} />
-                                    <Text>Football</Text>
+                                    <Text>{locale === 'en' ? 'Football' : 'Nogomet'}</Text>
                                 </Flex>
                             </SofaTab>
                         </Link>
@@ -60,7 +62,7 @@ export default function Layout({ noTabs, children }: LayoutProps) {
                             <SofaTab mode="negative" selected={selectedTab === 'basketball'}>
                                 <Flex {...flexStyles}>
                                     <BasketballIcon width={16} height={16} />
-                                    <Text>Basketball</Text>
+                                    <Text>{locale === 'en' ? 'Basketball' : 'Košarka'}</Text>
                                 </Flex>
                             </SofaTab>
                         </Link>
@@ -68,8 +70,12 @@ export default function Layout({ noTabs, children }: LayoutProps) {
                             <SofaTab mode="negative" selected={selectedTab === 'american-football'}>
                                 <Flex {...flexStyles}>
                                     <AmericanFootballIcon width={16} height={16} />
-                                    <Text display={['none', 'block']}>American Football</Text>
-                                    <Text display={['block', 'none']}>Am. Football</Text>
+                                    <Text display={['none', 'block']}>
+                                        {locale === 'en' ? 'American Football' : 'Američki nogomet'}
+                                    </Text>
+                                    <Text display={['block', 'none']}>
+                                        {locale === 'en' ? 'Am. Football' : 'Am. nogomet'}
+                                    </Text>
                                 </Flex>
                             </SofaTab>
                         </Link>

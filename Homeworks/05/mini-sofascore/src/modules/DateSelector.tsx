@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 import { DateTime } from 'luxon'
 import { useDateContext } from '@/context/DateContext'
+import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 export interface DateSelectorProps extends FlexProps {
     selected: DateTime
@@ -88,6 +90,8 @@ const variants = {
 }
 
 export default function DateSelector({ selected, setSelected, ...restProps }: DateSelectorProps) {
+    const t = useTranslations('DateSelector')
+    const locale = useRouter().locale || 'en'
     const { dateFormat } = useDateContext()
     const [dates, setDates] = useState<DateTime[]>([])
     const [isSmallWidth, setIsSmallWidth] = useState(false)
@@ -166,8 +170,8 @@ export default function DateSelector({ selected, setSelected, ...restProps }: Da
                                 <>
                                     <Text textAlign="center">
                                         {datesEqual(date, DateTime.now())
-                                            ? 'TODAY'
-                                            : date.toFormat('EEE').toUpperCase()}
+                                            ? t('today')
+                                            : date.setLocale(locale).toFormat('EEE').toUpperCase()}
                                     </Text>
                                     <Text textAlign="center">
                                         {dateFormat === 'DD / MM / YYYY'

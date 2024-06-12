@@ -10,6 +10,7 @@ import FullEvent from '@/modules/fullEvent/FullEvent'
 import { NextPageWithLayout } from '@/pages/_app'
 import { Box, Flex } from '@kuma-ui/core'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { useTranslations } from 'next-intl'
 import Head from 'next/head'
 import { ReactElement } from 'react'
 
@@ -22,9 +23,10 @@ type BasketballEventPageRepo = {
 type BasketballEventPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const BasketballEventPage: NextPageWithLayout<BasketballEventPageProps> = ({ repo }) => {
+    const t = useTranslations('BasketballEventPage')
     const crumbs: Crumb[] = [
         {
-            name: 'Basketball',
+            name: t('sport'),
             link: '/basketball',
         },
         {
@@ -84,7 +86,9 @@ export const getServerSideProps = (async context => {
             incidents: incidents,
         }
 
-        return { props: { repo } }
+        return {
+            props: { repo, messages: (await import(`../../../../../../messages/${context.locale}.json`)).default },
+        }
     } catch (error) {
         return {
             notFound: true,

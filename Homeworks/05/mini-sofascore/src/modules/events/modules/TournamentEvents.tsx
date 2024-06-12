@@ -5,6 +5,7 @@ import { getTournamentImageSrc } from '@/api/tournamentApi'
 import PointerRight from '@/components/icons/PointerRight'
 import Event from './Event'
 import { EventDetails } from '@/models/event'
+import { useTranslations } from 'next-intl'
 
 export interface TournamentEventsProps extends FlexProps {
     tournament: {
@@ -27,6 +28,7 @@ export default function TournamentEvents({
     handleOnClickEvent,
     ...restProps
 }: TournamentEventsProps) {
+    const t = useTranslations('TournamentEvents')
     return (
         <Flex key={`tournament-${tournament.id}`} flexDirection="column" justifyContent="flex-start" {...restProps}>
             {index !== 0 && <Box borderBottom="1px solid" borderColor="colors.onSurface.nLv4" w="100%" mt={8} />}
@@ -40,7 +42,7 @@ export default function TournamentEvents({
                     color="colors.onSurface.nLv2"
                 >
                     <Text as="h3" color="colors.onSurface.nLv1">
-                        {tournament.country.name}
+                        {t(tournament.country.name)}
                     </Text>
                     <PointerRight width={24} height={24} />
                     <Text as="h3" color="colors.onSurface.nLv2">

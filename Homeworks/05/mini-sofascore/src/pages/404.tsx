@@ -4,8 +4,11 @@ import Layout from '@/modules/Layout'
 import Head from 'next/head'
 import { NextPageWithLayout } from './_app'
 import typography from '@/utils/typography'
+import { GetStaticPropsContext } from 'next'
+import { useTranslations } from 'next-intl'
 
 const Error404: NextPageWithLayout = () => {
+    const t = useTranslations('404')
     return (
         <>
             <Head>
@@ -23,7 +26,7 @@ const Error404: NextPageWithLayout = () => {
                         boxShadow="0 1px 4px 0 rgba(0, 0, 0, 0.08)"
                     >
                         <Text as="h1" {...typography.h1}>
-                            Page not found! 404
+                            {t('message')}
                         </Text>
                     </Flex>
                 </Flex>
@@ -34,6 +37,14 @@ const Error404: NextPageWithLayout = () => {
 
 Error404.getLayout = function getLayout(page: ReactElement) {
     return <Layout>{page}</Layout>
+}
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+    return {
+        props: {
+            messages: (await import(`../../messages/${locale}.json`)).default,
+        },
+    }
 }
 
 export default Error404

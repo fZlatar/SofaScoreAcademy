@@ -5,6 +5,7 @@ import { DateTime } from 'luxon'
 import { getTeamImageSrc } from '@/api/teamApi'
 import { EventDetails } from '@/models/event'
 import { useDateContext } from '@/context/DateContext'
+import { useTranslations } from 'next-intl'
 
 export interface EventProps extends FlexProps {
     event: EventDetails
@@ -14,6 +15,7 @@ export interface EventProps extends FlexProps {
 }
 
 export default function Event({ event, selected, onClick, dateAndTime, ...restProps }: EventProps) {
+    const t = useTranslations('Event')
     const { dateFormat } = useDateContext()
     return (
         <Flex
@@ -45,14 +47,20 @@ export default function Event({ event, selected, onClick, dateAndTime, ...restPr
                                 ? dateFormat === 'DD / MM / YYYY'
                                     ? DateTime.fromISO(event.startDate).toFormat('dd.MM.')
                                     : DateTime.fromISO(event.startDate).toFormat('MM.dd.')
-                                : 'Unknown'}
+                                : t('unknown')}
                         </Text>
-                        <Text>{event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : 'Unknown'}</Text>
+                        <Text>
+                            {event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : t('unknown')}
+                        </Text>
                     </>
                 ) : (
                     <>
-                        <Text>{event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : 'Unknown'}</Text>
-                        <Text>{event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? 'LIVE' : '-'}</Text>
+                        <Text>
+                            {event.startDate ? DateTime.fromISO(event.startDate).toFormat('HH:mm') : t('unknown')}
+                        </Text>
+                        <Text>
+                            {event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? t('live') : '-'}
+                        </Text>
                     </>
                 )}
             </Flex>

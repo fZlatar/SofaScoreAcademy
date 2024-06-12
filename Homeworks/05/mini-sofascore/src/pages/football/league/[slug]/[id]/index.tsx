@@ -21,6 +21,7 @@ import Standings from '@/modules/Standings'
 import { useRouter } from 'next/router'
 import { getPrevAndNextIndex } from '@/utils/utils'
 import useBreakpoint from '@/hooks/useBreakpoint'
+import { useTranslations } from 'next-intl'
 
 type FootballLeaguePageRepo = {
     tournament: TournamentDetails
@@ -46,6 +47,7 @@ const variants = {
 }
 
 const FootballLeaguePage: NextPageWithLayout<FootballLeaguePageProps> = ({ repo }) => {
+    const t = useTranslations('FootballLeaguePage')
     const router = useRouter()
     const { isBig } = useBreakpoint()
     const { id } = router.query
@@ -78,7 +80,7 @@ const FootballLeaguePage: NextPageWithLayout<FootballLeaguePageProps> = ({ repo 
 
     const crumbs: Crumb[] = [
         {
-            name: 'Football',
+            name: t('sport'),
             link: '/football',
         },
         {
@@ -220,7 +222,9 @@ export const getServerSideProps = (async context => {
             standings: standings,
         }
 
-        return { props: { repo } }
+        return {
+            props: { repo, messages: (await import(`../../../../../../messages/${context.locale}.json`)).default },
+        }
     } catch (error) {
         return {
             notFound: true,

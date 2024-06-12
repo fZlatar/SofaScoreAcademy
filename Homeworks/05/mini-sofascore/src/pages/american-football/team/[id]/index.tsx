@@ -26,6 +26,7 @@ import TeamSquad from '@/modules/TeamSquad'
 import { useRouter } from 'next/router'
 import { getPrevAndNextIndex } from '@/utils/utils'
 import useBreakpoint from '@/hooks/useBreakpoint'
+import { useTranslations } from 'next-intl'
 
 type AmericanFootballTeamPageRepo = {
     tournaments: TournamentDetails[]
@@ -53,6 +54,7 @@ const variants = {
 }
 
 const AmericanFootballTeamPage: NextPageWithLayout<AmericanFootballTeamPageProps> = ({ repo }) => {
+    const t = useTranslations('AmericanFootballTeamPage')
     const router = useRouter()
     const { isBig } = useBreakpoint()
     const { id } = router.query
@@ -94,7 +96,7 @@ const AmericanFootballTeamPage: NextPageWithLayout<AmericanFootballTeamPageProps
 
     const crumbs: Crumb[] = [
         {
-            name: 'AmericanFootball',
+            name: t('sport'),
             link: '/american-football',
         },
         {
@@ -199,7 +201,7 @@ const AmericanFootballTeamPage: NextPageWithLayout<AmericanFootballTeamPageProps
                                     setSelected={setSelectedTournament}
                                     tournaments={repo.teamTournaments}
                                     teamId={repo.team.id}
-                                    sport="football"
+                                    sport="american-football"
                                 />
                             ) : (
                                 <TeamSquad
@@ -253,7 +255,7 @@ export const getServerSideProps = (async context => {
             standings,
         }
 
-        return { props: { repo } }
+        return { props: { repo, messages: (await import(`../../../../../messages/${context.locale}.json`)).default } }
     } catch (error) {
         return {
             notFound: true,

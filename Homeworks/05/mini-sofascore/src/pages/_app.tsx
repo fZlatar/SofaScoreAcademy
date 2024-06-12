@@ -2,8 +2,10 @@ import { DateContextProvider } from '@/context/DateContext'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import '@/styles/globals.css'
 import { NextPage } from 'next'
+import { NextIntlClientProvider } from 'next-intl'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { ReactElement, ReactNode } from 'react'
 import { SWRConfig } from 'swr'
 
@@ -27,20 +29,23 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
+    const router = useRouter()
     const getLayout = Component.getLayout ?? (page => page)
     return getLayout(
-        <SWRConfig value={{ fetcher }}>
-            <ThemeContextProvider>
-                <DateContextProvider>
-                    <>
-                        <Head>
-                            <meta name="viewport" content="width=device-width, initial-scale=1" />
-                            <link rel="icon" href="/favicon.ico" />
-                        </Head>
-                        <Component {...pageProps} />
-                    </>
-                </DateContextProvider>
-            </ThemeContextProvider>
-        </SWRConfig>
+        <NextIntlClientProvider locale={router.locale} timeZone="Europe/Zagreb" messages={pageProps.messages}>
+            <SWRConfig value={{ fetcher }}>
+                <ThemeContextProvider>
+                    <DateContextProvider>
+                        <>
+                            <Head>
+                                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                                <link rel="icon" href="/favicon.ico" />
+                            </Head>
+                            <Component {...pageProps} />
+                        </>
+                    </DateContextProvider>
+                </ThemeContextProvider>
+            </SWRConfig>
+        </NextIntlClientProvider>
     )
 }

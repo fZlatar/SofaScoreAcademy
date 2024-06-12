@@ -2,7 +2,7 @@ import { Box, Flex, FlexProps } from '@kuma-ui/core'
 import { ReactElement, useState } from 'react'
 import Layout from '@/modules/Layout'
 import Head from 'next/head'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { getAvailableTournamentsForSport, getEventsForSportAndDate } from '@/api/sportApi'
 import { NextPageWithLayout } from '../_app'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
@@ -17,6 +17,7 @@ import EventPopup from '@/modules/eventPopup/EventPopup'
 import { TournamentDetails } from '@/models/tournament'
 import useBreakpoint from '@/hooks/useBreakpoint'
 import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 type AmericanFootballPageRepo = {
     tournaments: TournamentDetails[]
@@ -54,6 +55,7 @@ const motionFlexStyles: Partial<FlexProps> = {
 }
 
 const AmericanFootballPage: NextPageWithLayout<AmericanFootballPageProps> = ({ repo }) => {
+    const t = useTranslations('AmericanFootballPage')
     const router = useRouter()
     const { isBig } = useBreakpoint()
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
@@ -67,7 +69,7 @@ const AmericanFootballPage: NextPageWithLayout<AmericanFootballPageProps> = ({ r
 
     const crumbs: Crumb[] = [
         {
-            name: 'Am. Football',
+            name: t('title'),
             link: '/american-football',
         },
         ...(selectedEvent
@@ -133,7 +135,7 @@ AmericanFootballPage.getLayout = function getLayout(page: ReactElement) {
     return <Layout>{page}</Layout>
 }
 
-export const getServerSideProps = (async () => {
+export const getServerSideProps = (async ({ locale }: GetServerSidePropsContext) => {
     try {
         const tournaments = await getAvailableTournamentsForSport('american-football')
 
@@ -144,7 +146,7 @@ export const getServerSideProps = (async () => {
             events: events,
         }
 
-        return { props: { repo } }
+        return { props: { repo, messages: (await import(`../../../messages/${locale}.json`)).default } }
     } catch (error) {
         return {
             notFound: true,

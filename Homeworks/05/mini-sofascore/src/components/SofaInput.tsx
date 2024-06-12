@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React, { useState } from 'react'
 import PointerDown from './icons/PointerDown'
 import typography from '@/utils/typography'
+import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/router'
 
 export interface SofaInputProps extends BoxProps {
     selected: string | undefined
@@ -45,6 +47,8 @@ const MotionText = motion(Text)
 
 export default function SofaInput({ selected, setSelected, ...restProps }: SofaInputProps) {
     const [opened, setOpened] = useState(false)
+    const t = useTranslations('SofaInput')
+    const locale = useRouter().locale
 
     const hintTextProps = selected === undefined ? hint : hintSelected
 
@@ -72,11 +76,11 @@ export default function SofaInput({ selected, setSelected, ...restProps }: SofaI
             >
                 <Box flex={1}>
                     <MotionText layout {...hintTextProps}>
-                        Language
+                        {t('language')}
                     </MotionText>
                     {selected && (
                         <Text {...typography.bodyP} color="colors.onSurface.nLv1">
-                            {selected}
+                            {locale === 'hr' ? (selected === 'English' ? 'Engleski' : 'Hrvatski') : selected}
                         </Text>
                     )}
                 </Box>
@@ -106,10 +110,10 @@ export default function SofaInput({ selected, setSelected, ...restProps }: SofaI
                             exit={{ height: 0 }}
                         >
                             <Flex {...optionStyle} onClick={() => setSelected('Croatian')}>
-                                Croatian
+                                {t('langHR')}
                             </Flex>
                             <Flex {...optionStyle} onClick={() => setSelected('English')}>
-                                English
+                                {t('langEN')}
                             </Flex>
                         </MotionBox>
                     )}

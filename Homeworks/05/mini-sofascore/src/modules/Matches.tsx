@@ -9,6 +9,7 @@ import { DateTime } from 'luxon'
 import { AnimatePresence, motion } from 'framer-motion'
 import useBreakpoint from '@/hooks/useBreakpoint'
 import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 export interface MatchesProps extends FlexProps {
     events: EventDetails[]
@@ -71,6 +72,7 @@ export default function Matches({
     setIndex,
     ...restProps
 }: MatchesProps) {
+    const t = useTranslations('Matches')
     const { isSmall } = useBreakpoint()
     const router = useRouter()
     const eventsSorted = eventsInRounds(events)
@@ -118,10 +120,10 @@ export default function Matches({
                     <ChevronLeft />
                 </Button>
                 <Text display={['none', 'block']} {...typography.h2} color="colors.onSurface.nLv1" textAlign="center">
-                    {loading ? 'Loading...' : 'Matches'}
+                    {loading ? t('loading') : t('matches')}
                 </Text>
                 <Text display={['block', 'none']} {...typography.h2} color="colors.onSurface.nLv1" textAlign="center">
-                    {loading && 'Loading...'}
+                    {loading && t('loading')}
                 </Text>
                 <Button {...buttonStyles} onClick={() => handleClick('right')} disabled={next?.length === 0 || loading}>
                     <ChevronRight />
@@ -149,7 +151,7 @@ export default function Matches({
                                     alignItems="flex-start"
                                 >
                                     <Text {...typography.assistive} color="colors.onSurface.nLv1">
-                                        Round {r.round}
+                                        {`${t('round')} ${r.round}`}
                                     </Text>
                                 </Flex>
                                 <Flex

@@ -5,6 +5,7 @@ import SofaButton from '@/components/SofaButton'
 import { getTournamentImageSrc } from '@/api/tournamentApi'
 import Link from 'next/link'
 import { TournamentDetails } from '@/models/tournament'
+import { useTranslations } from 'next-intl'
 
 export interface LeaguesProps extends FlexProps {
     leagues: TournamentDetails[]
@@ -53,12 +54,13 @@ const flexStyles4: Partial<FlexProps> = {
 }
 
 export default function Leagues({ leagues, selected, hideTitle, ...restProps }: LeaguesProps) {
+    const t = useTranslations('Leagues')
     return (
         <Flex {...restProps} {...flexStyles1}>
             {!hideTitle && (
                 <Flex {...flexStyles2}>
                     <Text as="h1" {...typography.h1}>
-                        Leagues
+                        {t('leagues')}
                     </Text>
                 </Flex>
             )}
@@ -74,7 +76,7 @@ export default function Leagues({ leagues, selected, hideTitle, ...restProps }: 
             ))}
             <Flex {...flexStyles4}>
                 <SofaButton variant="unshielded" icon="withoutIcon" disabled>
-                    View more
+                    {t('viewMore')}
                 </SofaButton>
             </Flex>
         </Flex>

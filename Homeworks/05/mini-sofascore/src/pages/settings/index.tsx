@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from '@kuma-ui/core'
-import { ReactElement, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import Layout from '@/modules/Layout'
 import Head from 'next/head'
 import { NextPageWithLayout } from '../_app'
@@ -10,17 +10,23 @@ import SofaChoice from '@/components/SofaChoice'
 import SofaLogo from '@/components/icons/SofaLogo'
 import { useThemeContext } from '@/context/ThemeContext'
 import { useDateContext } from '@/context/DateContext'
+import { GetStaticPropsContext } from 'next'
+import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/router'
 
-const FootballPage: NextPageWithLayout = () => {
+const SettingsPage: NextPageWithLayout = () => {
+    const router = useRouter()
+    const locale = router.locale
+    const t = useTranslations('SettingsPage')
     const { isDark, setIsDark } = useThemeContext()
     const { dateFormat, setDateFormat } = useDateContext()
 
-    const [language, setLanguage] = useState<'Croatian' | 'English'>('English')
+    const [language, setLanguage] = useState<'Croatian' | 'English'>(locale === 'en' ? 'English' : 'Croatian')
     const [theme, setTheme] = useState(isDark ? 'Dark' : 'Light')
     const [dateFormatState, setDateFormatState] = useState<'DD / MM / YYYY' | 'MM / DD / YYYY'>(dateFormat)
     const crumbs: Crumb[] = [
         {
-            name: 'Settings',
+            name: t('title'),
             link: '/settings',
         },
     ]
@@ -28,10 +34,14 @@ const FootballPage: NextPageWithLayout = () => {
     setIsDark(theme === 'Dark')
     setDateFormat(dateFormatState)
 
+    useEffect(() => {
+        router.push(router.asPath, router.asPath, { locale: language === 'English' ? 'en' : 'hr' })
+    }, [language])
+
     return (
         <>
             <Head>
-                <title>Settings</title>
+                <title>{t('title')}</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
             <Box ml={[0, 24]} mr={[0, 24]} mb={[0, 24]}>
@@ -49,7 +59,7 @@ const FootballPage: NextPageWithLayout = () => {
                     >
                         <Flex justifyContent="flex-start" alignItems="center" pl={16} pr={16} mt={16} h={48}>
                             <Text as="h1" color="colors.onSurface.nLv1" {...typography.h1}>
-                                Settings
+                                {t('title')}
                             </Text>
                         </Flex>
                         <SofaInput ml={8} mr={8} selected={language} setSelected={setLanguage} />
@@ -73,32 +83,32 @@ const FootballPage: NextPageWithLayout = () => {
                             flexDir="column"
                         >
                             <Text mb={16} as="h1" {...typography.h1}>
-                                About
+                                {t('about')}
                             </Text>
                             <Text mb={2} as="h2" {...typography.h2}>
-                                Sofascore Frontend Academy
+                                {t('academy')}
                             </Text>
                             <Text mb={15} {...typography.bodyP}>
-                                Class 2024
+                                {t('class')}
                             </Text>
                             <Box mb={16} w="100%" borderTop="1px solid" borderColor="colors.onSurface.nLv4" />
                             <Text mb={2} color="colors.onSurface.nLv2" {...typography.assistive}>
-                                App name
+                                {t('app')}
                             </Text>
                             <Text mb={16} {...typography.bodyP}>
-                                Mini Sofascore App
+                                {t('appName')}
                             </Text>
                             <Text mb={2} color="colors.onSurface.nLv2" {...typography.assistive}>
-                                API Credit
+                                {t('api')}
                             </Text>
                             <Text mb={16} {...typography.bodyP}>
-                                Sofascore
+                                {t('apiCredit')}
                             </Text>
                             <Text mb={2} color="colors.onSurface.nLv2" {...typography.assistive}>
-                                Developer
+                                {t('developer')}
                             </Text>
                             <Text mb={16} {...typography.bodyP}>
-                                Fran Zlatar
+                                {t('developerName')}
                             </Text>
                             <Box mb={16} w="100%" borderTop="1px solid" borderColor="colors.onSurface.nLv4" />
                             <Flex justifyContent="center" alignItems="center" color="colors.primary.default">
@@ -112,8 +122,16 @@ const FootballPage: NextPageWithLayout = () => {
     )
 }
 
-FootballPage.getLayout = function getLayout(page: ReactElement) {
+SettingsPage.getLayout = function getLayout(page: ReactElement) {
     return <Layout>{page}</Layout>
 }
 
-export default FootballPage
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+    return {
+        props: {
+            messages: (await import(`../../../messages/${locale}.json`)).default,
+        },
+    }
+}
+
+export default SettingsPage

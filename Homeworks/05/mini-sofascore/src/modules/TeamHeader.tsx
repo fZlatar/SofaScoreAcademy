@@ -8,22 +8,23 @@ import { TournamentDetails } from '@/models/tournament'
 import countries from '@/utils/countries'
 import typography from '@/utils/typography'
 import { Flex, Text, FlexProps, Image, Button } from '@kuma-ui/core'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 
-export interface LeagueHeaderProps extends FlexProps {
+export interface TeamHeaderProps extends FlexProps {
     team: TeamDetails
     sport: 'football' | 'basketball' | 'american-football'
     selectedTab: 'matches' | 'standings' | 'details' | 'squad'
     setSelectedTab: (s: 'matches' | 'standings' | 'details' | 'squad') => void
 }
 
-export default function LeagueHeader({ team, sport, selectedTab, setSelectedTab, ...restProps }: LeagueHeaderProps) {
+export default function TeamHeader({ team, sport, selectedTab, setSelectedTab, ...restProps }: TeamHeaderProps) {
+    const t = useTranslations('TeamHeader')
     const { isSmall } = useBreakpoint()
-    const sportBig = sport === 'football' ? 'Football' : sport === 'basketball' ? 'Basketball' : 'Am. Football'
 
     const crumbs: Crumb[] = [
         {
-            name: sportBig,
+            name: t(sport),
             link: `/${sport}`,
         },
         {
@@ -85,7 +86,7 @@ export default function LeagueHeader({ team, sport, selectedTab, setSelectedTab,
                                 {...typography.body}
                                 color={selectedTab === 'details' ? 'colors.primary.default' : 'colors.onSurface.nLv2'}
                             >
-                                Details
+                                {t('details')}
                             </Text>
                         </Flex>
                     </SofaTab>
@@ -97,7 +98,7 @@ export default function LeagueHeader({ team, sport, selectedTab, setSelectedTab,
                                 {...typography.body}
                                 color={selectedTab === 'matches' ? 'colors.primary.default' : 'colors.onSurface.nLv2'}
                             >
-                                Matches
+                                {t('matches')}
                             </Text>
                         </Flex>
                     </SofaTab>
@@ -109,7 +110,7 @@ export default function LeagueHeader({ team, sport, selectedTab, setSelectedTab,
                                 {...typography.body}
                                 color={selectedTab === 'standings' ? 'colors.primary.default' : 'colors.onSurface.nLv2'}
                             >
-                                Standings
+                                {t('standings')}
                             </Text>
                         </Flex>
                     </SofaTab>
@@ -121,7 +122,7 @@ export default function LeagueHeader({ team, sport, selectedTab, setSelectedTab,
                                 {...typography.body}
                                 color={selectedTab === 'squad' ? 'colors.primary.default' : 'colors.onSurface.nLv2'}
                             >
-                                Squad
+                                {t('squad')}
                             </Text>
                         </Flex>
                     </SofaTab>

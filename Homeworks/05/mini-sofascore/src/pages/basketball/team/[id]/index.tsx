@@ -26,6 +26,7 @@ import TeamSquad from '@/modules/TeamSquad'
 import { useRouter } from 'next/router'
 import { getPrevAndNextIndex } from '@/utils/utils'
 import useBreakpoint from '@/hooks/useBreakpoint'
+import { useTranslations } from 'next-intl'
 
 type BasketballTeamPageRepo = {
     tournaments: TournamentDetails[]
@@ -53,6 +54,7 @@ const variants = {
 }
 
 const BasketballTeamPage: NextPageWithLayout<BasketballTeamPageProps> = ({ repo }) => {
+    const t = useTranslations('BasketballTeamPage')
     const router = useRouter()
     const { isBig } = useBreakpoint()
     const { id } = router.query
@@ -94,7 +96,7 @@ const BasketballTeamPage: NextPageWithLayout<BasketballTeamPageProps> = ({ repo 
 
     const crumbs: Crumb[] = [
         {
-            name: 'Basketball',
+            name: t('sport'),
             link: '/basketball',
         },
         {
@@ -199,7 +201,7 @@ const BasketballTeamPage: NextPageWithLayout<BasketballTeamPageProps> = ({ repo 
                                     setSelected={setSelectedTournament}
                                     tournaments={repo.teamTournaments}
                                     teamId={repo.team.id}
-                                    sport="football"
+                                    sport="basketball"
                                 />
                             ) : (
                                 <TeamSquad
@@ -207,7 +209,7 @@ const BasketballTeamPage: NextPageWithLayout<BasketballTeamPageProps> = ({ repo 
                                     mr={[8, 0]}
                                     coach={repo.team.managerName ? repo.team.managerName : undefined}
                                     players={repo.players}
-                                    sport="american-football"
+                                    sport="basketball"
                                     w="100%"
                                 />
                             )}
@@ -253,7 +255,7 @@ export const getServerSideProps = (async context => {
             standings,
         }
 
-        return { props: { repo } }
+        return { props: { repo, messages: (await import(`../../../../../messages/${context.locale}.json`)).default } }
     } catch (error) {
         return {
             notFound: true,

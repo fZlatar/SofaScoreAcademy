@@ -2,7 +2,7 @@ import { Box, Button, Flex, FlexProps, Text } from '@kuma-ui/core'
 import { ReactElement, useState } from 'react'
 import Layout from '@/modules/Layout'
 import Head from 'next/head'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { getAvailableTournamentsForSport } from '@/api/sportApi'
 import { NextPageWithLayout } from '../_app'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
@@ -14,6 +14,7 @@ import SofaTabs, { SofaTab } from '@/components/SofaTabs'
 import FootballIcon from '@/components/icons/FootballIcon'
 import BasketballIcon from '@/components/icons/BasketballIcon'
 import AmericanFootballIcon from '@/components/icons/AmericanFootballIcon'
+import { useTranslations } from 'next-intl'
 
 type LeaguesRepo = {
     footballLeagues: TournamentDetails[]
@@ -31,12 +32,13 @@ const flexStyles: Partial<FlexProps> = {
 }
 
 const LeaguesPage: NextPageWithLayout<LeaguesPageProps> = ({ repo }) => {
-    const { isBig } = useBreakpoint()
+    const t = useTranslations('LeaguesPage')
+    console.log(t)
     const [selectedLeague, setSelectedLeague] = useState<'football' | 'basketball' | 'american-football'>('football')
 
     const crumbs: Crumb[] = [
         {
-            name: 'Leagues',
+            name: t('title'),
             link: '/leagues',
         },
     ]
@@ -44,7 +46,7 @@ const LeaguesPage: NextPageWithLayout<LeaguesPageProps> = ({ repo }) => {
     return (
         <>
             <Head>
-                <title>Leagues</title>
+                <title>{t('title')}</title>
                 <meta name="description" content="Mini Sofascore app developed for Sofascore Academy 2024" />
             </Head>
             <Box mb={24}>
@@ -58,7 +60,7 @@ const LeaguesPage: NextPageWithLayout<LeaguesPageProps> = ({ repo }) => {
                 >
                     <Flex w="100%" p="10px 16px 10px 16px">
                         <Text as="h1" {...typography.h1} textAlign="left">
-                            Leagues
+                            {t('title')}
                         </Text>
                     </Flex>
                     <Flex w="100%" h={48}>
@@ -72,7 +74,7 @@ const LeaguesPage: NextPageWithLayout<LeaguesPageProps> = ({ repo }) => {
                                 <SofaTab w="100%" mode="positive" selected={selectedLeague === 'football'}>
                                     <Flex {...flexStyles}>
                                         <FootballIcon width={16} height={16} />
-                                        <Text>Football</Text>
+                                        <Text>{t('football')}</Text>
                                     </Flex>
                                 </SofaTab>
                             </Button>
@@ -85,7 +87,7 @@ const LeaguesPage: NextPageWithLayout<LeaguesPageProps> = ({ repo }) => {
                                 <SofaTab w="100%" mode="positive" selected={selectedLeague === 'basketball'}>
                                     <Flex {...flexStyles}>
                                         <BasketballIcon width={16} height={16} />
-                                        <Text>Basketball</Text>
+                                        <Text>{t('basketball')}</Text>
                                     </Flex>
                                 </SofaTab>
                             </Button>
@@ -98,8 +100,8 @@ const LeaguesPage: NextPageWithLayout<LeaguesPageProps> = ({ repo }) => {
                                 <SofaTab w="100%" mode="positive" selected={selectedLeague === 'american-football'}>
                                     <Flex {...flexStyles}>
                                         <AmericanFootballIcon width={16} height={16} />
-                                        <Text display={['none', 'block']}>American Football</Text>
-                                        <Text display={['block', 'none']}>Am. Football</Text>
+                                        <Text display={['none', 'block']}>{t('americanFootball')}</Text>
+                                        <Text display={['block', 'none']}>{t('americanFootballShort')}</Text>
                                     </Flex>
                                 </SofaTab>
                             </Button>
@@ -137,7 +139,7 @@ LeaguesPage.getLayout = function getLayout(page: ReactElement) {
     return <Layout noTabs>{page}</Layout>
 }
 
-export const getServerSideProps = (async () => {
+export const getServerSideProps = (async ({ locale }: GetServerSidePropsContext) => {
     try {
         const footballLeagues = await getAvailableTournamentsForSport('football')
         const basketballLeagues = await getAvailableTournamentsForSport('basketball')
@@ -149,7 +151,9 @@ export const getServerSideProps = (async () => {
             americanFootballLeagues,
         }
 
-        return { props: { repo } }
+        return {
+            props: { repo, messages: (await import(`../../../messages/${locale}.json`)).default },
+        }
     } catch (error) {
         return {
             notFound: true,

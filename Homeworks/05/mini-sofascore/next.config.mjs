@@ -15,6 +15,11 @@ const nextConfig = {
             },
         ]
     },
+    i18n: {
+        locales: ['en', 'hr'],
+        defaultLocale: 'en',
+        localeDetection: false,
+    },
 }
 
 export default withKumaUI(nextConfig)

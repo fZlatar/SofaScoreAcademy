@@ -3,6 +3,7 @@ import SofaSelector, { SofaOptionItem } from '@/components/SofaSelector'
 import { TournamentDetails, TournamentStandings } from '@/models/tournament'
 import typography from '@/utils/typography'
 import { Image, Flex, FlexProps, Text } from '@kuma-ui/core'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 
 export interface StandingsProps extends FlexProps {
@@ -33,6 +34,7 @@ export default function Standings({
     teamId,
     ...restProps
 }: StandingsProps) {
+    const t = useTranslations('Standings')
     const sortedStandings = standings.find(s => s.type === 'total')?.sortedStandingsRows
 
     return (
@@ -80,7 +82,7 @@ export default function Standings({
                     <Text ml={8} mr={8} w={8} textAlign="center">
                         #
                     </Text>
-                    <Text>Team</Text>
+                    <Text>{t('team')}</Text>
                 </Flex>
                 <Flex justifyContent="space-evenly" alignItems="center" flexDirection="row" w="50%" textAlign="center">
                     {sport === 'football' ? (
@@ -89,7 +91,7 @@ export default function Standings({
                             <Text w="calc(100% / 6)">W</Text>
                             <Text w="calc(100% / 6)">D</Text>
                             <Text w="calc(100% / 6)">L</Text>
-                            <Text w="calc(100% / 6)">Goals</Text>
+                            <Text w="calc(100% / 6)">{t('goals')}</Text>
                             <Text w="calc(100% / 6)">PTS</Text>
                         </>
                     ) : sport === 'basketball' ? (

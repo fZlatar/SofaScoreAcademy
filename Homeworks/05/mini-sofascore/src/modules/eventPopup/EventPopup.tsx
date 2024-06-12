@@ -3,11 +3,11 @@ import CloseIcon from '@/components/icons/CloseIcon'
 import { EventDetails, EventIncident } from '@/models/event'
 import { extractPeriods } from '@/utils/utils'
 import { Flex, FlexProps, Box } from '@kuma-ui/core'
-import { useRouter } from 'next/router'
 import React from 'react'
 import PeriodCell from './modules/PeriodCell'
 import EventHeroSection from './modules/EventHeroSection'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 export interface EventPopupProps extends FlexProps {
     event: EventDetails
@@ -16,7 +16,7 @@ export interface EventPopupProps extends FlexProps {
 }
 
 export default function EventPopup({ event, incidents, onClose, ...restProps }: EventPopupProps) {
-    const router = useRouter()
+    const t = useTranslations('EventPopup')
     const periods = extractPeriods(event, incidents)
     const sport = event.tournament.sport.slug
 
@@ -50,7 +50,7 @@ export default function EventPopup({ event, incidents, onClose, ...restProps }: 
                     <CloseIcon />
                 </Flex>
                 <Link href={`/${sport}/match/${event.slug}/${event.id}`}>
-                    <SofaButton variant="unshielded">View Full Page</SofaButton>
+                    <SofaButton variant="unshielded">{t('viewFullPage')}</SofaButton>
                 </Link>
             </Flex>
             <EventHeroSection event={event} h={112} />

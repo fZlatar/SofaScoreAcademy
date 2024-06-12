@@ -6,6 +6,7 @@ import { PlayerDetails } from '@/models/player'
 import countries from '@/utils/countries'
 import typography from '@/utils/typography'
 import { Flex, Text, FlexProps, Image, Button } from '@kuma-ui/core'
+import { useTranslations } from 'next-intl'
 import React, { useState } from 'react'
 
 export interface PlayerHeaderProps extends FlexProps {
@@ -14,16 +15,15 @@ export interface PlayerHeaderProps extends FlexProps {
 }
 
 export default function PlayerHeader({ player, sport, ...restProps }: PlayerHeaderProps) {
+    const t = useTranslations('PlayerHeader')
     const { isSmall } = useBreakpoint()
     const [imageError, setImageError] = useState(false)
 
     const heading = isSmall ? typography.h1 : typography.h1Desktop
 
-    const sportBig = sport === 'football' ? 'Football' : sport === 'basketball' ? 'Basketball' : 'Am. Football'
-
     const crumbs: Crumb[] = [
         {
-            name: sportBig,
+            name: t(sport),
             link: `/${sport}`,
         },
         {
@@ -102,7 +102,7 @@ export default function PlayerHeader({ player, sport, ...restProps }: PlayerHead
                                 bg="colors.secondary.highlight"
                             >
                                 <Text {...typography.assistive} color="colors.onSurface.nLv2">
-                                    Nationality
+                                    {t('nationality')}
                                 </Text>
                                 <Flex h={16} flexDir="row" justifyContent="flex-start" alignItems="center" gap={4}>
                                     <Image
@@ -136,7 +136,7 @@ export default function PlayerHeader({ player, sport, ...restProps }: PlayerHead
                                 bg="colors.secondary.highlight"
                             >
                                 <Text {...typography.assistive} color="colors.onSurface.nLv2">
-                                    Position
+                                    {t('position')}
                                 </Text>
                                 <Text as="h3" {...typography.h3} color="colors.onSurface.nLv1">
                                     {getPosition(player.position, sport)}
@@ -168,7 +168,7 @@ export default function PlayerHeader({ player, sport, ...restProps }: PlayerHead
                             bg="colors.secondary.highlight"
                         >
                             <Text {...typography.assistive} color="colors.onSurface.nLv2">
-                                Nationality
+                                {t('nationality')}
                             </Text>
                             <Flex h={16} flexDir="row" justifyContent="flex-start" alignItems="center" gap={4}>
                                 <Image
@@ -196,7 +196,7 @@ export default function PlayerHeader({ player, sport, ...restProps }: PlayerHead
                             bg="colors.secondary.highlight"
                         >
                             <Text {...typography.assistive} color="colors.onSurface.nLv2">
-                                Position
+                                {t('position')}
                             </Text>
                             <Text as="h3" {...typography.h3} color="colors.onSurface.nLv1">
                                 {getPosition(player.position, sport)}

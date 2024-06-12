@@ -4,6 +4,7 @@ import { PlayerDetails } from '@/models/player'
 import countries from '@/utils/countries'
 import typography from '@/utils/typography'
 import { Box, Flex, FlexProps, Text, Image } from '@kuma-ui/core'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
@@ -14,6 +15,7 @@ export interface TeamSquadProps extends FlexProps {
 }
 
 export default function TeamSquad({ coach, players, sport, ...restProps }: TeamSquadProps) {
+    const t = useTranslations('TeamSquad')
     return (
         <Flex
             {...restProps}
@@ -26,7 +28,7 @@ export default function TeamSquad({ coach, players, sport, ...restProps }: TeamS
         >
             <Flex h={48} p="8px 16px 8px 16px" justifyContent="flex-end" flexDirection="column" alignItems="flex-start">
                 <Text color="colors.onSurface.nLv1" {...typography.assistive}>
-                    Coach
+                    {t('coach')}
                 </Text>
             </Flex>
             <Flex
@@ -46,7 +48,7 @@ export default function TeamSquad({ coach, players, sport, ...restProps }: TeamS
             <Box mt={7} w="100%" borderBottom="1px solid" borderColor="colors.onSurface.nLv4" />
             <Flex h={48} p="8px 16px 8px 16px" justifyContent="flex-end" flexDirection="column" alignItems="flex-start">
                 <Text color="colors.onSurface.nLv1" {...typography.assistive}>
-                    Players
+                    {t('players')}
                 </Text>
             </Flex>
             {players.map((p, i) => (

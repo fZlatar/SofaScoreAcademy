@@ -5,6 +5,7 @@ import { EventDetails } from '@/models/event'
 import typography from '@/utils/typography'
 import { Image, Flex, FlexProps, Text, styled } from '@kuma-ui/core'
 import { DateTime } from 'luxon'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import React from 'react'
 
@@ -28,6 +29,7 @@ const StyledContainer = styled.div`
 `
 
 export default function EventHeroSection({ event, ...restProps }: EventHeroSectionProps) {
+    const t = useTranslations('EventHeroSection')
     const { dateFormat } = useDateContext()
     const { isSmall } = useBreakpoint(1000)
     return (
@@ -90,7 +92,7 @@ export default function EventHeroSection({ event, ...restProps }: EventHeroSecti
                             {...typography.micro}
                             color={event.status === 'finished' ? 'colors.onSurface.nLv2' : 'inherit'}
                         >
-                            {event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? 'LIVE' : 'NS'}
+                            {event.status === 'finished' ? 'FT' : event.status === 'inprogress' ? t('live') : 'NS'}
                         </Text>
                     </>
                 )}

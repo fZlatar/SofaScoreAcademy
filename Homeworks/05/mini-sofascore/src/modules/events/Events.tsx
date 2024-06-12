@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import TournamentEvents from './modules/TournamentEvents'
 import { EventDetails } from '@/models/event'
 import { useDateContext } from '@/context/DateContext'
+import { useTranslations } from 'next-intl'
 
 export interface EventsProps extends FlexProps {
     events: EventDetails[]
@@ -35,10 +36,12 @@ const variants = {
 }
 
 export default function Events({ events, initialDate, sport, selected, setSelected, ...restProps }: EventsProps) {
+    const t = useTranslations('Events')
     const { dateFormat } = useDateContext()
     const [selectedDate, setSelectedDate] = useState(initialDate)
     const { isSmall } = useBreakpoint()
     const router = useRouter()
+    const locale = router.locale || 'en'
 
     const { data, isLoading, error } = useSWR<EventDetails[]>(
         datesEqual(selectedDate, initialDate) ? null : getEventsForSportAndDateSwr(sport, selectedDate),
@@ -81,7 +84,7 @@ export default function Events({ events, initialDate, sport, selected, setSelect
                     color="colors.onSurface.nLv2"
                     display={['flex', 'none']}
                 >
-                    Loading...
+                    {t('loading')}
                 </Flex>
             ) : (
                 <Flex
@@ -94,12 +97,12 @@ export default function Events({ events, initialDate, sport, selected, setSelect
                 >
                     <Text color="colors.onSurface.nLv1">
                         {datesEqual(DateTime.now(), selectedDate)
-                            ? 'TODAY'
+                            ? t('today')
                             : dateFormat === 'DD / MM / YYYY'
-                            ? selectedDate.toFormat('EEE dd MM')
-                            : selectedDate.toFormat('EEE MM dd')}
+                            ? capitalizeFirstLetter(selectedDate.setLocale(locale).toFormat('EEE dd MM'))
+                            : capitalizeFirstLetter(selectedDate.setLocale(locale).toFormat('EEE dd MM'))}
                     </Text>
-                    <Text color="colors.onSurface.nLv2">{`${data?.length} events`}</Text>
+                    <Text color="colors.onSurface.nLv2">{`${data?.length} ${t('events')}`}</Text>
                 </Flex>
             )}
             <Flex
@@ -131,7 +134,7 @@ export default function Events({ events, initialDate, sport, selected, setSelect
                         color="colors.onSurface.nLv2"
                         display={['none', 'flex']}
                     >
-                        Loading...
+                        {t('loading')}
                     </Flex>
                 ) : (
                     <Flex
@@ -143,12 +146,12 @@ export default function Events({ events, initialDate, sport, selected, setSelect
                     >
                         <Text color="colors.onSurface.nLv1">
                             {datesEqual(DateTime.now(), selectedDate)
-                                ? 'TODAY'
+                                ? t('today')
                                 : dateFormat === 'DD / MM / YYYY'
-                                ? selectedDate.toFormat('EEE dd MM')
-                                : selectedDate.toFormat('EEE MM dd')}
+                                ? capitalizeFirstLetter(selectedDate.setLocale(locale).toFormat('EEE dd MM'))
+                                : capitalizeFirstLetter(selectedDate.setLocale(locale).toFormat('EEE dd MM'))}
                         </Text>
-                        <Text color="colors.onSurface.nLv2">{`${data?.length} events`}</Text>
+                        <Text color="colors.onSurface.nLv2">{`${data?.length} ${t('events')}`}</Text>
                     </Flex>
                 )}
                 <AnimatePresence mode="wait" initial={false}>
@@ -190,4 +193,8 @@ function getTournaments(events?: EventDetails[]) {
         id => events?.find(event => event.tournament.id === id)?.tournament
     )
     return tournaments
+}
+
+function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
 }

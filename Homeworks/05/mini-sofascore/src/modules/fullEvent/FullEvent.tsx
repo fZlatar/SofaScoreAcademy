@@ -10,6 +10,7 @@ import SofaButton from '@/components/SofaButton'
 import Link from 'next/link'
 import Breadcrumbs, { Crumb } from '@/components/Breadcrumbs'
 import useBreakpoint from '@/hooks/useBreakpoint'
+import { useTranslations } from 'next-intl'
 
 export interface EventPopupProps extends FlexProps {
     event: EventDetails
@@ -17,15 +18,14 @@ export interface EventPopupProps extends FlexProps {
 }
 
 export default function FullEvent({ event, incidents, ...restProps }: EventPopupProps) {
+    const t = useTranslations('FullEvent')
     const { isBig } = useBreakpoint()
     const periods = extractPeriods(event, incidents)
     const sport = event.tournament.sport.slug
 
-    const sportBig = sport === 'football' ? 'Football' : sport === 'basketball' ? 'Basketball' : 'Am. Football'
-
     const crumbs: Crumb[] = [
         {
-            name: sportBig,
+            name: t(sport),
             link: `/${sport}`,
         },
         {
@@ -78,12 +78,12 @@ export default function FullEvent({ event, incidents, ...restProps }: EventPopup
                                     alignItems="center"
                                 >
                                     <Text {...typography.bodyP} color="colors.onSurface.nLv2">
-                                        No results yet.
+                                        {t('noResult')}
                                     </Text>
                                 </Flex>
                                 <Link href={`/${sport}/league/${event.tournament.slug}/${event.tournament.id}`}>
                                     <SofaButton variant="stroked" icon="withoutIcon">
-                                        View Tournament Details
+                                        {t('viewTournament')}
                                     </SofaButton>
                                 </Link>
                             </Flex>
@@ -136,12 +136,12 @@ export default function FullEvent({ event, incidents, ...restProps }: EventPopup
                                 alignItems="center"
                             >
                                 <Text {...typography.bodyP} color="colors.onSurface.nLv2">
-                                    No results yet.
+                                    {t('noResult')}
                                 </Text>
                             </Flex>
                             <Link href={`/${sport}/league/${event.tournament.slug}/${event.tournament.id}`}>
                                 <SofaButton variant="stroked" icon="withoutIcon">
-                                    View Tournament Details
+                                    {t('viewTournament')}
                                 </SofaButton>
                             </Link>
                         </Flex>

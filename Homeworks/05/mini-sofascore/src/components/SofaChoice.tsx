@@ -1,8 +1,9 @@
 import { Box, Flex, FlexProps, Text } from '@kuma-ui/core'
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import typography from '@/utils/typography'
 import RadioSelected from './icons/RadioSelected'
 import RadioEmpty from './icons/RadioEmpty'
+import { useTranslations } from 'next-intl'
 
 export interface SofaChoiceProps extends FlexProps {
     mode: 'date' | 'theme'
@@ -11,6 +12,7 @@ export interface SofaChoiceProps extends FlexProps {
 }
 
 export default function SofaChoice({ mode, selected, setSelected, ...restProps }: SofaChoiceProps) {
+    const t = useTranslations('SofaChoice')
     return (
         <Flex
             {...restProps}
@@ -28,7 +30,7 @@ export default function SofaChoice({ mode, selected, setSelected, ...restProps }
                 {...typography.assistive}
                 color="colors.primary.default"
             >
-                {mode === 'date' ? 'Date Format' : 'Theme'}
+                {mode === 'date' ? t('dateFormat') : t('theme')}
             </Text>
             {mode === 'date' ? (
                 <>
@@ -37,8 +39,8 @@ export default function SofaChoice({ mode, selected, setSelected, ...restProps }
                 </>
             ) : (
                 <>
-                    <SofaRadio label="Light" selected={selected} setSelected={setSelected} />
-                    <SofaRadio label="Dark" selected={selected} setSelected={setSelected} />
+                    <SofaRadio label={t('light')} selected={selected} setSelected={setSelected} />
+                    <SofaRadio label={t('dark')} selected={selected} setSelected={setSelected} />
                 </>
             )}
         </Flex>
