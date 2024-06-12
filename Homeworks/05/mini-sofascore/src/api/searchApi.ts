@@ -8,11 +8,23 @@ export async function getSearchTeams(query: string): Promise<SearchTeam[]> {
     return data
 }
 
+export function getSearchTeamsSwr(query: string) {
+    checkQuery(query)
+    const path = `/api/search/team/${query}`
+    return path
+}
+
 export async function getSearchPlayers(query: string): Promise<SearchPlayer[]> {
     checkQuery(query)
     const path = `${url}/search/player/${query}`
     const data = await fetcher<SearchPlayer[]>(path)
     return data
+}
+
+export function getSearchPlayersSwr(query: string) {
+    checkQuery(query)
+    const path = `/api/search/player/${query}`
+    return path
 }
 
 function checkQuery(query: string) {
