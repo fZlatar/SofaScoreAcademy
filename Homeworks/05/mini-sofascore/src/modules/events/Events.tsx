@@ -48,6 +48,10 @@ export default function Events({ events, initialDate, sport, selected, setSelect
     )
     const tournaments = getTournaments(data)
 
+    if (error) {
+        router.push('/404')
+    }
+
     const handleOnClickEvent = (event: EventDetails) => {
         setSelected(event)
         if (isSmall) {

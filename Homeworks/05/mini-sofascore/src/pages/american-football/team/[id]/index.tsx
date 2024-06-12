@@ -53,8 +53,9 @@ const variants = {
 }
 
 const AmericanFootballTeamPage: NextPageWithLayout<AmericanFootballTeamPageProps> = ({ repo }) => {
+    const router = useRouter()
     const { isBig } = useBreakpoint()
-    const { id } = useRouter().query
+    const { id } = router.query
     const [selectedTab, setSelectedTab] = useState<'standings' | 'matches' | 'details' | 'squad'>('details')
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const [selectedTournament, setSelectedTournament] = useState(repo.teamTournaments[0])
@@ -101,6 +102,10 @@ const AmericanFootballTeamPage: NextPageWithLayout<AmericanFootballTeamPageProps
             link: `/american-football/team/${repo.team.id}`,
         },
     ]
+
+    if (incidentsError || prevError || nextError || errorStandings) {
+        router.push('/404')
+    }
 
     useEffect(() => {
         setEvents(repo.events)

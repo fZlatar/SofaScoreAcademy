@@ -45,8 +45,9 @@ const variants = {
 }
 
 const FootballPlayerPage: NextPageWithLayout<FootballPlayerPageProps> = ({ repo }) => {
+    const router = useRouter()
     const { isBig } = useBreakpoint()
-    const { id } = useRouter().query
+    const { id } = router.query
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const {
         data: incidents,
@@ -83,6 +84,10 @@ const FootballPlayerPage: NextPageWithLayout<FootballPlayerPageProps> = ({ repo 
             link: `/football/player/${repo.player.id}`,
         },
     ]
+
+    if (nextError || prevError || incidentsError) {
+        router.push('/404')
+    }
 
     useEffect(() => {
         setEvents(repo.events)

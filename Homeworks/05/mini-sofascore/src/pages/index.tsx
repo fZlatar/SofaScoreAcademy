@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import useSWR from 'swr'
 
 // redirect to /football
 const Home = () => {

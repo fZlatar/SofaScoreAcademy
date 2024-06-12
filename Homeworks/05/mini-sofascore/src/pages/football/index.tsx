@@ -16,6 +16,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import EventPopup from '@/modules/eventPopup/EventPopup'
 import { TournamentDetails } from '@/models/tournament'
 import useBreakpoint from '@/hooks/useBreakpoint'
+import { useRouter } from 'next/router'
 
 type FootballPageRepo = {
     tournaments: TournamentDetails[]
@@ -46,11 +47,16 @@ const motionFlexStyles: Partial<FlexProps> = {
 }
 
 const FootballPage: NextPageWithLayout<FootballPageProps> = ({ repo }) => {
+    const router = useRouter()
     const { isBig } = useBreakpoint()
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const { data, isLoading, error } = useSWR<EventIncident[]>(
         selectedEvent ? getEventIncidentsSwr(selectedEvent.id) : null
     )
+
+    if (error) {
+        router.push('/404')
+    }
 
     const crumbs: Crumb[] = [
         {

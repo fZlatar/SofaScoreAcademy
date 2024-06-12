@@ -46,8 +46,9 @@ const variants = {
 }
 
 const BasketballLeaguePage: NextPageWithLayout<BasketballLeaguePageProps> = ({ repo }) => {
+    const router = useRouter()
     const { isBig } = useBreakpoint()
-    const { id } = useRouter().query
+    const { id } = router.query
     const [selectedTab, setSelectedTab] = useState<'standings' | 'matches'>('matches')
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const {
@@ -85,6 +86,10 @@ const BasketballLeaguePage: NextPageWithLayout<BasketballLeaguePageProps> = ({ r
             link: `/basketball/league/${repo.tournament.slug}/${repo.tournament.id}`,
         },
     ]
+
+    if (nextError || prevError || incidentsError) {
+        router.push('/404')
+    }
 
     useEffect(() => {
         setEvents(repo.events)

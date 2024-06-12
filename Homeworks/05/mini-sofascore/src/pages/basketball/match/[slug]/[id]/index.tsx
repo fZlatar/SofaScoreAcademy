@@ -22,8 +22,6 @@ type BasketballEventPageRepo = {
 type BasketballEventPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const BasketballEventPage: NextPageWithLayout<BasketballEventPageProps> = ({ repo }) => {
-    console.log(repo)
-
     const crumbs: Crumb[] = [
         {
             name: 'Basketball',

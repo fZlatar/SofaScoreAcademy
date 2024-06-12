@@ -16,6 +16,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import EventPopup from '@/modules/eventPopup/EventPopup'
 import { TournamentDetails } from '@/models/tournament'
 import useBreakpoint from '@/hooks/useBreakpoint'
+import { useRouter } from 'next/router'
 
 type AmericanFootballPageRepo = {
     tournaments: TournamentDetails[]
@@ -53,11 +54,16 @@ const motionFlexStyles: Partial<FlexProps> = {
 }
 
 const AmericanFootballPage: NextPageWithLayout<AmericanFootballPageProps> = ({ repo }) => {
+    const router = useRouter()
     const { isBig } = useBreakpoint()
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const { data, isLoading, error } = useSWR<EventIncident[]>(
         selectedEvent ? getEventIncidentsSwr(selectedEvent.id) : null
     )
+
+    if (error) {
+        router.push('/404')
+    }
 
     const crumbs: Crumb[] = [
         {
@@ -128,16 +134,22 @@ AmericanFootballPage.getLayout = function getLayout(page: ReactElement) {
 }
 
 export const getServerSideProps = (async () => {
-    const tournaments = await getAvailableTournamentsForSport('american-football')
+    try {
+        const tournaments = await getAvailableTournamentsForSport('american-football')
 
-    const events = await getEventsForSportAndDate('american-football', DateTime.now())
+        const events = await getEventsForSportAndDate('american-football', DateTime.now())
 
-    const repo = {
-        tournaments: tournaments,
-        events: events,
+        const repo = {
+            tournaments: tournaments,
+            events: events,
+        }
+
+        return { props: { repo } }
+    } catch (error) {
+        return {
+            notFound: true,
+        }
     }
-
-    return { props: { repo } }
 }) satisfies GetServerSideProps<{ repo: AmericanFootballPageRepo }>
 
 export default AmericanFootballPage

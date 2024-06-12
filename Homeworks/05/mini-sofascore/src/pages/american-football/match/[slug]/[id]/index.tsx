@@ -22,8 +22,6 @@ type AmericanFootballEventPageRepo = {
 type AmericanFootballEventPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const AmericanFootballEventPage: NextPageWithLayout<AmericanFootballEventPageProps> = ({ repo }) => {
-    console.log(repo)
-
     const crumbs: Crumb[] = [
         {
             name: 'Am. Football',

@@ -53,8 +53,9 @@ const variants = {
 }
 
 const FootballTeamPage: NextPageWithLayout<FootballTeamPageProps> = ({ repo }) => {
+    const router = useRouter()
     const { isBig } = useBreakpoint()
-    const { id } = useRouter().query
+    const { id } = router.query
     const [selectedTab, setSelectedTab] = useState<'standings' | 'matches' | 'details' | 'squad'>('details')
     const [selectedEvent, setSelectedEvent] = useState<EventDetails | undefined>(undefined)
     const [selectedTournament, setSelectedTournament] = useState(repo.teamTournaments[0])
@@ -89,6 +90,10 @@ const FootballTeamPage: NextPageWithLayout<FootballTeamPageProps> = ({ repo }) =
             fallbackData: repo.standings,
         }
     )
+
+    if (incidentsError || prevError || nextError || errorStandings) {
+        router.push('/404')
+    }
 
     useEffect(() => {
         setEvents(repo.events)
