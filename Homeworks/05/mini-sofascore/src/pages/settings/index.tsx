@@ -22,7 +22,7 @@ const SettingsPage: NextPageWithLayout = () => {
     const { dateFormat, setDateFormat } = useDateContext()
 
     const [language, setLanguage] = useState<'Croatian' | 'English'>(locale === 'en' ? 'English' : 'Croatian')
-    const [theme, setTheme] = useState(isDark ? 'Dark' : 'Light')
+    const [theme, setTheme] = useState(isDark ? 'dark' : 'light')
     const [dateFormatState, setDateFormatState] = useState<'DD / MM / YYYY' | 'MM / DD / YYYY'>(dateFormat)
     const crumbs: Crumb[] = [
         {
@@ -31,7 +31,7 @@ const SettingsPage: NextPageWithLayout = () => {
         },
     ]
 
-    setIsDark(theme === 'Dark')
+    setIsDark(theme === 'dark')
     setDateFormat(dateFormatState)
 
     useEffect(() => {

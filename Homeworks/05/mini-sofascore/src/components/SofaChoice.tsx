@@ -34,13 +34,23 @@ export default function SofaChoice({ mode, selected, setSelected, ...restProps }
             </Text>
             {mode === 'date' ? (
                 <>
-                    <SofaRadio label="DD / MM / YYYY" selected={selected} setSelected={setSelected} />
-                    <SofaRadio label="MM / DD / YYYY" selected={selected} setSelected={setSelected} />
+                    <SofaRadio
+                        label="DD / MM / YYYY"
+                        value="DD / MM / YYYY"
+                        selected={selected}
+                        setSelected={setSelected}
+                    />
+                    <SofaRadio
+                        label="MM / DD / YYYY"
+                        value="MM / DD / YYYY"
+                        selected={selected}
+                        setSelected={setSelected}
+                    />
                 </>
             ) : (
                 <>
-                    <SofaRadio label={t('light')} selected={selected} setSelected={setSelected} />
-                    <SofaRadio label={t('dark')} selected={selected} setSelected={setSelected} />
+                    <SofaRadio label={t('light')} value="light" selected={selected} setSelected={setSelected} />
+                    <SofaRadio label={t('dark')} value="dark" selected={selected} setSelected={setSelected} />
                 </>
             )}
         </Flex>
@@ -51,9 +61,10 @@ export interface SofaRadioProps extends FlexProps {
     selected: string | undefined
     setSelected: (s: string) => void
     label: string
+    value: string
 }
 
-export function SofaRadio({ selected, setSelected, label, ...restProps }: SofaRadioProps) {
+export function SofaRadio({ selected, value, setSelected, label, ...restProps }: SofaRadioProps) {
     return (
         <Flex
             {...restProps}
@@ -62,16 +73,16 @@ export function SofaRadio({ selected, setSelected, label, ...restProps }: SofaRa
             flexDirection="row"
             alignItems="center"
             h={48}
-            onClick={() => setSelected(label)}
+            onClick={() => setSelected(value)}
         >
             <Text {...typography.bodyP} flex={1} color="colors.onSurface.nLv1">
                 {label}
             </Text>
             <Box
                 _hover={{ cursor: 'pointer' }}
-                color={selected === label ? 'colors.primary.default' : 'colors.onSurface.nLv1'}
+                color={selected === value ? 'colors.primary.default' : 'colors.onSurface.nLv1'}
             >
-                {selected === label ? <RadioSelected width={16} height={16} /> : <RadioEmpty width={16} height={16} />}
+                {selected === value ? <RadioSelected width={16} height={16} /> : <RadioEmpty width={16} height={16} />}
             </Box>
         </Flex>
     )
