@@ -1,0 +1,181 @@
+{
+    "LeaguesPage": {
+        "title": "Leagues",
+        "football": "Football",
+        "basketball": "Basketball",
+        "americanFootball": "American Football",
+        "americanFootballShort": "Am. Football"
+    },
+    "SettingsPage": {
+        "title": "Settings",
+        "about": "About",
+        "academy": "Sofascore Frontend Academy",
+        "class": "Class 2024",
+        "app": "App name",
+        "appName": "Mini Sofascore app",
+        "api": "API credit",
+        "apiCredit": "Sofascore",
+        "developer": "Developer",
+        "developerName": "Fran Zlatar"
+    },
+    "SofaInput": {
+        "language": "Language",
+        "langEN": "English",
+        "langHR": "Croatian"
+    },
+    "SofaChoice": {
+        "light": "Light",
+        "dark": "Dark",
+        "theme": "Theme",
+        "dateFormat": "Date Format"
+    },
+    "404": {
+        "message": "Page not found! 404"
+    },
+    "FootballPage": {
+        "title": "Football"
+    },
+    "Leagues": {
+        "leagues": "Leagues",
+        "viewMore": "View more"
+    },
+    "Events": {
+        "loading": "Loading...",
+        "today": "Today",
+        "events": "events"
+    },
+    "DateSelector": {
+        "today": "TODAY"
+    },
+    "TournamentEvents": {
+        "England": "England",
+        "Croatia": "Croatia",
+        "USA": "USA",
+        "Spain": "Spain"
+    },
+    "Event": {
+        "unknown": "Unknown",
+        "live": "LIVE"
+    },
+    "EventPopup": {
+        "viewFullPage": "View Full Page"
+    },
+    "EventHeroSection": {
+        "live": "LIVE"
+    },
+    "BasketballPage": {
+        "title": "Basketball"
+    },
+    "AmericanFootballPage": {
+        "title": "Am. Football"
+    },
+    "FootballEventPage": {
+        "sport": "Football"
+    },
+    "BasketballEventPage": {
+        "sport": "Basketball"
+    },
+    "AmericanFootballEventPage": {
+        "sport": "Am. Football"
+    },
+    "FullEvent": {
+        "football": "Football",
+        "basketball": "Basketball",
+        "american-football": "Am. Football",
+        "noResult": "No result yet.",
+        "viewTournament": "View Tournament Details"
+    },
+    "FootballPlayerPage": {
+        "sport": "Football"
+    },
+    "BasketballPlayerPage": {
+        "sport": "Basketball"
+    },
+    "AmericanFootballPlayerPage": {
+        "sport": "Am. Football"
+    },
+    "PlayerHeader": {
+        "football": "Football",
+        "basketball": "Basketball",
+        "american-football": "Am. Football",
+        "nationality": "nationality",
+        "position": "position"
+    },
+    "Matches": {
+        "matches": "Matches",
+        "loading": "Loading...",
+        "round": "Round"
+    },
+    "FootballTeamPage": {
+        "sport": "Football"
+    },
+    "BasketballTeamPage": {
+        "sport": "Basketball"
+    },
+    "AmericanFootballTeamPage": {
+        "sport": "Am. Football"
+    },
+    "TeamHeader": {
+        "football": "Football",
+        "basketball": "Basketball",
+        "american-football": "Am. Football",
+        "matches": "Matches",
+        "details": "Details",
+        "standings": "Standings",
+        "squad": "Squad"
+    },
+    "TeamInfo": {
+        "teamInfo": "Team Info",
+        "coach": "Coach",
+        "totalPlayers": "Total Players",
+        "foreignPlayers": "Foreign Players",
+        "venue": "Venue",
+        "stadium": "Stadium",
+        "tournaments": "Tournaments",
+        "nextMatch": "Next match",
+        "notAvailable": "Not Available",
+        "England": "England",
+        "Croatia": "Croatia",
+        "USA": "USA",
+        "Spain": "Spain"
+    },
+    "Standings": {
+        "team": "Team",
+        "goals": "Goals"
+    },
+    "TeamSquad": {
+        "coach": "Coach",
+        "players": "Players"
+    },
+    "FootballLeaguePage": {
+        "sport": "Football"
+    },
+    "BasketballLeaguePage": {
+        "sport": "Basketball"
+    },
+    "AmericanFootballLeaguePage": {
+        "sport": "Am. Football"
+    },
+    "LeagueHeader": {
+        "football": "Football",
+        "basketball": "Basketball",
+        "american-football": "Am. Football",
+        "matches": "Matches",
+        "standings": "Standings"
+    },
+    "FavoritesPage": {
+        "favorites": "Favorites"
+    },
+    "FavoritesHeader": {
+        "football": "Football",
+        "basketball": "Basketball",
+        "americanFootball": "American Football",
+        "americanFootballShort": "Am. Football"
+    },
+    "FavoriteEvents": {
+        "previous": "Previous",
+        "current": "Current",
+        "next": "Next",
+        "message": "No events"
+    }
+}

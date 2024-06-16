@@ -1,0 +1,181 @@
+{
+    "LeaguesPage": {
+        "title": "Lige",
+        "football": "Nogomet",
+        "basketball": "Košarka",
+        "americanFootball": "Američki nogomet",
+        "americanFootballShort": "Am. nogomet"
+    },
+    "SettingsPage": {
+        "title": "Postavke",
+        "about": "O nama",
+        "academy": "Sofascore frontend akademija",
+        "class": "Razred 2024",
+        "app": "Ime aplikacije",
+        "appName": "Mini Sofascore app",
+        "api": "API zasluge",
+        "apiCredit": "Sofascore",
+        "developer": "Programer",
+        "developerName": "Fran Zlatar"
+    },
+    "SofaInput": {
+        "language": "Jezik",
+        "langEN": "Engleski",
+        "langHR": "Hrvatski"
+    },
+    "SofaChoice": {
+        "light": "Svjetlo",
+        "dark": "Tamno",
+        "theme": "Tema",
+        "dateFormat": "Format datuma"
+    },
+    "404": {
+        "message": "Stranica nije pronađena! 404"
+    },
+    "FootballPage": {
+        "title": "Nogomet"
+    },
+    "Leagues": {
+        "leagues": "Lige",
+        "viewMore": "Više"
+    },
+    "Events": {
+        "loading": "Učitavanje...",
+        "today": "Danas",
+        "events": "događaja"
+    },
+    "DateSelector": {
+        "today": "DANAS"
+    },
+    "TournamentEvents": {
+        "England": "Engleska",
+        "Croatia": "Hrvatska",
+        "USA": "SAD",
+        "Spain": "Španjolska"
+    },
+    "Event": {
+        "unknown": "Nepoznato",
+        "live": "UŽIVO"
+    },
+    "EventPopup": {
+        "viewFullPage": "Vidi cijelu stranicu"
+    },
+    "EventHeroSection": {
+        "live": "UŽIVO"
+    },
+    "BasketballPage": {
+        "title": "Košarka"
+    },
+    "AmericanFootballPage": {
+        "title": "Am. nogomet"
+    },
+    "FootballEventPage": {
+        "sport": "Nogomet"
+    },
+    "BasketballEventPage": {
+        "sport": "Košarka"
+    },
+    "AmericanFootballEventPage": {
+        "sport": "Am. nogomet"
+    },
+    "FullEvent": {
+        "football": "Nogomet",
+        "basketball": "Košarka",
+        "american-football": "Am. nogomet",
+        "noResult": "Još nema rezultata.",
+        "viewTournament": "Vidi detalje natjecanja"
+    },
+    "FootballPlayerPage": {
+        "sport": "Nogomet"
+    },
+    "BasketballPlayerPage": {
+        "sport": "Košarka"
+    },
+    "AmericanFootballPlayerPage": {
+        "sport": "Am. nogomet"
+    },
+    "PlayerHeader": {
+        "football": "Nogomet",
+        "basketball": "Košarka",
+        "american-football": "Am. nogomet",
+        "nationality": "nacionalnost",
+        "position": "pozicija"
+    },
+    "Matches": {
+        "matches": "Utakmice",
+        "loading": "Učitavanje...",
+        "round": "Krug"
+    },
+    "FootballTeamPage": {
+        "sport": "Nogomet"
+    },
+    "BasketballTeamPage": {
+        "sport": "Košarka"
+    },
+    "AmericanFootballTeamPage": {
+        "sport": "Am. nogomet"
+    },
+    "TeamHeader": {
+        "football": "Nogomet",
+        "basketball": "Košarka",
+        "american-football": "Am. nogomet",
+        "matches": "Utakmice",
+        "details": "Detalji",
+        "standings": "Tablica",
+        "squad": "Postava"
+    },
+    "TeamInfo": {
+        "teamInfo": "Detalji kluba",
+        "coach": "Trener",
+        "totalPlayers": "Ukupno igrača",
+        "foreignPlayers": "Strani igrači",
+        "venue": "Mjesto",
+        "stadium": "Stadion",
+        "tournaments": "Natjecanja",
+        "nextMatch": "Slijedeća utakmica",
+        "notAvailable": "Nije dostupno",
+        "England": "Engleska",
+        "Croatia": "Hrvatska",
+        "USA": "SAD",
+        "Spain": "Španjolska"
+    },
+    "Standings": {
+        "team": "Klub",
+        "goals": "Golovi"
+    },
+    "TeamSquad": {
+        "coach": "Trener",
+        "players": "Igrači"
+    },
+    "FootballLeaguePage": {
+        "sport": "Nogomet"
+    },
+    "BasketballLeaguePage": {
+        "sport": "Košarka"
+    },
+    "AmericanFootballLeaguePage": {
+        "sport": "Am. nogomet"
+    },
+    "LeagueHeader": {
+        "football": "Nogomet",
+        "basketball": "Košarka",
+        "american-football": "Am. nogomet",
+        "matches": "Utakmice",
+        "standings": "Tablica"
+    },
+    "FavoritesPage": {
+        "favorites": "Favoriti"
+    },
+    "FavoritesHeader": {
+        "football": "Nogomet",
+        "basketball": "Košarka",
+        "americanFootball": "Američki nogomet",
+        "americanFootballShort": "Am. nogomet"
+    },
+    "FavoriteEvents": {
+        "previous": "Prijašnji",
+        "current": "Trenutni",
+        "next": "Budući",
+        "message": "Nema utakmica"
+    }
+}
